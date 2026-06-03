@@ -59,82 +59,43 @@ panels.forEach((panel) => {
   const active = panel.classList.contains("active");
   panel.hidden = !active;
 });
-
-document.querySelectorAll(".js-color-switcher").forEach((card) => {
-  const activeColor = card.querySelector(".color-btn.active");
-  const buildLink = card.querySelector(".js-build-link");
-
-  if (activeColor && buildLink && activeColor.dataset.paint) {
-    updateBuildLink(buildLink, activeColor.dataset.paint);
-  }
-});
 });
 
-function updateBuildLink(linkElement, paintCode) {
-if (!linkElement || !paintCode) return;
-
-try {
-  const url = new URL(linkElement.href);
-  url.searchParams.set("paint", paintCode);
-  linkElement.href = url.toString();
-} catch (error) {
-  console.warn("Link güncellenemedi:", error);
-}
-}
-
-/* Araç renk değiştirme + oluştur linki güncelleme */
+/* Araç renk değiştirme */
 document.querySelectorAll(".js-color-switcher").forEach((card) => {
-const carImage = card.querySelector(".js-model-img");
-const colorButtons = card.querySelectorAll(".color-btn");
-const buildLink = card.querySelector(".js-build-link");
+const img = card.querySelector(".js-model-img");
+const buttons = card.querySelectorAll(".color-btn");
 
-colorButtons.forEach((button) => {
+buttons.forEach((button) => {
   button.addEventListener("click", () => {
     const newImage = button.dataset.image;
     const newAlt = button.dataset.alt || "";
-    const paintCode = button.dataset.paint;
 
-    if (carImage && newImage) {
-      carImage.style.opacity = "0";
+    if (img && newImage) {
+      img.style.opacity = "0";
 
       setTimeout(() => {
-        carImage.src = newImage;
-        carImage.alt = newAlt;
-        carImage.style.opacity = "1";
+        img.src = newImage;
+        img.alt = newAlt;
+        img.style.opacity = "1";
       }, 120);
     }
 
-    colorButtons.forEach((item) => {
-      item.classList.remove("active");
-    });
-
+    buttons.forEach((item) => item.classList.remove("active"));
     button.classList.add("active");
-
-    if (buildLink && paintCode) {
-      updateBuildLink(buildLink, paintCode);
-    }
   });
 });
 });
 
-/* Anasayfa feature pill aktiflik + yazı değiştirme */
+/* Anasayfa feature pill aktiflik */
 document.querySelectorAll(".feature-pills .pill").forEach((pill) => {
 pill.addEventListener("click", (event) => {
   event.preventDefault();
 
   const group = pill.closest(".feature-pills");
   const pills = group.querySelectorAll(".pill");
-  const featureBanner = pill.closest(".feature-banner");
-  const copyText = featureBanner?.querySelector(".feature-copy h3");
 
-  pills.forEach((item) => {
-    item.classList.remove("active");
-  });
-
+  pills.forEach((item) => item.classList.remove("active"));
   pill.classList.add("active");
-
-  if (copyText && pill.dataset.copy) {
-    copyText.textContent = pill.dataset.copy;
-  }
 });
 });
