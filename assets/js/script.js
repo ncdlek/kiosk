@@ -1,101 +1,88 @@
-const tabs = document.querySelectorAll(".tab");
-const panels = document.querySelectorAll(".tab-panel");
-
-const heroBg = document.querySelector(".hero__bg");
-const heroTitle = document.querySelector(".hero__title");
-const heroSubtitle = document.querySelector(".hero__subtitle");
-const heroMeta = document.querySelector(".hero__meta");
+// === TAB SWITCHING ===
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.tab-panel');
+const heroBg = document.querySelector('.hero__bg');
+const heroTitle = document.querySelector('.hero__title');
+const heroSubtitle = document.querySelector('.hero__subtitle');
+const heroMeta = document.querySelector('.hero__meta');
 
 function setHero(tab) {
-const image = tab.dataset.heroImage;
-const title = tab.dataset.heroTitle;
-const subtitle = tab.dataset.heroSubtitle;
-const meta = tab.dataset.heroMeta;
+	const image = tab.dataset.heroImage;
+	const title = tab.dataset.heroTitle;
+	const subtitle = tab.dataset.heroSubtitle;
+	const meta = tab.dataset.heroMeta;
 
-if (heroBg && image) {
-  heroBg.style.opacity = "0";
+	if (heroBg && image) {
+		heroBg.style.opacity = '0';
+		setTimeout(() => {
+			heroBg.src = image;
+			heroBg.style.opacity = '1';
+		}, 120);
+	}
 
-  setTimeout(() => {
-    heroBg.src = image;
-    heroBg.style.opacity = "1";
-  }, 120);
-}
-
-if (heroTitle && title) heroTitle.textContent = title;
-if (heroSubtitle && subtitle) heroSubtitle.textContent = subtitle;
-if (heroMeta && meta) heroMeta.textContent = meta;
+	if (heroTitle && title) heroTitle.textContent = title;
+	if (heroSubtitle && subtitle) heroSubtitle.textContent = subtitle;
+	if (heroMeta && meta) heroMeta.textContent = meta;
 }
 
 function activateTab(tab) {
-const target = tab.dataset.tab;
+	const target = tab.dataset.tab;
 
-tabs.forEach((button) => {
-  button.classList.remove("active");
-});
+	tabs.forEach(btn => btn.classList.remove('active'));
+	panels.forEach(panel => {
+		const active = panel.id === `tab-${target}`;
+		panel.classList.toggle('active', active);
+		panel.hidden = !active;
+	});
 
-panels.forEach((panel) => {
-  const active = panel.id === `tab-${target}`;
-  panel.classList.toggle("active", active);
-  panel.hidden = !active;
-});
+	tab.classList.add('active');
+	setHero(tab);
 
-tab.classList.add("active");
-setHero(tab);
-
-window.scrollTo({
-  top: 0,
-  behavior: "smooth"
-});
+	window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-tabs.forEach((tab) => {
-tab.addEventListener("click", () => {
-  activateTab(tab);
-});
+tabs.forEach(tab => {
+	tab.addEventListener('click', () => activateTab(tab));
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-panels.forEach((panel) => {
-  const active = panel.classList.contains("active");
-  panel.hidden = !active;
-});
-});
-
-/* Araç renk değiştirme */
-document.querySelectorAll(".js-color-switcher").forEach((card) => {
-const img = card.querySelector(".js-model-img");
-const buttons = card.querySelectorAll(".color-btn");
-
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const newImage = button.dataset.image;
-    const newAlt = button.dataset.alt || "";
-
-    if (img && newImage) {
-      img.style.opacity = "0";
-
-      setTimeout(() => {
-        img.src = newImage;
-        img.alt = newAlt;
-        img.style.opacity = "1";
-      }, 120);
-    }
-
-    buttons.forEach((item) => item.classList.remove("active"));
-    button.classList.add("active");
-  });
-});
+// Initialize panels on load
+document.addEventListener('DOMContentLoaded', () => {
+	panels.forEach(panel => {
+		panel.hidden = !panel.classList.contains('active');
+	});
 });
 
-/* Anasayfa feature pill aktiflik */
-document.querySelectorAll(".feature-pills .pill").forEach((pill) => {
-pill.addEventListener("click", (event) => {
-  event.preventDefault();
+// === COLOR SWITCHER ===
+document.querySelectorAll('.js-color-switcher').forEach(card => {
+	const img = card.querySelector('.js-model-img');
+	const buttons = card.querySelectorAll('.color-btn');
 
-  const group = pill.closest(".feature-pills");
-  const pills = group.querySelectorAll(".pill");
+	buttons.forEach(button => {
+		button.addEventListener('click', () => {
+			const newImage = button.dataset.image;
+			const newAlt = button.dataset.alt || '';
 
-  pills.forEach((item) => item.classList.remove("active"));
-  pill.classList.add("active");
+			if (img && newImage) {
+				img.style.opacity = '0';
+				setTimeout(() => {
+					img.src = newImage;
+					img.alt = newAlt;
+					img.style.opacity = '1';
+				}, 120);
+			}
+
+			buttons.forEach(btn => btn.classList.remove('active'));
+			button.classList.add('active');
+		});
+	});
 });
+
+// === FEATURE PILLS ===
+document.querySelectorAll('.feature-pills .pill').forEach(pill => {
+	pill.addEventListener('click', (e) => {
+		e.preventDefault();
+		const group = pill.closest('.feature-pills');
+		group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+		pill.classList.add('active');
+	});
 });
