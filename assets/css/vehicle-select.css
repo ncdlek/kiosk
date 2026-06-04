@@ -1,0 +1,77 @@
+/* === ARAÇ SEÇİM SAYFASI === */
+
+.vehicle-select-page {
+  display: flex;
+  flex-direction: column;
+  padding: 120px 80px 80px;
+  overflow-y: auto;
+}
+
+/* Header */
+.vs-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.vs-title {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin: 0 0 16px;
+}
+
+.vs-subtitle {
+  font-size: 24px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Grid */
+.vs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+}
+
+/* Card */
+.vs-card {
+  display: block;
+  width: 440px;
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.vs-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+}
+
+.vs-card img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  background: #f0f0f0;
+}
+
+.vs-card__info {
+  padding: 28px 32px;
+}
+
+.vs-card__info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark-blue);
+  margin: 0 0 8px;
+}
+
+.vs-card__info p {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0;
+}

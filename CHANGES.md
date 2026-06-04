@@ -140,4 +140,91 @@ Kiosk uygulaması olduğu için responsive gerekmiyor:
 
 ---
 
-*Son güncelleme: 3 Haziran 2026*
+## 🏗️ Çok Araçlı Mimari Refactoring
+
+**Tarih:** 4 Haziran 2026
+**Amaç:** Proje yapısını tek araçtan çok araçlı yapıya geçirmek. Yeni bir araç eklemek sadece 1 HTML dosyası + 1 görsel klasörü kadar basit olmalı.
+
+### 11. Dosya Yapısı Yeniden Düzenleme
+
+**Öncesi:** Tüm içerik kök `index.html`'de, görseller kategori odaklı klasörlerde
+```
+web-page/
+├── index.html              (522 satır, tüm Puma verisi sabit)
+├── assets/images/
+│   ├── 01-anasayfa/        ← araç kimliği yok
+│   ├── 02-ictasarim/
+│   ├── 03-distasarim/
+│   └── 04-teknoloji/
+```
+
+**Sonrası:** Her araç kendi sayfasında, görseller araç bazlı klasörlerde
+```
+web-page/
+├── index.html              ← Araç seçim ekranı
+├── vehicles/
+│   └── puma.html           ← Ford Puma sayfası
+├── assets/
+│   ├── css/
+│   │   ├── style.css       ← Ortak (değişmedi)
+│   │   └── vehicle-select.css  ← Yeni: seçim ekranı stilleri
+│   ├── js/script.js        ← Ortak (değişmedi)
+│   ├── fonts/              ← Ortak (değişmedi)
+│   └── images/
+│       └── puma/           ← Puma'ya ait tüm görseller
+│           ├── anasayfa/
+│           ├── ic-tasarim/
+│           ├── dis-tasarim/
+│           └── teknoloji/
+```
+
+### 12. Görsel Klasörleri Taşındı
+Eski yapıdan yeni yapıya dosya eşleştirmesi:
+- `01-anasayfa/01-hero/` → `puma/anasayfa/hero/`
+- `01-anasayfa/02-ikiliarac/Puma-Titanium/` → `puma/anasayfa/models/titanium/`
+- `01-anasayfa/02-ikiliarac/Puma-ST-Line-X/` → `puma/anasayfa/models/st-line-x/`
+- `01-anasayfa/02-ikiliarac/Arac-Renkler/` → `puma/anasayfa/models/swatches/`
+- `01-anasayfa/03-onecikanlar/` → `puma/anasayfa/featured/`
+- `01-anasayfa/04-opsiyonlar/` → `puma/anasayfa/options/`
+- `01-anasayfa/05-emisyon/` → `puma/anasayfa/emisyon/`
+- `02-ictasarim/` → `puma/ic-tasarim/` (hero, standard, options, other, emisyon)
+- `03-distasarim/` → `puma/dis-tasarim/` (aynı alt yapı)
+- `04-teknoloji/` → `puma/teknoloji/` (hero, connected, infotainment, connectivity, emisyon)
+
+Hem PNG hem WebP dosyaları taşındı (134 dosya toplam).
+
+### 13. Araç Seçim Ekranı Eklendi
+- Kök `index.html` artık bir araç listesi sayfası
+- Her araç bir kart olarak gösteriliyor (görsel + isim + fiyat)
+- Karta tıklayınca ilgili `vehicles/xxx.html` sayfasına gider
+- Kiosk ekranına uygun tasarım (1080×1920)
+- Yeni araç eklemek için `index.html`'e bir kart daha eklemek yeterli
+
+### 14. Yeni Araç Ekleme Adımları
+1. `vehicles/kuga.html` oluştur — `puma.html`'i kopyala, içerik ve görsel yollarını değiştir
+2. `assets/images/kuga/` klasörüne görselleri at (puma ile aynı alt klasör yapısı)
+3. `index.html`'e yeni bir `.vs-card` kartı ekle
+
+Hiçbir JS veya CSS değişikliği gerekmez.
+
+### Yeni Dosyalar
+- `vehicles/puma.html` — Puma'nın araç sayfası
+- `assets/css/vehicle-select.css` — Araç seçim ekranı stilleri
+
+### Değiştirilen Dosyalar
+- `index.html` — Araç seçim ekranına dönüştürüldü
+
+### Silinen Klasörler
+- `assets/images/01-anasayfa/` — `puma/anasayfa/` altına taşındı
+- `assets/images/02-ictasarim/` — `puma/ic-tasarim/` altına taşındı
+- `assets/images/03-distasarim/` — `puma/dis-tasarim/` altına taşındı
+- `assets/images/04-teknoloji/` — `puma/teknoloji/` altına taşındı
+
+### Değişmeyen Dosyalar
+- `assets/css/style.css` — Hiçbir değişiklik yok
+- `assets/js/script.js` — Hiçbir değişiklik yok
+- `assets/fonts/` — Hiçbir değişiklik yok
+
+---
+
+*Son güncelleme: 4 Haziran 2026*
