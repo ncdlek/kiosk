@@ -84,5 +84,25 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 		const group = pill.closest('.feature-pills');
 		group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
 		pill.classList.add('active');
+
+		const newImage = pill.dataset.image;
+		const newDesc = pill.dataset.desc;
+		const banner = pill.closest('.feature-banner');
+		if (banner && newImage) {
+			const bgImg = banner.querySelector('.feature-banner__bg');
+			const copy = banner.querySelector('.feature-copy h3');
+			if (bgImg) {
+				bgImg.style.opacity = '0';
+				if (copy && newDesc) copy.style.opacity = '0';
+				setTimeout(() => {
+					bgImg.src = newImage;
+					bgImg.style.opacity = '1';
+					if (copy && newDesc) {
+						copy.innerHTML = newDesc;
+						copy.style.opacity = '1';
+					}
+				}, 120);
+			}
+		}
 	});
 });

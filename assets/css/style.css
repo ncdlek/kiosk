@@ -77,23 +77,32 @@ button, a { font: inherit; }
 
 .hero__title {
 	margin: 0 0 12px;
+	color: #FFF;
+	font-family: "FordF1";
 	font-size: 43px;
-	line-height: 51.89px;
+	font-style: normal;
 	font-weight: 700;
+	line-height: 51.89px;
 }
 
 .hero__subtitle {
 	margin: 0 0 12px;
+	color: #FFF;
+	font-family: "FordF1";
 	font-size: 24px;
-	line-height: 35px;
+	font-style: normal;
 	font-weight: 600;
+	line-height: 35px;
 }
 
 .hero__meta {
 	margin: 0;
+	color: #FFF;
+	font-family: "FordF1";
 	font-size: 17px;
-	line-height: 26px;
+	font-style: normal;
 	font-weight: 700;
+	line-height: 26.078px;
 }
 
 .hero__cta {
@@ -137,8 +146,12 @@ button, a { font: inherit; }
 	background: rgba(120, 105, 92, 0.42);
 	color: rgba(255, 255, 255, 0.96);
 	cursor: pointer;
-	font-size: 16px;
-	font-weight: 600;
+	font-family: "FordF1";
+	font-size: 17px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 26.078px;
+	text-align: center;
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -186,9 +199,12 @@ button, a { font: inherit; }
 .model-name {
 	margin: 0 0 -14px;
 	color: var(--dark-blue);
+	font-family: "FordF1";
 	font-size: 32px;
-	line-height: 1.05;
 	font-weight: 600;
+	font-style: normal;
+	line-height: normal;
+	text-align: center;
 }
 
 .model-price {
@@ -201,7 +217,7 @@ button, a { font: inherit; }
 
 .model-img {
 	width: 100%;
-	height: 158px;
+	height: 250px;
 	object-fit: contain;
 	transition: opacity 0.18s ease;
 }
@@ -227,10 +243,13 @@ button, a { font: inherit; }
 }
 
 .color-btn img {
-	width: 34px;
-	height: 34px;
+	width: 24px;
+	height: 24px;
 	border-radius: 50%;
 	border: 1px solid rgba(0, 0, 0, 0.12);
+	transform: rotate(90deg);
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
 }
 
 .color-btn.active {
@@ -263,24 +282,32 @@ button, a { font: inherit; }
 
 .spec-label {
 	display: block;
-	color: #777;
-	font-size: 13px;
-	line-height: 1.2;
 	margin-bottom: 6px;
+	color: var(--Gri-1, #616161);
+	text-align: center;
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 19px;
+	letter-spacing: 0.13px;
 }
 
 .spec-value {
 	display: block;
 	color: var(--dark-blue);
+	font-family: "FordF1";
 	font-size: 24px;
-	line-height: 1.1;
 	font-weight: 600;
+	font-style: normal;
+	line-height: 35px;
+	text-align: center;
 }
 
 /* === FEATURE BANNER === */
 .feature-banner {
 	position: relative;
-	margin-top: 48px;
+	margin-top: 64px;
 	height: 349px;
 	border-radius: 22px;
 	overflow: hidden;
@@ -298,7 +325,7 @@ button, a { font: inherit; }
 .feature-banner__overlay {
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.68));
+	background: none;
 }
 
 .feature-banner__content {
@@ -326,30 +353,53 @@ button, a { font: inherit; }
 	background: rgba(40,40,40,.58);
 	color: #fff;
 	text-decoration: none;
-	font-size: 16px;
-	font-weight: 500;
+	font-family: "FordF1";
+	font-size: 15.324px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24.977px;
 	text-align: center;
 	padding: 0 8px;
 }
 
-.pill.active { background: #fff; color: var(--dark-blue); }
+.pill.active { background: #fff; color: var(--Lacivert, #00095B); }
 
 .feature-copy { color: #fff; text-align: center; }
 
 .feature-copy h3 {
 	margin: 0;
-	font-size: 25px;
-	line-height: 1.35;
+	color: #FFF;
+	font-family: "FordF1";
+	font-size: 24px;
 	font-weight: 600;
+	font-style: normal;
+	line-height: 35px;
+	text-align: center;
+	transition: opacity 0.12s;
 }
 
 /* === SECTION TITLES === */
 .section-title {
 	margin: 48px 0 16px;
 	color: var(--dark-blue);
-	font-size: 32px;
-	line-height: 1.1;
-	font-weight: 700;
+	font-family: "FordF1";
+	font-size: 24px;
+	font-weight: 600;
+	font-style: normal;
+	line-height: normal;
+}
+
+.content > section:first-child .section-title:first-child {
+	margin-top: 0;
+}
+
+.h3-sub {
+	color: #00095B;
+	font-family: "FordF1"; /* Figma'dan gelen "Ford F-1" ismini projedeki tanıma göre "FordF1" olarak uyarladım */
+	font-size: 24px !important;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
 }
 
 /* === HOME OPTIONS === */
@@ -375,20 +425,35 @@ button, a { font: inherit; }
 
 .home-option h3 {
 	margin: 0 0 4px;
-	color: var(--dark-blue);
-	font-size: 17px;
-	line-height: 1.2;
-	font-weight: 700;
+	color: var(--Lacivert, #00095B);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.home-option p {
+	margin: 0;
+	color: var(--Gri-1, #616161);
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 19px;
+	letter-spacing: 0.13px;
 }
 
 .home-option strong {
 	display: block;
-	color: var(--blue);
-	font-size: 17px;
 	margin-bottom: 4px;
+	color: var(--Mavi, #056EEF);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
 }
-
-.home-option p { margin: 0; color: #777; font-size: 14px; }
 
 /* === STANDARD GRID === */
 .standard-grid {
@@ -423,7 +488,8 @@ button, a { font: inherit; }
 
 .visual-option-card {
 	position: relative;
-	min-height: 330px;
+	width: 466px;
+	height: 332px;
 	border-radius: 16px;
 	overflow: hidden;
 	background: #000;
@@ -448,10 +514,45 @@ button, a { font: inherit; }
 	background: linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.16) 45%, rgba(0,0,0,.42) 100%);
 }
 
-.visual-option-overlay span { font-size: 13px; font-weight: 700; }
-.visual-option-overlay h3 { margin: 0 0 8px; font-size: 21px; line-height: 1.2; font-weight: 700; }
-.visual-option-overlay p { margin: 0 0 12px; font-size: 14px; line-height: 1.35; }
-.visual-option-overlay strong { font-size: 24px; }
+.visual-option-overlay span {
+	color: inherit;
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 19px;
+	letter-spacing: 0.13px;
+}
+
+.visual-option-overlay h3 {
+	margin: 0 0 8px;
+	color: inherit;
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+
+.visual-option-overlay p {
+	margin: 0 0 12px;
+	color: inherit;
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 19px;
+	letter-spacing: 0.13px;
+}
+
+.visual-option-overlay strong {
+	color: inherit;
+	font-family: "FordF1";
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 35px;
+}
 
 .simple-option-card {
 	padding: 30px;
@@ -470,7 +571,8 @@ button, a { font: inherit; }
 .simple-option-card img {
 	width: 100%;
 	height: 180px;
-	object-fit: cover;
+	object-fit: contain;
+	object-position: center;
 	border-radius: 8px;
 	margin-bottom: 16px;
 }
@@ -518,13 +620,24 @@ button, a { font: inherit; }
 
 .small-feature h3 {
 	margin: 0 0 5px;
-	color: var(--dark-blue);
-	font-size: 17px;
-	line-height: 1.2;
-	font-weight: 700;
+	color: var(--Lacivert, #00095B);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
 }
 
-.small-feature p { margin: 0; color: #777; font-size: 14px; line-height: 1.35; }
+.small-feature p {
+	margin: 0;
+	color: var(--Gri-1, #616161);
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 19px;
+	letter-spacing: 0.13px;
+}
 
 /* === TECH === */
 .tech-wide-card {
@@ -537,8 +650,24 @@ button, a { font: inherit; }
 
 .tech-wide-card img { width: 100%; height: 100%; object-fit: cover; }
 .tech-wide-card div { position: absolute; left: 44px; bottom: 36px; }
-.tech-wide-card h3 { margin: 0 0 8px; font-size: 27px; font-weight: 600; }
-.tech-wide-card p { margin: 0; font-size: 16px; }
+.tech-wide-card h3 {
+	margin: 0 0 8px;
+	color: var(--Beyaz, #FFF);
+	font-family: "FordF1";
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 35px;
+}
+.tech-wide-card p {
+	margin: 0;
+	color: var(--Beyaz, #FFF);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
 
 .media-card-grid {
 	display: grid;
@@ -556,13 +685,30 @@ button, a { font: inherit; }
 
 .media-card img { width: 100%; height: 100%; object-fit: cover; }
 .media-card div { position: absolute; left: 22px; right: 22px; bottom: 22px; }
-.media-card h3 { margin: 0 0 5px; font-size: 19px; font-weight: 700; }
-.media-card p { margin: 0; font-size: 14px; }
+.media-card h3 {
+	margin: 0 0 5px;
+	color: var(--Beyaz, #FFF);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+.media-card p {
+	margin: 0;
+	color: var(--Beyaz, #FFF);
+	font-family: "FordF1";
+	font-size: 13px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 19px;
+	letter-spacing: 0.13px;
+}
 
 /* === FOOTER === */
 .panel-footer {
 	margin-top: auto;
-	padding-top: 40px;
+	padding-top: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -571,8 +717,24 @@ button, a { font: inherit; }
 
 .co2 { display: flex; align-items: center; gap: 26px; }
 .co2 img { width: 150px; height: 92px; object-fit: cover; }
-.co2-title { margin: 0 0 6px; font-size: 18px; line-height: 1.2; color: #222; font-weight: 600; }
-.co2-value { margin: 0; color: #009c50; font-size: 17px; font-weight: 700; }
+.co2-title {
+	margin: 0 0 6px;
+	color: var(--Siyah, #242424);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
+.co2-value {
+	margin: 0;
+	color: #008F41;
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+}
 
 .brochure-btn {
 	width: 180px;
@@ -582,10 +744,19 @@ button, a { font: inherit; }
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	color: #222;
 	text-decoration: none;
-	font-size: 17px;
-	font-weight: 400;
+	color: var(--Siyah, #242424);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
 }
 
 .blank-accessory { flex: 1; }
+
+.disclaimer-text {
+	font-size: 14px;
+	color: #777;
+	margin-top: 15px;
+}
