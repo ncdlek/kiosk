@@ -760,3 +760,102 @@ button, a { font: inherit; }
 	color: #777;
 	margin-top: 15px;
 }
+
+/* === POPUP OVERLAY === */
+.popup-overlay {
+	position: absolute;
+	inset: 0;
+	z-index: 100;
+	display: flex;
+	flex-direction: column;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.popup-overlay.active {
+	opacity: 1;
+	visibility: visible;
+}
+
+/* === POPUP CLOSE BAR === */
+.popup-close-bar {
+	height: 120px;
+	background: #00095B;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 14px;
+	cursor: pointer;
+	flex-shrink: 0;
+	user-select: none;
+	transition: background 0.15s ease;
+}
+
+.popup-close-bar:active {
+	background: #001b8f;
+}
+
+.popup-close-text {
+	color: #FFF;
+	font-family: "FordF1";
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+}
+
+/* === POPUP BODY === */
+.popup-body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* === BROCHURE POPUP === */
+.popup-overlay--brochure .popup-body {
+	background: #959595;
+}
+
+.popup-brochure-text {
+	color: #FFF;
+	text-align: center;
+	font-family: "FordF1";
+	font-size: 61px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin: 0 0 60px;
+	padding: 0 60px;
+}
+
+.popup-qr {
+	width: 400px;
+	height: 400px;
+	background: #fff;
+	border-radius: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.popup-qr img {
+	width: 360px;
+	height: 360px;
+	object-fit: contain;
+}
+
+/* === EMISSION POPUP === */
+.popup-overlay--emission .popup-body {
+	background: #fff;
+	padding: 60px;
+}
+
+.popup-emission-img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	border-radius: 12px;
+}

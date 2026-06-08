@@ -106,3 +106,65 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 		}
 	});
 });
+
+// === POPUPS ===
+const page = document.querySelector('.page');
+if (page) {
+	const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M18 3.21429L12.2143 9L18 14.7857L14.7857 18L9 12.2143L3.21429 18L0 14.7857L5.78571 9L0 3.21429L3.21429 0L9 5.78571L14.7857 0L18 3.21429Z" fill="white"/></svg>';
+
+	function createPopup(type) {
+		const overlay = document.createElement('div');
+		overlay.className = `popup-overlay popup-overlay--${type}`;
+		overlay.innerHTML = `
+			<div class="popup-close-bar">
+				${closeSvg}
+				<span class="popup-close-text">KAPAT</span>
+			</div>
+			<div class="popup-body"></div>
+		`;
+		overlay.querySelector('.popup-close-bar').addEventListener('click', () => {
+			overlay.classList.remove('active');
+		});
+		return overlay;
+	}
+
+	// Brochure popup
+	const brochurePopup = createPopup('brochure');
+	page.appendChild(brochurePopup);
+
+	// Emission popup
+	const emissionPopup = createPopup('emission');
+	page.appendChild(emissionPopup);
+
+	// Trigger: Teknik Brosur
+	document.querySelectorAll('.brochure-btn').forEach(btn => {
+		btn.style.cursor = 'pointer';
+		btn.addEventListener('click', (e) => {
+			e.preventDefault();
+			const qrSrc = btn.dataset.qr;
+			brochurePopup.querySelector('.popup-body').innerHTML = `
+				<p class="popup-brochure-text">Teknik broşüre erişmek için<br>QR kodu okutun</p>
+				<div class="popup-qr">
+					${qrSrc
+						? `<img src="${qrSrc}" alt="Teknik Broşür QR Kod">`
+						: `<span style="color:#999;font-family:FordF1;font-size:18px;">QR Kod</span>`
+					}
+				</div>
+			`;
+			brochurePopup.classList.add('active');
+		});
+	});
+
+	// Trigger: CO2 Emisyon
+	document.querySelectorAll('.co2').forEach(co2 => {
+		co2.style.cursor = 'pointer';
+		co2.addEventListener('click', () => {
+			const emisyonSrc = co2.dataset.emisyon;
+			if (emisyonSrc) {
+				emissionPopup.querySelector('.popup-body').innerHTML =
+					`<img class="popup-emission-img" src="${emisyonSrc}" alt="CO2 Emisyon Değerleri">`;
+			}
+			emissionPopup.classList.add('active');
+		});
+	});
+}
