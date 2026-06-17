@@ -13,6 +13,7 @@ Başlamadan önce elinizde şu malzemeler olmalı:
 - [ ] Renk swatch görselleri (renk seçim butonları için küçük kare görseller)
 - [ ] Standart özellik, opsiyon ve diğer özellik görselleri
 - [ ] CO2 emisyon görseli
+- [ ] Teknik broşür QR kod görseli (`popup/qr.png`)
 - [ ] Araç adı, fiyatları, özellik açıklamaları, teknik veriler
 
 ---
@@ -34,21 +35,20 @@ assets/images/kuga/
 │   │   ├── titanium/            ← Titanium paketinin her renk görseli
 │   │   ├── st-line-x/          ← ST-Line X paketinin her renk görseli
 │   │   └── swatches/            ← Renk butonlarının küçük görselleri
-│   ├── options/                 ← Opsiyon görselleri
-│   └── emisyon/                 ← CO2 emisyon görseli
+│   └── options/                 ← Opsiyon görselleri
 ├── ic-tasarim/
 │   ├── hero/                    ← İç tasarım hero görseli
 │   ├── standard/                ← Standart özellik görselleri
 │   ├── options/                 ← Opsiyon görselleri
-│   ├── other/                   ← Diğer özellik görselleri
-│   └── emisyon/                 ← CO2 emisyon görseli
+│   └── other/                   ← Diğer özellik görselleri
 ├── dis-tasarim/                 ← (ic-tasarim ile aynı alt yapı)
-└── teknoloji/                   ← (ic-tasarim ile aynı alt yapı)
+├── teknoloji/                   ← (ic-tasarim ile aynı alt yapı)
+└── popup/                       ← emisyon.png + qr.png (tüm sekmelerde ortak)
 ```
 
 Görselleri bu klasörlere yerleştirin. Dosya isimlerini küçük harf ve tire ile yazın (ör: `okyanus-mavi.png`).
 
-> **İpucu:** Hem `.png` hem `.webp` versiyonlarını koyabilirsiniz. HTML'de `.png` kullanılır, `.webp` ileride kullanılabilir.
+> **İpucu:** Görselleri tek bir formatta (`.png` veya `.jpg`) koyun ve HTML'de aynı uzantıyı kullanın. Başka formatların kopyalarını eklemeyin — kullanılmayan görseller projeyi şişirir.
 
 ---
 
@@ -68,18 +68,16 @@ Görselleri bu klasörlere yerleştirin. Dosya isimlerini küçük harf ve tire 
 | Hero alt başlık | `<p class="hero__subtitle">` | `₺1.850.000'den başlayan fiyatlarla*` |
 | Hero meta | `<p class="hero__meta">` | `Titanium - 2.5L Duratec Benzin` |
 | Tab `data-hero-image` | Her tab butonunda | `../assets/images/kuga/ic-tasarim/hero/ic-tasarim.png` |
-| Tab `data-hero-title/subtitle/meta` | Her tab butonunda | Hero ile aynı değerler |
 | Model adı | `<h2 class="model-name">` | `Titanium` (farklıysa değiştirin) |
-| Model fiyat | `<p class="model-price">` | `₺1.850.000*` |
 | Model görsel yolları | `src="..."` ve `data-image="..."` | `../assets/images/kuga/anasayfa/models/titanium/...` |
 | Renk swatch yolları | `<img src="...">` (swatch) | `../assets/images/kuga/anasayfa/models/swatches/...` |
 | Spec değerleri | `<span class="spec-value">` | Güç, yakıt, CO2, bagaj |
-| Feature pills | `<a href="#" class="pill">` | Araca özel özellik isimleri |
+| Feature pills | `<button type="button" class="pill">` | Araca özel özellik isimleri |
 | Feature banner görseli | `feature-banner__bg` src | `../assets/images/kuga/anasayfa/featured/...` |
 | Feature copy | `<div class="feature-copy">` | Araca özel tanıtım yazısı |
 | Opsiyonlar | `.home-option` içerikleri | Görsel, başlık, fiyat, alt yazı |
 | Standart özellikler | `.standard-card` içerikleri | Görsel, başlık, açıklama |
-| Opsiyon kartları | `.visual-option-card` / `.simple-option-card` | Görsel, başlık, açıklama, fiyat |
+| Opsiyon kartları | `.visual-option-card` | Görsel, başlık, açıklama, fiyat |
 | Diğer özellikler | `.small-feature` içerikleri | Görsel, başlık, açıklama |
 | CO2 görsel ve değer | `.co2` bölümü | Görsel yolu ve değer |
 | Tüm `../assets/images/puma/` | Sayfanın tamamında | `../assets/images/kuga/` ile değiştir |

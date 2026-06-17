@@ -1,28 +1,27 @@
+// === CROSSFADE HELPER ===
+// Fades `img` out, swaps its src (and runs onUpdate) at the midpoint, then
+// fades back in. A per-element token guards against re-entrancy: if a newer
+// click arrives before the swap fires, the stale swap is discarded.
+function crossfade(img, src, onUpdate) {
+	if (!img || !src) return;
+	img.dataset.fadeToken = String((Number(img.dataset.fadeToken) || 0) + 1);
+	const token = img.dataset.fadeToken;
+	img.style.opacity = '0';
+	setTimeout(() => {
+		if (img.dataset.fadeToken !== token) return;
+		img.src = src;
+		if (onUpdate) onUpdate();
+		img.style.opacity = '1';
+	}, 120);
+}
+
 // === TAB SWITCHING ===
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.tab-panel');
 const heroBg = document.querySelector('.hero__bg');
-const heroTitle = document.querySelector('.hero__title');
-const heroSubtitle = document.querySelector('.hero__subtitle');
-const heroMeta = document.querySelector('.hero__meta');
 
 function setHero(tab) {
-	const image = tab.dataset.heroImage;
-	const title = tab.dataset.heroTitle;
-	const subtitle = tab.dataset.heroSubtitle;
-	const meta = tab.dataset.heroMeta;
-
-	if (heroBg && image) {
-		heroBg.style.opacity = '0';
-		setTimeout(() => {
-			heroBg.src = image;
-			heroBg.style.opacity = '1';
-		}, 120);
-	}
-
-	if (heroTitle && title) heroTitle.textContent = title;
-	if (heroSubtitle && subtitle) heroSubtitle.textContent = subtitle;
-	if (heroMeta && meta) heroMeta.textContent = meta;
+	crossfade(heroBg, tab.dataset.heroImage);
 }
 
 function activateTab(tab) {
@@ -62,14 +61,7 @@ document.querySelectorAll('.js-color-switcher').forEach(card => {
 			const newImage = button.dataset.image;
 			const newAlt = button.dataset.alt || '';
 
-			if (img && newImage) {
-				img.style.opacity = '0';
-				setTimeout(() => {
-					img.src = newImage;
-					img.alt = newAlt;
-					img.style.opacity = '1';
-				}, 120);
-			}
+			crossfade(img, newImage, () => { img.alt = newAlt; });
 
 			buttons.forEach(btn => btn.classList.remove('active'));
 			button.classList.add('active');
@@ -79,8 +71,7 @@ document.querySelectorAll('.js-color-switcher').forEach(card => {
 
 // === FEATURE PILLS ===
 document.querySelectorAll('.feature-pills .pill').forEach(pill => {
-	pill.addEventListener('click', (e) => {
-		e.preventDefault();
+	pill.addEventListener('click', () => {
 		const group = pill.closest('.feature-pills');
 		group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
 		pill.classList.add('active');
@@ -92,16 +83,13 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 			const bgImg = banner.querySelector('.feature-banner__bg');
 			const copy = banner.querySelector('.feature-copy h3');
 			if (bgImg) {
-				bgImg.style.opacity = '0';
 				if (copy && newDesc) copy.style.opacity = '0';
-				setTimeout(() => {
-					bgImg.src = newImage;
-					bgImg.style.opacity = '1';
+				crossfade(bgImg, newImage, () => {
 					if (copy && newDesc) {
 						copy.innerHTML = newDesc;
 						copy.style.opacity = '1';
 					}
-				}, 120);
+				});
 			}
 		}
 	});
@@ -110,22 +98,54 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 // === POPUPS ===
 const page = document.querySelector('.page');
 if (page) {
-	const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M18 3.21429L12.2143 9L18 14.7857L14.7857 18L9 12.2143L3.21429 18L0 14.7857L5.78571 9L0 3.21429L3.21429 0L9 5.78571L14.7857 0L18 3.21429Z" fill="white"/></svg>';
+	const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"><path d="M18 3.21429L12.2143 9L18 14.7857L14.7857 18L9 12.2143L3.21429 18L0 14.7857L5.78571 9L0 3.21429L3.21429 0L9 5.78571L14.7857 0L18 3.21429Z" fill="white"/></svg>';
+	const POPUP_LABELS = { brochure: 'Teknik Broşür', emission: 'CO2 Emisyon Değerleri' };
+	let lastFocused = null;
 
 	function createPopup(type) {
 		const overlay = document.createElement('div');
 		overlay.className = `popup-overlay popup-overlay--${type}`;
+		overlay.setAttribute('role', 'dialog');
+		overlay.setAttribute('aria-modal', 'true');
+		overlay.setAttribute('aria-label', POPUP_LABELS[type] || 'Diyalog');
 		overlay.innerHTML = `
-			<div class="popup-close-bar">
+			<div class="popup-close-bar" role="button" tabindex="0">
 				${closeSvg}
 				<span class="popup-close-text">KAPAT</span>
 			</div>
 			<div class="popup-body"></div>
 		`;
-		overlay.querySelector('.popup-close-bar').addEventListener('click', () => {
+
+		const closeBar = overlay.querySelector('.popup-close-bar');
+		const close = () => {
 			overlay.classList.remove('active');
+			if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+		};
+
+		closeBar.addEventListener('click', close);
+		closeBar.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
 		});
+		// Escape to close + keep Tab focus trapped inside the dialog
+		overlay.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') { close(); return; }
+			if (e.key !== 'Tab') return;
+			const focusable = overlay.querySelectorAll('[tabindex="0"], button:not([disabled]), a[href]');
+			if (!focusable.length) return;
+			const first = focusable[0];
+			const last = focusable[focusable.length - 1];
+			if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+			else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+		});
+
 		return overlay;
+	}
+
+	function openPopup(overlay) {
+		lastFocused = document.activeElement;
+		overlay.classList.add('active');
+		const closeBar = overlay.querySelector('.popup-close-bar');
+		if (closeBar) closeBar.focus();
 	}
 
 	// Brochure popup
@@ -138,9 +158,7 @@ if (page) {
 
 	// Trigger: Teknik Brosur
 	document.querySelectorAll('.brochure-btn').forEach(btn => {
-		btn.style.cursor = 'pointer';
-		btn.addEventListener('click', (e) => {
-			e.preventDefault();
+		btn.addEventListener('click', () => {
 			const qrSrc = btn.dataset.qr;
 			brochurePopup.querySelector('.popup-body').innerHTML = `
 				<p class="popup-brochure-text">Teknik broşüre erişmek için<br>QR kodu okutun</p>
@@ -151,20 +169,23 @@ if (page) {
 					}
 				</div>
 			`;
-			brochurePopup.classList.add('active');
+			openPopup(brochurePopup);
 		});
 	});
 
 	// Trigger: CO2 Emisyon
 	document.querySelectorAll('.co2').forEach(co2 => {
-		co2.style.cursor = 'pointer';
-		co2.addEventListener('click', () => {
+		const open = () => {
 			const emisyonSrc = co2.dataset.emisyon;
 			if (emisyonSrc) {
 				emissionPopup.querySelector('.popup-body').innerHTML =
 					`<img class="popup-emission-img" src="${emisyonSrc}" alt="CO2 Emisyon Değerleri">`;
 			}
-			emissionPopup.classList.add('active');
+			openPopup(emissionPopup);
+		};
+		co2.addEventListener('click', open);
+		co2.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
 		});
 	});
 }
