@@ -52,21 +52,112 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // === COLOR SWITCHER ===
+// A card may hold one image (Puma/Explorer) or several side-by-side (Capri:
+// 3 angles). For each .js-model-img in the card, slot index i reads its path
+// from data-image-1 / -2 / -3 ...; the first slot falls back to the legacy
+// single `data-image` so older one-image cards keep working unchanged.
 document.querySelectorAll('.js-color-switcher').forEach(card => {
-	const img = card.querySelector('.js-model-img');
+	const imgs = Array.from(card.querySelectorAll('.js-model-img'));
 	const buttons = card.querySelectorAll('.color-btn');
 
 	buttons.forEach(button => {
 		button.addEventListener('click', () => {
-			const newImage = button.dataset.image;
-			const newAlt = button.dataset.alt || '';
-
-			crossfade(img, newImage, () => { img.alt = newAlt; });
+			imgs.forEach((img, i) => {
+				// getAttribute (dataset değil): data-image-1 / -2 / -3'teki tire+rakam
+				// DOMStringMap'e yansımaz, dataset.image1 undefined olur. data-image-1/2/3
+				// (Capri) literal okunur; tek görselli kartlar (Puma/Explorer) data-image'a düşer.
+				const src = button.getAttribute('data-image-' + (i + 1)) || (i === 0 ? button.getAttribute('data-image') : '');
+				if (!src) return;
+				const alt = button.getAttribute('data-alt-' + (i + 1)) || button.getAttribute('data-alt') || '';
+				crossfade(img, src, () => { img.alt = alt; });
+			});
 
 			buttons.forEach(btn => btn.classList.remove('active'));
 			button.classList.add('active');
 		});
 	});
+});
+
+// === COLOR CAROUSEL (Capri v2) ===
+// Ortadaki slide seçili renk; sol/sağ komşu renkler taşan viewport'ta peek eder.
+// Etkileşim: renk swatch'ına tıklama + doğrudan sürükleme/kaydırma (fare ve dokunma).
+// Doğrusal (loop yok) — uçlarda sürükleyince yerine döner.
+document.querySelectorAll('.js-carousel').forEach(carousel => {
+	const track = carousel.querySelector('.js-carousel__track');
+	const slides = Array.from(carousel.querySelectorAll('.carousel__slide'));
+	const card = carousel.closest('.model-card');
+	const buttons = Array.from(card.querySelectorAll('.js-carousel-btn'));
+
+	const activeBtn = buttons.find(b => b.classList.contains('active'));
+	let current = activeBtn ? Number(activeBtn.dataset.index) : 0;
+
+	// slide genişliği, stride (slide + gap) ve peek (kenar boşluğu).
+	// translateX'ten bağımsız oldukları için gap/viewport değişse de doğru kalır.
+	function geometry() {
+		const slideW = slides[0].getBoundingClientRect().width;
+		const stride = slides.length > 1
+			? slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left
+			: slideW;
+		const peek = (carousel.getBoundingClientRect().width - slideW) / 2;
+		return { slideW, stride, peek };
+	}
+
+	// idx'inci slide'ı ortaya getir; delta canlı sürükleme offset'i (drag sırasında).
+	function setTrack(idx, delta = 0) {
+		const { peek, stride } = geometry();
+		track.style.transform = `translateX(${peek - idx * stride + delta}px)`;
+	}
+
+	function goTo(idx) {
+		current = Math.max(0, Math.min(idx, slides.length - 1));
+		track.style.transition = '';   // transition geri aç (drag sırasında kapatılmış olabilir)
+		setTrack(current);
+		slides.forEach((s, i) => s.classList.toggle('is-center', i === current));
+		buttons.forEach(b => b.classList.toggle('active', Number(b.dataset.index) === current));
+	}
+
+	buttons.forEach(b => b.addEventListener('click', () => goTo(Number(b.dataset.index))));
+
+	// --- Sürükleme / kaydırma (Pointer Events: fare + dokunma) ---
+	let dragging = false, startX = 0, dragDelta = 0, dragGeom = null;
+
+	carousel.addEventListener('pointerdown', (e) => {
+		dragging = true;
+		startX = e.clientX;
+		dragDelta = 0;
+		dragGeom = geometry();           // drag boyunca geometri sabit kalsın (pürüzsüz)
+		track.style.transition = 'none'; // drag akıcı, serbest takip etsin
+		carousel.classList.add('dragging');
+		carousel.setPointerCapture(e.pointerId);
+	});
+
+	carousel.addEventListener('pointermove', (e) => {
+		if (!dragging) return;
+		dragDelta = e.clientX - startX;
+		const { peek, stride } = dragGeom;
+		track.style.transform = `translateX(${peek - current * stride + dragDelta}px)`;
+	});
+
+	function endDrag() {
+		if (!dragging) return;
+		dragging = false;
+		carousel.classList.remove('dragging');
+		const { stride } = dragGeom;
+		// dragDelta < 0 (sola sürükle) → sonraki renk; > 0 (sağa) → önceki.
+		// round() ~ %50 eşik: slide'ın yarısından az sürükleyince yerine döner.
+		goTo(current + Math.round(-dragDelta / stride));
+		dragGeom = null;
+	}
+	carousel.addEventListener('pointerup', endDrag);
+	carousel.addEventListener('pointercancel', endDrag);
+
+	// İlk konum: animasyonsuz yerleştir, sonra transition'u aç (açılışta kaymasın).
+	track.style.transition = 'none';
+	setTrack(current);
+	track.getBoundingClientRect(); // reflow
+	track.style.transition = '';
+
+	window.addEventListener('resize', () => goTo(current));
 });
 
 // === FEATURE PILLS ===
@@ -99,7 +190,7 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 const page = document.querySelector('.page');
 if (page) {
 	const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"><path d="M18 3.21429L12.2143 9L18 14.7857L14.7857 18L9 12.2143L3.21429 18L0 14.7857L5.78571 9L0 3.21429L3.21429 0L9 5.78571L14.7857 0L18 3.21429Z" fill="white"/></svg>';
-	const POPUP_LABELS = { brochure: 'Teknik Broşür', emission: 'CO2 Emisyon Değerleri' };
+	const POPUP_LABELS = { brochure: 'Teknik Broşür', emission: 'CO₂ Emisyon Değerleri' };
 	let lastFocused = null;
 
 	function createPopup(type) {
@@ -173,13 +264,13 @@ if (page) {
 		});
 	});
 
-	// Trigger: CO2 Emisyon
+	// Trigger: CO₂ Emisyon
 	document.querySelectorAll('.co2').forEach(co2 => {
 		const open = () => {
 			const emisyonSrc = co2.dataset.emisyon;
 			if (emisyonSrc) {
 				emissionPopup.querySelector('.popup-body').innerHTML =
-					`<img class="popup-emission-img" src="${emisyonSrc}" alt="CO2 Emisyon Değerleri">`;
+					`<img class="popup-emission-img" src="${emisyonSrc}" alt="CO₂ Emisyon Değerleri">`;
 			}
 			openPopup(emissionPopup);
 		};

@@ -1,2 +1,6 @@
 # macOS folder metadata
 .DS_Store
+
+# Font kaynak dosyaları (woff2'ye subset edilir; kaynaklar repoda tutulmaz — ~152MB)
+assets/fonts/*.ttf
+assets/fonts/*.otf

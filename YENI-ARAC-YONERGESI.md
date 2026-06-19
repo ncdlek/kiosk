@@ -12,7 +12,7 @@ Başlamadan önce elinizde şu malzemeler olmalı:
 - [ ] Model kart görselleri (her paket × her renk için ayrı ayrı)
 - [ ] Renk swatch görselleri (renk seçim butonları için küçük kare görseller)
 - [ ] Standart özellik, opsiyon ve diğer özellik görselleri
-- [ ] CO2 emisyon görseli
+- [ ] CO₂ emisyon görseli
 - [ ] Teknik broşür QR kod görseli (`popup/qr.png`)
 - [ ] Araç adı, fiyatları, özellik açıklamaları, teknik veriler
 
@@ -65,13 +65,13 @@ Görselleri bu klasörlere yerleştirin. Dosya isimlerini küçük harf ve tire 
 | `<title>` | Sayfanın en üstü | `Ford Kuga Tasarım` |
 | Hero görsel yolu | `<img class="hero__bg" src="...">` | `../assets/images/kuga/anasayfa/hero/anasayfa.png` |
 | Hero başlık | `<h1 class="hero__title">` | `Ford Kuga'da %3 indirim` |
-| Hero alt başlık | `<p class="hero__subtitle">` | `₺1.850.000'den başlayan fiyatlarla*` |
+| Hero alt başlık | `<p class="hero__subtitle">` | `1.850.000 TL'den başlayan fiyatlarla*` |
 | Hero meta | `<p class="hero__meta">` | `Titanium - 2.5L Duratec Benzin` |
 | Tab `data-hero-image` | Her tab butonunda | `../assets/images/kuga/ic-tasarim/hero/ic-tasarim.png` |
 | Model adı | `<h2 class="model-name">` | `Titanium` (farklıysa değiştirin) |
 | Model görsel yolları | `src="..."` ve `data-image="..."` | `../assets/images/kuga/anasayfa/models/titanium/...` |
 | Renk swatch yolları | `<img src="...">` (swatch) | `../assets/images/kuga/anasayfa/models/swatches/...` |
-| Spec değerleri | `<span class="spec-value">` | Güç, yakıt, CO2, bagaj |
+| Spec değerleri | `<span class="spec-value">` | Güç, yakıt, CO₂, bagaj |
 | Feature pills | `<button type="button" class="pill">` | Araca özel özellik isimleri |
 | Feature banner görseli | `feature-banner__bg` src | `../assets/images/kuga/anasayfa/featured/...` |
 | Feature copy | `<div class="feature-copy">` | Araca özel tanıtım yazısı |
@@ -79,7 +79,7 @@ Görselleri bu klasörlere yerleştirin. Dosya isimlerini küçük harf ve tire 
 | Standart özellikler | `.standard-card` içerikleri | Görsel, başlık, açıklama |
 | Opsiyon kartları | `.visual-option-card` | Görsel, başlık, açıklama, fiyat |
 | Diğer özellikler | `.small-feature` içerikleri | Görsel, başlık, açıklama |
-| CO2 görsel ve değer | `.co2` bölümü | Görsel yolu ve değer |
+| CO₂ görsel ve değer | `.co2` bölümü | Görsel yolu ve değer |
 | Tüm `../assets/images/puma/` | Sayfanın tamamında | `../assets/images/kuga/` ile değiştir |
 
 > **En kolay yöntem:** Dosyadaki tüm `puma` yazan yerleri `kuga` ile değiştirin (bul-değiştir), sonra sadece metin ve fiyatları güncelleyin.
@@ -95,10 +95,29 @@ Görselleri bu klasörlere yerleştirin. Dosya isimlerini küçük harf ve tire 
   <img src="assets/images/kuga/anasayfa/hero/anasayfa.png" alt="Ford Kuga">
   <div class="vs-card__info">
     <h2>Ford Kuga</h2>
-    <p>₺1.850.000'den başlayan fiyatlarla*</p>
+    <p>1.850.000 TL'den başlayan fiyatlarla*</p>
   </div>
 </a>
 ```
+
+---
+
+## ✍️ Editoryal Standartlar
+
+Tüm araç sayfalarında tutarlı olması gereken yazım kuralları (redaksiyon standartları). Yeni araç eklerken bu kurallara uyulmalı:
+
+- **Araç adına ® işareti:** Hero başlığında (`<h1 class="hero__title">`) araç adından sonra tescil işareti konur ve **superscript** olarak yazılır — `Ford Puma<sup>®</sup>`, `Yeni Ford Explorer<sup>®</sup>`, `Ford Capri<sup>®</sup>`. Not: FordF1 fontunda ® glyphi yoktur; fallback fontta çıkar, bu yüzden `sup` ile küçük/yukarıda tutulur (`sup` stili `style.css`'te tanımlı).
+- **Fiyat biçimi:** `₺` simgesi **kullanılmaz**; sayıdan sonra `TL` yazılır.
+  - Hero alt başlık: `2.131.600 TL'den başlayan fiyatlarla*`
+  - Opsiyon fiyatları: `45.000 TL` biçiminde (`<strong>45.000 TL</strong>`).
+- **CO₂:** Karbondioksit alt indislidir — `CO₂` (`CO2` değil); popup etiketlerinde de aynı (JS `CO₂ Emisyon Değerleri`). Not: `₂` (U+2082) de FordF1'de yoktur, fallback fontta çıkar; tam font tutarlılığı için görünen yerlerde `CO<sub>2</sub>` tercih edilebilir.
+- **Marka / paket yazımları:**
+  - `ST-Line X` (tire ve büyük harf) — `St Line X` değil.
+  - `SYNC<sup>®</sup> 4 Sistemi` (`Sistemi` büyük S ile; SYNC® önceden HTML'de vardı, superscript olarak korundu).
+  - `Sensico<sup>®</sup>` (tescil işareti, superscript).
+- **Şapka (â) imleri:** `iç mekân`, `atmosfer` gibi gerekli sözlerde düzeltme imi kullanılır.
+- **Dipnot yıldızı:** `*` işaretinden sonra boşluk bırakılır — `* TÜM PAKETLERDE OPSİYONEL`, `* PREMIUM DONANIMDA`.
+- **Satır taşıma:** Dar kartlarda ikincil ifade taşmasın diye `<br>` ile alt satıra iner, örn. `Park Sensörleri<br>(Ön & Arka)` ve `Isıtmalı Sensico® Direksiyon &<br>Ön Koltuklar.`
 
 ---
 

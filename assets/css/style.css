@@ -244,6 +244,77 @@ button, a { font: inherit; }
 	border: 1.5px solid var(--gray);
 }
 
+/* === MODELS: SINGLE CARD (Capri-style, ortalı tek kart) === */
+.models--single {
+	grid-template-columns: 1fr;
+	justify-items: center;
+}
+.models--single .model-card {
+	width: 100%;
+	max-width: 900px;
+}
+
+/* 3 araç görseli yan yana */
+.model-img-row {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+	width: 100%;
+}
+.model-img-row .model-img {
+	width: calc((100% - 32px) / 3);
+	height: 230px;
+}
+
+/* === COLOR CAROUSEL (Capri v2: ortada tek araç, komşu renkler yanlarda peek) === */
+.carousel {
+	overflow: hidden;
+	align-self: flex-start;    /* flex ortalama çakışmasın: sol kenardan başla, kenar boşluğuyla sayfa kenarına taşı */
+	width: calc(100% + 180px);  /* kart(900px) + 180 = 1080px = sayfa genişliği */
+	margin-left: -90px;         /* SOL sayfa kenarına: 64 içerik dolgusu + 26 kart ortalama = 90px dışa */
+	margin-right: -90px;        /* SAĞ sayfa kenarına da simetrik taşı */
+	touch-action: pan-y;        /* yatay sürükleme JS'e, dikey kaydırma tarayıcıya */
+	cursor: grab;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.carousel.dragging { cursor: grabbing; }
+.carousel img { -webkit-user-drag: none; }   /* sürüklerken araç görseli hayaleti çıkmasın */
+.carousel__track {
+	display: flex;
+	gap: 46px;   /* araçlar arası mesafe ~%10 artırıldı (466px slide'ın ~%10'u) */
+	transition: transform 0.45s ease;
+	will-change: transform;
+}
+.carousel__slide {
+	flex: 0 0 466px;       /* Puma/Explorer model görseliyle aynı genişlik */
+	width: 466px;
+}
+
+/* === COMING-SOON PLACEHOLDER PANEL (geçici) === */
+.placeholder-panel {
+	flex: 1 1 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	gap: 12px;
+	padding: 40px 24px;
+}
+.placeholder-panel__title {
+	margin: 0;
+	font-family: "FordF1";
+	font-size: 36px;
+	font-weight: 700;
+	color: var(--dark-blue);
+}
+.placeholder-panel__text {
+	margin: 0;
+	font-size: 20px;
+	color: var(--muted);
+}
+
 /* === SPECS === */
 .specs-section { margin-top: 48px; }
 

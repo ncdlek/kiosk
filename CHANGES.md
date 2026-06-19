@@ -28,18 +28,20 @@ Bu proje için yapılan tüm değişikliklerin dökümantasyonu.
 
 ### 3. Font Optimizasyonu (En Büyük Kazanç)
 **Öncesi:** 152 MB (11 font dosyası)
-**Sonrası:** 34 KB (2 font dosyası)
-**Tasarruf:** %99.98
+**Sonrası:** ~100 KB (2 font dosyası)
+**Tasarruf:** %99.93
 
 **Yöntem:**
 - Variable fontlar kullanıldı (FordF1VF.ttf, FordF1TCVF.ttf)
 - WOFF2 formatına çevrildi (brotli compression)
-- Subset oluşturuldu (sadece TR + EN karakterler)
-- Eski OTF/TTF dosyaları silindi
+- Subset oluşturuldu — Türkçe + İngilizce harfler, tescil/ticari marka (® ™), alt/üst indisler (₂), para birimi (₺) ve noktalama dahil
+- Orijinal kaynak fontlar (`*.otf`, `*.ttf`) repoda tutulmaz (`.gitignore`) — yeniden subset gerekirse yerelde durur
 
 **Font dosyaları:**
-- `FordF1VF.woff2` - 17 KB
-- `FordF1TCVF.woff2` - 17 KB
+- `FordF1VF.woff2` - ~50 KB
+- `FordF1TCVF.woff2` - ~50 KB
+
+> **Güncelleme (19 Haziran 2026):** İlk subset yalnızca "TR + EN" harflerini almıştı; bu yüzden **®**, **₂** (CO₂), **â** (mekân) ve **₺** glyphleri düşmüş, tarayıcı fallback fontuna (Arial) düşüyordu (® büyük/garip görünüyordu). Subset unicode aralığı genişletilerek yeniden üretildi; ® artık Ford fontunun kendi glyphiyle çıkıyor. Boyut 17 KB → ~50 KB (hâlâ çok küçük).
 
 ### 4. HTML Standartları
 - ✅ `<!DOCTYPE html>` eklendi (öncesi yoktu)
@@ -118,7 +120,7 @@ Kiosk uygulaması olduğu için responsive gerekmiyor:
 **Teknik Özellikler:**
 - Fixed size: 1080px × 1920px (Kiosk)
 - Format: Statik HTML/CSS/JS
-- Fontlar: WOFF2 (34 KB toplam)
+- Fontlar: WOFF2 (~100 KB toplam)
 - Deploy: GitHub Pages
 
 ---
@@ -137,6 +139,7 @@ Kiosk uygulaması olduğu için responsive gerekmiyor:
 2. **DOCTYPE eksikliği quirks mode'a neden olur - kiosk için bile önemli**
 3. **GitHub Pages statik site deploy için mükemmel**
 4. **Variable fontlar disk alanında büyük ama subset ile çok küçülür**
+5. **Subset yaparken semboller/alt indisler unutulmamalı** — ilk subset ®, ₂, â, ₺'yi düşürmüştü; fallback fontuna düşen ® büyük/garip görünüyordu. Subset unicode aralığı her zaman ® ™ alt/üst indisler + para birimi + dildeki şapkalı harfleri (â î û) içermeli
 
 ---
 
@@ -227,4 +230,4 @@ Hiçbir JS veya CSS değişikliği gerekmez.
 
 ---
 
-*Son güncelleme: 4 Haziran 2026*
+*Son güncelleme: 19 Haziran 2026*

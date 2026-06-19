@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ford Capri Tasarım</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- HERO -->
+    <section class="hero">
+      <img class="hero__bg" src="../assets/images/capri/anasayfa/hero/anasayfa.jpg" alt="Yeni Ford Capri">
+
+      <div class="hero__content">
+        <div class="hero__copy">
+          <h1 class="hero__title">Yeni Ford Capri®</h1>
+          <p class="hero__subtitle">2.431.700 TL'den başlayan fiyatlarla*</p>
+          <p class="hero__meta">Premium Elektrikli Coupe SUV</p>
+        </div>
+      </div>
+
+      <div class="tabs-wrap">
+        <div class="tabs">
+          <button class="tab active" type="button" data-tab="anasayfa" data-hero-image="../assets/images/capri/anasayfa/hero/anasayfa.jpg">
+            ANASAYFA
+          </button>
+
+          <button class="tab" type="button" data-tab="ic-tasarim" data-hero-image="../assets/images/capri/ic-tasarim/hero/ic-tasarim.jpg">
+            İÇ TASARIM
+          </button>
+
+          <button class="tab" type="button" data-tab="dis-tasarim" data-hero-image="../assets/images/capri/dis-tasarim/hero/dis-tasarim.jpg">
+            DIŞ TASARIM
+          </button>
+
+          <button class="tab" type="button" data-tab="teknoloji" data-hero-image="../assets/images/capri/teknoloji/hero/teknoloji.jpg">
+            TEKNOLOJİ
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANASAYFA -->
+    <section class="tab-panel active" id="tab-anasayfa">
+      <div class="content">
+
+        <!--
+          Tek model kartı (Premium), ortalı. Sıra: paket adı → renk seçimi → 3 açı görseli yan yana.
+          Her renk 3 açıya sahiptir (ön/yan/arka = 1/2/3.jpg); renk seçilince 3 görsel de güncellenir
+          (data-image-1 / -2 / -3 ile). Varsayılan renk Enerjik Sarı.
+        -->
+        <section class="models models--single">
+          <article class="model-card js-color-switcher">
+            <h2 class="model-name">Premium</h2>
+
+            <div class="color-dots">
+              <!-- Enerjik Sarı (varsayılan) -->
+              <button class="color-btn active" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/enerjik-sari/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/enerjik-sari/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/enerjik-sari/3.jpg"
+                data-alt="Capri Enerjik Sarı">
+                <img src="../assets/images/capri/anasayfa/models/swatches/enerjik-sari.jpg" alt="Enerjik Sarı">
+              </button>
+
+              <!-- Düş Mavisi -->
+              <button class="color-btn" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/dus-mavisi/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/dus-mavisi/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/dus-mavisi/3.jpg"
+                data-alt="Capri Düş Mavisi">
+                <img src="../assets/images/capri/anasayfa/models/swatches/dus-mavisi.jpg" alt="Düş Mavisi">
+              </button>
+
+              <!-- Mercan Kırmızı -->
+              <button class="color-btn" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/3.jpg"
+                data-alt="Capri Mercan Kırmızı">
+                <img src="../assets/images/capri/anasayfa/models/swatches/mercan-kirmizi.jpg" alt="Mercan Kırmızı">
+              </button>
+
+              <!-- Akik Siyah -->
+              <button class="color-btn" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/akik-siyah/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/akik-siyah/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/akik-siyah/3.jpg"
+                data-alt="Capri Akik Siyah">
+                <img src="../assets/images/capri/anasayfa/models/swatches/akik-siyah.jpg" alt="Akik Siyah">
+              </button>
+
+              <!-- Manyetik Gri -->
+              <button class="color-btn" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/manyetik-gri/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/manyetik-gri/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/manyetik-gri/3.jpg"
+                data-alt="Capri Manyetik Gri">
+                <img src="../assets/images/capri/anasayfa/models/swatches/manyetik-gri.jpg" alt="Manyetik Gri">
+              </button>
+
+              <!-- Buz Beyazı -->
+              <button class="color-btn" type="button"
+                data-image-1="../assets/images/capri/anasayfa/models/premium/buz-beyazi/1.jpg"
+                data-image-2="../assets/images/capri/anasayfa/models/premium/buz-beyazi/2.jpg"
+                data-image-3="../assets/images/capri/anasayfa/models/premium/buz-beyazi/3.jpg"
+                data-alt="Capri Buz Beyazı">
+                <img src="../assets/images/capri/anasayfa/models/swatches/buz-beyazi.jpg" alt="Buz Beyazı">
+              </button>
+            </div>
+
+            <div class="model-img-row">
+              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/1.jpg" alt="Capri Enerjik Sarı">
+              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/2.jpg" alt="Capri Enerjik Sarı">
+              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/3.jpg" alt="Capri Enerjik Sarı">
+            </div>
+          </article>
+        </section>
+
+        <section class="specs-section">
+          <div class="specs">
+            <div class="spec">
+              <span class="spec-label">ELEKTRİKLİ MENZİL</span>
+              <span class="spec-value">373 - 471 km</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">GÜÇ</span>
+              <span class="spec-value">125 kW - 170 PS</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">DC (%10-80) HIZLI ŞARJ SÜRESİ</span>
+              <span class="spec-value">25 dakika</span>
+            </div>
+            <div class="spec">
+              <span class="spec-label">TORK</span>
+              <span class="spec-value">310 Nm</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="feature-banner">
+          <img class="feature-banner__bg" src="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan.jpg" alt="Öne Çıkan Özellikler">
+          <div class="feature-banner__overlay"></div>
+
+          <div class="feature-banner__content">
+            <div class="feature-pills">
+              <button type="button" class="pill active" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan.jpg" data-desc="Bağlantı ve eğlence sistemlerini<br>tek ekranda buluşturur.">14.6" SYNC Move</button>
+              <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg" data-desc="Gece sürüşlerinde yolu akıllıca aydınlatır,<br>konfor ve görüşü artırır.">Matrix LED Farlar</button>
+              <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-agr-masajli-koltuklar.jpg" data-desc="Ergonomik tasarımı ve masaj fonksiyonu ile<br>uzun yolculuklarda konfor sunar.">AGR Masajlı Koltuklar</button>
+              <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-557-km-menzil.jpg" data-desc="Tek şarjla uzun mesafeleri özgürce kat edin,<br>yolculuğun keyfini çıkarın.">557 km Menzil</button>
+            </div>
+
+            <div class="feature-copy">
+              <h3>Bağlantı ve eğlence sistemlerini<br>tek ekranda buluşturur.</h3>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">OPSİYONLAR</h2>
+
+          <div class="home-options">
+            <article class="home-option">
+              <img src="../assets/images/capri/anasayfa/options/isi-pompasi.jpg" alt="Isı Pompası">
+              <div>
+                <h3>Isı Pompası</h3>
+                <strong>130.884 TL</strong>
+                <p>Premium</p>
+              </div>
+            </article>
+
+            <article class="home-option">
+              <img src="../assets/images/capri/anasayfa/options/surus-destek-premium.jpg" alt="Sürüş Destek Paketi">
+              <div>
+                <h3>Sürüş Destek Paketi</h3>
+                <strong>107.087 TL</strong>
+                <p>Premium</p>
+              </div>
+            </article>
+
+            <article class="home-option">
+              <img src="../assets/images/capri/anasayfa/options/bo-ses-sistemi.jpg" alt="B&amp;O Ses Sistemi">
+              <div>
+                <h3>B&O Ses Sistemi</h3>
+                <strong>37.910 TL</strong>
+                <p>Premium</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="panel-footer">
+          <div class="co2" role="button" tabindex="0" data-emisyon="../assets/images/puma/popup/emisyon.png">
+            <img src="../assets/images/puma/popup/emisyon.png" alt="">
+            <div>
+              <p class="co2-title">CO₂<br>Emisyon Değerleri</p>
+              <p class="co2-value">—</p>
+            </div>
+          </div>
+
+          <button type="button" class="brochure-btn" data-qr="../assets/images/puma/popup/qr.png">Teknik Broşür</button>
+        </footer>
+        <div class="disclaimer-text">* Anahtar teslim fiyatıdır</div>
+      </div>
+    </section>
+
+    <!-- İÇ TASARIM -->
+    <section class="tab-panel" id="tab-ic-tasarim" hidden>
+      <div class="content">
+        <section>
+          <h2 class="section-title">TÜM CAPRI'LERDE STANDART</h2>
+
+          <div class="standard-grid">
+            <article class="standard-card">
+              <img src="../assets/images/capri/ic-tasarim/standard/move-ekran.jpg" alt="14.6&quot; SYNC® Move Ekran">
+              <h3>14.6" SYNC® Move Ekran</h3>
+              <p>Gelişmiş bağlantı teknolojileriyle sürüş deneyimini zenginleştirir.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/ic-tasarim/standard/mega-orta-konsol.jpg" alt="Mega Orta Konsol">
+              <h3>Mega Orta Konsol</h3>
+              <p>Geniş ve fonksiyonel tasarımıyla ekstra kullanım alanı sunar.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg" alt="Kablosuz Apple CarPlay &amp; Android Auto">
+              <h3>Kablosuz Apple CarPlay & Android Auto</h3>
+              <p>Favori uygulamalarınıza kolay ve hızlı erişim sağlar.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/ic-tasarim/standard/ambiyans-aydinlatma.jpg" alt="Ambiyans Aydınlatma">
+              <h3>Ambiyans Aydınlatma</h3>
+              <p>İç mekâna şık ve kişiselleştirilebilir bir karakter kazandırır.</p>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">OPSİYONLAR</h2>
+
+          <div class="option-feature-grid">
+            <article class="visual-option-card visual-option-card--bordered">
+              <img src="../assets/images/capri/ic-tasarim/options/ses-sistemi.jpg" alt="B&amp;O Ses Sistemi">
+              <div class="visual-option-overlay">
+                <span>* PREMIUM DONANIMDA OPSİYONEL</span>
+                <div>
+                  <h3>B&O Ses Sistemi*</h3>
+                  <p>Her notayı net ve etkileyici şekilde sunarak kabin içinde sürükleyici bir ses deneyimi oluşturur.</p>
+                  <strong>37.910 TL</strong>
+                </div>
+              </div>
+            </article>
+
+            <article class="visual-option-card visual-option-card--bordered">
+              <img src="../assets/images/capri/ic-tasarim/options/isi-pompasi.jpg" alt="Isı Pompası">
+              <div class="visual-option-overlay visual-option-overlay--light">
+                <span>* TÜM PAKETLERDE OPSİYONEL</span>
+                <div>
+                  <h3>Isı Pompası*</h3>
+                  <p>Enerji kullanımını optimize ederek soğuk hava koşullarında menzil ve konforun korunmasına yardımcı olur.</p>
+                  <strong>130.884 TL</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">DİĞER ÖZELLİKLER</h2>
+
+          <div class="small-feature-grid">
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/isitmali-sensico-direksiyon.jpg" alt="Isıtmalı Sensico® Direksiyon">
+              <div><h3>Isıtmalı Sensico® Direksiyon</h3><p>Soğuk havalarda ekstra konfor sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/agr-sertifikali-koltuk.jpg" alt="AGR Sertifikalı Koltuklar">
+              <div><h3>AGR Sertifikalı Koltuklar</h3><p>Uzun yolculuklarda üstün destek sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg" alt="İki Bölgeli Otomatik Klima">
+              <div><h3>İki Bölgeli Otomatik Klima</h3><p>Bağımsız sıcaklık kontrolü sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/dijital-gosterge-paneli.jpg" alt="5&quot; Dijital Gösterge Paneli">
+              <div><h3>5" Dijital Gösterge Paneli</h3><p>Temel sürüş bilgilerini kolayca sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/surus-modlari.jpg" alt="Seçilebilir Sürüş Modları">
+              <div><h3>Seçilebilir Sürüş Modları</h3><p>Farklı sürüş ihtiyaçlarına uyum sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg" alt="60/40 Katlanabilir Arka Koltuklar">
+              <div><h3>60/40 Katlanabilir Arka Koltuklar</h3><p>Esnek kullanım alanı sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/isitmali-masaj-ozellikli-sensico-koltuklar.jpg" alt="Isıtmalı ve Masajlı Sensico® Koltuklar">
+              <div><h3>Isıtmalı ve Masajlı Sensico® Koltuklar</h3><p>Üst düzey konfor ve rahatlık sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/kablosuz-sarj.jpg" alt="Kablosuz Şarj">
+              <div><h3>Kablosuz Şarj</h3><p>Uyumlu cihazları kablosuz şarj eder.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/ic-tasarim/other/bardak-tutacakli-arka-kol-dayama.jpg" alt="Bardak Tutacaklı Arka Kol Dayama">
+              <div><h3>Bardak Tutacaklı Arka Kol Dayama</h3><p>Arka yolculara ek konfor sağlar.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="panel-footer">
+          <div class="co2" role="button" tabindex="0" data-emisyon="../assets/images/puma/popup/emisyon.png">
+            <img src="../assets/images/puma/popup/emisyon.png" alt="">
+            <div>
+              <p class="co2-title">CO₂<br>Emisyon Değerleri</p>
+              <p class="co2-value">—</p>
+            </div>
+          </div>
+
+          <button type="button" class="brochure-btn" data-qr="../assets/images/puma/popup/qr.png">Teknik Broşür</button>
+        </footer>
+        <div class="disclaimer-text">* Anahtar teslim fiyatıdır</div>
+      </div>
+    </section>
+
+    <!-- DIŞ TASARIM -->
+    <section class="tab-panel" id="tab-dis-tasarim" hidden>
+      <div class="content">
+        <section>
+          <h2 class="section-title">TÜM CAPRI'LERDE STANDART</h2>
+
+          <div class="standard-grid">
+            <article class="standard-card">
+              <img src="../assets/images/capri/dis-tasarim/standard/matrix-led-farlar.jpg" alt="Matrix LED Farlar">
+              <h3>Matrix LED Farlar</h3>
+              <p>Üstün görüş performansı ve dikkat çekici tasarım sunar.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/dis-tasarim/standard/led-arka-farlar.jpg" alt="LED Arka Farlar">
+              <h3>LED Arka Farlar</h3>
+              <p>Modern ışık imzasıyla güçlü bir görünüm kazandırır.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/dis-tasarim/standard/karartilmis-arka-camlar.jpg" alt="Karartılmış Arka Camlar">
+              <h3>Karartılmış Arka Camlar</h3>
+              <p>Sportif ve premium tasarımı tamamlar.</p>
+            </article>
+
+            <article class="standard-card">
+              <img src="../assets/images/capri/dis-tasarim/standard/20-alasim-jantlar.jpg" alt="20&quot; Alaşım Jantlar">
+              <h3>20" Alaşım Jantlar</h3>
+              <p>Dinamik görünümü güçlü duruşla buluşturur.</p>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">OPSİYONLAR</h2>
+
+          <div class="option-feature-grid">
+            <article class="visual-option-card visual-option-card--bordered">
+              <img src="../assets/images/capri/dis-tasarim/options/21-aluminyum-alasim-jantlar.jpg" alt="21&quot; Alüminyum Alaşımlı Jantlar">
+              <div class="visual-option-overlay">
+                <span>* PREMIUM DONANIMDA OPSİYONEL</span>
+                <div>
+                  <h3>21" Alüminyum Alaşımlı Jantlar*</h3>
+                  <p>Daha sportif görünüm ve dikkat çekici tasarım detayları sunar.</p>
+                  <strong>0.000 TL</strong>
+                </div>
+              </div>
+            </article>
+
+            <article class="visual-option-card visual-option-card--bordered">
+              <img src="../assets/images/capri/dis-tasarim/options/isi-pompasi.jpg" alt="Isı Pompası">
+              <div class="visual-option-overlay visual-option-overlay--light">
+                <span>* TÜM PAKETLERDE OPSİYONEL</span>
+                <div>
+                  <h3>Isı Pompası*</h3>
+                  <p>Enerji kullanımını optimize ederek soğuk hava koşullarında menzil ve konforun korunmasına yardımcı olur.</p>
+                  <strong>130.884 TL</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">DİĞER ÖZELLİKLER</h2>
+
+          <div class="small-feature-grid">
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/logo-aydinlatmali-yan-aynalar.jpg" alt="Logo Aydınlatmalı Yan Aynalar">
+              <div><h3>Logo Aydınlatmalı Yan Aynalar</h3><p>Şık bir karşılama deneyimi sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/yagmur-sensoru.jpg" alt="Yağmur Sensörü">
+              <div><h3>Yağmur Sensörü</h3><p>Değişen hava koşullarına otomatik uyum sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/kapi-kolu-ambiyans-andinlatma.jpg" alt="Kapı Kolu Ambiyans Aydınlatması">
+              <div><h3>Kapı Kolu Ambiyans Aydınlatması</h3><p>Modern ve dikkat çekici detaylar sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/akilli-bagaj-kapagi.jpg" alt="Akıllı Bagaj Kapağı">
+              <div><h3>Akıllı Bagaj Kapağı</h3><p>Eller serbest erişim kolaylığı sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/elektrikli-katlanabilir-aynalar.jpg" alt="Elektrikli Katlanabilir Aynalar">
+              <div><h3>Elektrikli Katlanabilir Aynalar</h3><p>Dar alanlarda kullanım kolaylığı sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/dis-tasarim/other/panoramik-cam-tavan.jpg" alt="Panoramik Cam Tavan">
+              <div><h3>Panoramik Cam Tavan</h3><p>Kabin içine daha ferah bir atmosfer kazandırır.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="panel-footer">
+          <div class="co2" role="button" tabindex="0" data-emisyon="../assets/images/puma/popup/emisyon.png">
+            <img src="../assets/images/puma/popup/emisyon.png" alt="">
+            <div>
+              <p class="co2-title">CO₂<br>Emisyon Değerleri</p>
+              <p class="co2-value">—</p>
+            </div>
+          </div>
+
+          <button type="button" class="brochure-btn" data-qr="../assets/images/puma/popup/qr.png">Teknik Broşür</button>
+        </footer>
+        <div class="disclaimer-text">* Anahtar teslim fiyatıdır</div>
+      </div>
+    </section>
+
+    <!-- TEKNOLOJİ -->
+    <section class="tab-panel" id="tab-teknoloji" hidden>
+      <div class="content">
+        <section>
+          <h2 class="section-title">BAĞLANTILI ARAÇ DENEYİMİ</h2>
+
+          <article class="tech-wide-card">
+            <img src="../assets/images/capri/teknoloji/connected/ford-uygulamasi.jpg" alt="Ford Uygulaması">
+            <div>
+              <h3>Ford Uygulaması</h3>
+              <p>Aracını uzaktan kontrol et, her an bağlantıda kal.</p>
+            </div>
+          </article>
+        </section>
+
+        <section>
+          <h2 class="section-title">BİLGİ EĞLENCE SİSTEMLERİ</h2>
+
+          <div class="media-card-grid">
+            <article class="media-card">
+              <img src="../assets/images/capri/teknoloji/infotainment/sync-move-ekran.jpg" alt="14.6&quot; SYNC® Move Ekran">
+              <div><h3>14.6" SYNC® Move Ekran</h3><p>Gelişmiş bağlantı ve eğlence özelliklerini tek ekranda buluşturur.</p></div>
+            </article>
+            <article class="media-card">
+              <img src="../assets/images/capri/teknoloji/infotainment/secilebilir-surus-modlari.jpg" alt="Seçilebilir Sürüş Modları">
+              <div><h3>Seçilebilir Sürüş Modları</h3><p>Farklı sürüş ihtiyaçlarına uyum sağlayan sürüş deneyimi sunar.</p></div>
+            </article>
+            <article class="media-card">
+              <img src="../assets/images/capri/teknoloji/infotainment/ford-eco-coach.jpg" alt="Ford Eco Coach">
+              <div><h3>Ford Eco Coach</h3><p>Daha verimli sürüş için akıllı kullanım önerileri sunar.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="section-title">DİĞER ÖZELLİKLER</h2>
+
+          <div class="small-feature-grid">
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg" alt="Adaptif Hız Sabitleyici">
+              <div><h3>Adaptif Hız Sabitleyici</h3><p>Trafik akışına uyum sağlar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg" alt="Gelişmiş Göz Hizası Gösterge Paneli">
+              <div><h3>Gelişmiş Göz Hizası Gösterge Paneli</h3><p>Önemli sürüş bilgilerini görüş alanınıza yansıtır.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/trafik-isareti-tanıma-sistemi.jpg" alt="Trafik İşareti Tanıma Sistemi">
+              <div><h3>Trafik İşareti Tanıma Sistemi</h3><p>Yol üzerindeki trafik işaretlerini algılar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg" alt="Kör Nokta Uyarı Sistemi">
+              <div><h3>Kör Nokta Uyarı Sistemi</h3><p>Şerit değişimlerinde destek sunar.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/akilli-park-asistani.jpg" alt="Akıllı Park Asistanı">
+              <div><h3>Akıllı Park Asistanı</h3><p>Park deneyimini daha konforlu hale getirir.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/carpisma-onleme-yardimcisi.jpg" alt="Çarpışma Önleme Yardımcısı">
+              <div><h3>Çarpışma Önleme Yardımcısı</h3><p>Olası riskleri algılayarak sürücüyü destekler.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg" alt="Şerit Takip Sistemi">
+              <div><h3>Şerit Takip Sistemi</h3><p>Şeritte kalmanıza yardımcı olur.</p></div>
+            </article>
+            <article class="small-feature">
+              <img src="../assets/images/capri/teknoloji/connectivity/360-kamera.jpg" alt="360° Kamera">
+              <div><h3>360° Kamera</h3><p>Manevralarda görüş hâkimiyetini artırır.</p></div>
+            </article>
+          </div>
+        </section>
+
+        <footer class="panel-footer">
+          <div class="co2" role="button" tabindex="0" data-emisyon="../assets/images/puma/popup/emisyon.png">
+            <img src="../assets/images/puma/popup/emisyon.png" alt="">
+            <div>
+              <p class="co2-title">CO₂<br>Emisyon Değerleri</p>
+              <p class="co2-value">—</p>
+            </div>
+          </div>
+
+          <button type="button" class="brochure-btn" data-qr="../assets/images/puma/popup/qr.png">Teknik Broşür</button>
+        </footer>
+        <div class="disclaimer-text">* Anahtar teslim fiyatıdır</div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="../assets/js/script.js"></script>
+
+</body>
+</html>
