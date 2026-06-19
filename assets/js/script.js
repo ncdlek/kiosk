@@ -9,9 +9,20 @@ function crossfade(img, src, onUpdate) {
 	img.style.opacity = '0';
 	setTimeout(() => {
 		if (img.dataset.fadeToken !== token) return;
-		img.src = src;
-		if (onUpdate) onUpdate();
-		img.style.opacity = '1';
+		// Yeni görseli ARKA PLANDA yükleyip onload'ta değiştir + göster.
+		// src'yi atar atmaz opacity=1 yaparsak, yeni görsel yüklenene kadar
+		// tarayıcı ESKİ bitmap'i gösterir → "eski görsel yanıp gelir" hatası.
+		// (Cache'te ise onload anında tetiklenir.)
+		const reveal = () => {
+			if (img.dataset.fadeToken !== token) return;
+			img.src = src;
+			if (onUpdate) onUpdate();
+			img.style.opacity = '1';
+		};
+		const pre = new Image();
+		pre.onload = reveal;
+		pre.onerror = reveal;
+		pre.src = src;
 	}, 120);
 }
 
@@ -42,6 +53,12 @@ function activateTab(tab) {
 
 tabs.forEach(tab => {
 	tab.addEventListener('click', () => activateTab(tab));
+});
+
+// Hero görsellerini ön yükle — tab geçişinde yeni görsel anlık gelsin, eski yanıp gelmesin
+tabs.forEach(tab => {
+	const s = tab.dataset.heroImage;
+	if (s) { const p = new Image(); p.src = s; }
 });
 
 // Initialize panels on load

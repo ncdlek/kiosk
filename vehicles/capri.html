@@ -47,74 +47,46 @@
       <div class="content">
 
         <!--
-          Tek model kartı (Premium), ortalı. Sıra: paket adı → renk seçimi → 3 açı görseli yan yana.
-          Her renk 3 açıya sahiptir (ön/yan/arka = 1/2/3.jpg); renk seçilince 3 görsel de güncellenir
-          (data-image-1 / -2 / -3 ile). Varsayılan renk Enerjik Sarı.
+          Tek model kartı (Premium), ortalı — RENK CAROUSEL.
+          Sıra: paket adı → renk seçimi → kayan carousel (her slide bir rengin YAN görünümü).
+          Swatch'a tıkla veya sürükle: seçili renk ortaya gelir, komşular peek eder.
+          Doğrusal (loop yok). Slide sırası = swatch sırası (data-index).
+          Varsayılan: Enerjik Sarı (3. sıra, data-index 2).
         -->
         <section class="models models--single">
-          <article class="model-card js-color-switcher">
+          <article class="model-card">
             <h2 class="model-name">Premium</h2>
 
             <div class="color-dots">
-              <!-- Enerjik Sarı (varsayılan) -->
-              <button class="color-btn active" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/enerjik-sari/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/enerjik-sari/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/enerjik-sari/3.jpg"
-                data-alt="Capri Enerjik Sarı">
-                <img src="../assets/images/capri/anasayfa/models/swatches/enerjik-sari.jpg" alt="Enerjik Sarı">
-              </button>
-
-              <!-- Düş Mavisi -->
-              <button class="color-btn" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/dus-mavisi/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/dus-mavisi/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/dus-mavisi/3.jpg"
-                data-alt="Capri Düş Mavisi">
+              <button class="color-btn js-carousel-btn" type="button" data-index="0">
                 <img src="../assets/images/capri/anasayfa/models/swatches/dus-mavisi.jpg" alt="Düş Mavisi">
               </button>
-
-              <!-- Mercan Kırmızı -->
-              <button class="color-btn" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/3.jpg"
-                data-alt="Capri Mercan Kırmızı">
+              <button class="color-btn js-carousel-btn" type="button" data-index="1">
                 <img src="../assets/images/capri/anasayfa/models/swatches/mercan-kirmizi.jpg" alt="Mercan Kırmızı">
               </button>
-
-              <!-- Akik Siyah -->
-              <button class="color-btn" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/akik-siyah/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/akik-siyah/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/akik-siyah/3.jpg"
-                data-alt="Capri Akik Siyah">
+              <button class="color-btn js-carousel-btn active" type="button" data-index="2">
+                <img src="../assets/images/capri/anasayfa/models/swatches/enerjik-sari.jpg" alt="Enerjik Sarı">
+              </button>
+              <button class="color-btn js-carousel-btn" type="button" data-index="3">
                 <img src="../assets/images/capri/anasayfa/models/swatches/akik-siyah.jpg" alt="Akik Siyah">
               </button>
-
-              <!-- Manyetik Gri -->
-              <button class="color-btn" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/manyetik-gri/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/manyetik-gri/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/manyetik-gri/3.jpg"
-                data-alt="Capri Manyetik Gri">
+              <button class="color-btn js-carousel-btn" type="button" data-index="4">
                 <img src="../assets/images/capri/anasayfa/models/swatches/manyetik-gri.jpg" alt="Manyetik Gri">
               </button>
-
-              <!-- Buz Beyazı -->
-              <button class="color-btn" type="button"
-                data-image-1="../assets/images/capri/anasayfa/models/premium/buz-beyazi/1.jpg"
-                data-image-2="../assets/images/capri/anasayfa/models/premium/buz-beyazi/2.jpg"
-                data-image-3="../assets/images/capri/anasayfa/models/premium/buz-beyazi/3.jpg"
-                data-alt="Capri Buz Beyazı">
+              <button class="color-btn js-carousel-btn" type="button" data-index="5">
                 <img src="../assets/images/capri/anasayfa/models/swatches/buz-beyazi.jpg" alt="Buz Beyazı">
               </button>
             </div>
 
-            <div class="model-img-row">
-              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/1.jpg" alt="Capri Enerjik Sarı">
-              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/2.jpg" alt="Capri Enerjik Sarı">
-              <img class="model-img js-model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/3.jpg" alt="Capri Enerjik Sarı">
+            <div class="carousel js-carousel">
+              <div class="carousel__track js-carousel__track">
+                <div class="carousel__slide"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/dus-mavisi/yan.jpg" alt="Capri Düş Mavisi"></div>
+                <div class="carousel__slide"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/mercan-kirmizi/yan.jpg" alt="Capri Mercan Kırmızı"></div>
+                <div class="carousel__slide is-center"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/enerjik-sari/yan.jpg" alt="Capri Enerjik Sarı"></div>
+                <div class="carousel__slide"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/akik-siyah/yan.jpg" alt="Capri Akik Siyah"></div>
+                <div class="carousel__slide"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/manyetik-gri/yan.jpg" alt="Capri Manyetik Gri"></div>
+                <div class="carousel__slide"><img class="model-img" src="../assets/images/capri/anasayfa/models/premium/buz-beyazi/yan.jpg" alt="Capri Buz Beyazı"></div>
+              </div>
             </div>
           </article>
         </section>
@@ -146,7 +118,7 @@
 
           <div class="feature-banner__content">
             <div class="feature-pills">
-              <button type="button" class="pill active" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan.jpg" data-desc="Bağlantı ve eğlence sistemlerini<br>tek ekranda buluşturur.">14.6" SYNC Move</button>
+              <button type="button" class="pill active" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan.jpg" data-desc="Bağlantı ve eğlence sistemlerini<br>tek ekranda buluşturur.">14.6" SYNC® Move</button>
               <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg" data-desc="Gece sürüşlerinde yolu akıllıca aydınlatır,<br>konfor ve görüşü artırır.">Matrix LED Farlar</button>
               <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-agr-masajli-koltuklar.jpg" data-desc="Ergonomik tasarımı ve masaj fonksiyonu ile<br>uzun yolculuklarda konfor sunar.">AGR Masajlı Koltuklar</button>
               <button type="button" class="pill" data-image="../assets/images/capri/anasayfa/featured/anasayfa-one-cikan-557-km-menzil.jpg" data-desc="Tek şarjla uzun mesafeleri özgürce kat edin,<br>yolculuğun keyfini çıkarın.">557 km Menzil</button>
