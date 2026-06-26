@@ -26,6 +26,38 @@ function crossfade(img, src, onUpdate) {
 	}, 120);
 }
 
+// === GOOGLE TAG MANAGER / dataLayer ===
+// GTM head snippet'i window.dataLayer'ı zaten tanımlar; burada güvenli fallback.
+// Model adı sayfadan <body data-gtm-model="..."> ile okunur (araç sayfası başına tek satır).
+window.dataLayer = window.dataLayer || [];
+
+// data-tab değeri → insan-okur etiket. DOM'da sekme etiketleri BÜYÜK harf
+// ("İÇ TASARIM"); yönerge örnekleriyle ("İç Tasarım") uyum için bunu kullanırız.
+const GTM_TAB_LABELS = {
+	'anasayfa': 'Anasayfa',
+	'ic-tasarim': 'İç Tasarım',
+	'dis-tasarim': 'Dış Tasarım',
+	'teknoloji': 'Teknoloji'
+};
+
+function gtmTabLabel(tabEl) {
+	if (!tabEl) return '';
+	return GTM_TAB_LABELS[tabEl.dataset.tab] || (tabEl.textContent || '').trim();
+}
+
+function gtmModel() {
+	return (document.body && document.body.dataset.gtmModel) || '';
+}
+
+function gtmPush(eventName, buttonName) {
+	window.dataLayer.push({
+		'event': 'ga4_event',
+		'event_name': eventName,
+		'model': gtmModel(),
+		'button_name': buttonName
+	});
+}
+
 // === TAB SWITCHING ===
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.tab-panel');
@@ -52,7 +84,10 @@ function activateTab(tab) {
 }
 
 tabs.forEach(tab => {
-	tab.addEventListener('click', () => activateTab(tab));
+	tab.addEventListener('click', () => {
+		gtmPush('kiosk_arac_menu_secimi', gtmTabLabel(tab));
+		activateTab(tab);
+	});
 });
 
 // Hero görsellerini ön yükle — tab geçişinde yeni görsel anlık gelsin, eski yanıp gelmesin
@@ -180,6 +215,7 @@ document.querySelectorAll('.js-carousel').forEach(carousel => {
 // === FEATURE PILLS ===
 document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 	pill.addEventListener('click', () => {
+		gtmPush('kiosk_arac_banner_click', pill.textContent.trim());
 		const group = pill.closest('.feature-pills');
 		group.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
 		pill.classList.add('active');
@@ -267,6 +303,9 @@ if (page) {
 	// Trigger: Teknik Brosur
 	document.querySelectorAll('.brochure-btn').forEach(btn => {
 		btn.addEventListener('click', () => {
+			const panel = btn.closest('.tab-panel');
+			const key = panel ? panel.id.replace(/^tab-/, '') : '';
+			gtmPush('kiosk_arac_teknik_brosür', GTM_TAB_LABELS[key] || '');
 			const qrSrc = btn.dataset.qr;
 			brochurePopup.querySelector('.popup-body').innerHTML = `
 				<p class="popup-brochure-text">Teknik broşüre erişmek için<br>QR kodu okutun</p>
