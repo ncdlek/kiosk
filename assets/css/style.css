@@ -365,6 +365,7 @@ button, a { font: inherit; }
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	transition: opacity 0.12s ease;
 }
 
 .feature-banner__content {

@@ -1,29 +1,37 @@
 // === CROSSFADE HELPER ===
-// Fades `img` out, swaps its src (and runs onUpdate) at the midpoint, then
-// fades back in. A per-element token guards against re-entrancy: if a newer
-// click arrives before the swap fires, the stale swap is discarded.
+// Fades `img` out, swaps its src (and runs onUpdate), then fades back in.
+// Yeni görsel fade-out ile PARALEL yüklenir; takas, "fade orta noktası" VE
+// "görsel yüklendi" koşullarının İKİSİ de sağlanınca (hangisi geç olursa) yapılır.
+// A per-element token guards against re-entrancy: if a newer click arrives
+// before the swap fires, the stale swap is discarded.
+const FADE_MIDPOINT_MS = 80; // fade-out'ın orta noktası; eskiden 120ms'di
 function crossfade(img, src, onUpdate) {
 	if (!img || !src) return;
 	img.dataset.fadeToken = String((Number(img.dataset.fadeToken) || 0) + 1);
 	const token = img.dataset.fadeToken;
 	img.style.opacity = '0';
-	setTimeout(() => {
+
+	let loaded = false;          // yeni görsel yüklemesi tamamlandı mı
+	let midpointPassed = false;  // fade-out orta noktası geçildi mi
+	const reveal = () => {
 		if (img.dataset.fadeToken !== token) return;
-		// Yeni görseli ARKA PLANDA yükleyip onload'ta değiştir + göster.
-		// src'yi atar atmaz opacity=1 yaparsak, yeni görsel yüklenene kadar
-		// tarayıcı ESKİ bitmap'i gösterir → "eski görsel yanıp gelir" hatası.
-		// (Cache'te ise onload anında tetiklenir.)
-		const reveal = () => {
-			if (img.dataset.fadeToken !== token) return;
-			img.src = src;
-			if (onUpdate) onUpdate();
-			img.style.opacity = '1';
-		};
-		const pre = new Image();
-		pre.onload = reveal;
-		pre.onerror = reveal;
-		pre.src = src;
-	}, 120);
+		if (!(loaded && midpointPassed)) return; // ikisi de hazır değilse bekle
+		// src'yi burada atıyoruz: onload olmadan atarsak tarayıcı yüklenene kadar
+		// ESKİ bitmap'i gösterir → "eski görsel yanıp gelir" hatası. (Cache'ten anlık.)
+		img.src = src;
+		if (onUpdate) onUpdate();
+		img.style.opacity = '1';
+	};
+
+	// Yeni görseli TIKLAMA ANINDA yüklemeye başla (fade-out ile paralel).
+	// Eskiden bu yükleme 120ms'lik setTimeout'un içindeydi, yani gecikmeli başlardı.
+	const pre = new Image();
+	pre.onload = () => { loaded = true; reveal(); };
+	pre.onerror = () => { loaded = true; reveal(); };
+	pre.src = src;
+
+	// Fade-out'ın orta noktasını bekle, sonra (yüklenmişse) takas et.
+	setTimeout(() => { midpointPassed = true; reveal(); }, FADE_MIDPOINT_MS);
 }
 
 // === GOOGLE TAG MANAGER / dataLayer ===
@@ -93,6 +101,13 @@ tabs.forEach(tab => {
 // Hero görsellerini ön yükle — tab geçişinde yeni görsel anlık gelsin, eski yanıp gelmesin
 tabs.forEach(tab => {
 	const s = tab.dataset.heroImage;
+	if (s) { const p = new Image(); p.src = s; }
+});
+
+// Featured pill görsellerini ön yükle — pill tıklamasında görsel anlık gelsin.
+// (Kiosk tek sefer yüklenip bütün gün çalışır; ek bant genişliği ihmal edilebilir.)
+document.querySelectorAll('.feature-pills .pill').forEach(pill => {
+	const s = pill.dataset.image;
 	if (s) { const p = new Image(); p.src = s; }
 });
 
