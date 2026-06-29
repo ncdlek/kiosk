@@ -736,6 +736,8 @@ button, a { font: inherit; }
 	font-weight: 600;
 	line-height: normal;
 }
+.co2-value .seg-a { color: #BDB700; }
+.co2-value .seg-b { color: #D99400; }
 
 .brochure-btn {
 	-webkit-appearance: none;
