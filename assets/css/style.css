@@ -879,9 +879,11 @@ button, a { font: inherit; }
 	max-width: 1500px;
 }
 .emission-grid--single {
-	grid-template-columns: 1fr;
+	display: flex;
+	justify-content: center;
 	max-width: 620px;
 }
+
 .emission-col {
 	display: flex;
 	flex-direction: column;
