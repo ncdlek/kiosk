@@ -856,7 +856,7 @@ button, a { font: inherit; }
 /* === EMISSION POPUP === */
 .popup-overlay--emission .popup-body {
 	background: #fff;
-	padding: 60px;
+	padding: 100px 60px 60px;
 }
 
 .popup-emission-img {
@@ -865,3 +865,87 @@ button, a { font: inherit; }
 	object-fit: contain;
 	border-radius: 12px;
 }
+
+/* === EMISSION POPUP: çok paketli düzen === */
+.emission-grid {
+	width: 100%;
+	display: grid;
+	gap: 50px;
+	flex: 1;
+	min-height: 0;
+}
+.emission-grid--dual {
+	grid-template-columns: 1fr 1fr;
+	max-width: 1500px;
+}
+.emission-grid--single {
+	grid-template-columns: 1fr;
+	max-width: 620px;
+}
+.emission-col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 28px;
+	min-height: 0;
+	overflow-y: auto;
+	padding: 0 8px;
+}
+.emission-model-name {
+	margin: 0;
+	color: var(--dark-blue);
+	font-family: "FordF1";
+	font-size: 32px;
+	font-weight: 600;
+	font-style: normal;
+	line-height: normal;
+	text-align: left;
+}
+.emission-img {
+	max-width: 100%;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+.emission-info {
+	width: 100%;
+	max-width: 420px;
+	text-align: left;
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+.emission-heading {
+	margin: 0;
+	color: #00095B;
+	font-family: "FordF1";
+	font-size: 20px;
+	font-weight: 600;
+	line-height: normal;
+}
+.emission-text {
+	margin: 0;
+	color: #00095B;
+	font-family: "FordF1";
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 26px;
+}
+.emission-value {
+	margin: 0;
+	color: #00095B;
+	font-family: "FordF1";
+	font-size: 17px;
+	font-weight: 700;
+	line-height: normal;
+}
+.emission-legal {
+	margin: 0;
+	color: #6D6D6D;
+	font-family: "FordF1";
+	font-size: 13px;
+	font-weight: 500;
+	line-height: 23px;
+}
+.emission-legal p { margin: 0 0 10px; }
+.emission-legal p:last-child { margin-bottom: 0; }

@@ -338,11 +338,10 @@ if (page) {
 	// Trigger: CO₂ Emisyon
 	document.querySelectorAll('.co2').forEach(co2 => {
 		const open = () => {
-			const emisyonSrc = co2.dataset.emisyon;
-			if (emisyonSrc) {
-				emissionPopup.querySelector('.popup-body').innerHTML =
-					`<img class="popup-emission-img" src="${emisyonSrc}" alt="CO₂ Emisyon Değerleri">`;
-			}
+			const body = emissionPopup.querySelector('.popup-body');
+			const tpl = document.getElementById('emission-popup-content');
+			body.innerHTML = '';
+			if (tpl) body.appendChild(tpl.content.cloneNode(true));
 			openPopup(emissionPopup);
 		};
 		co2.addEventListener('click', open);
