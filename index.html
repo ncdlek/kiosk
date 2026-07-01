@@ -2,12 +2,23 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NBTV9BQ');</script>
+  <!-- End Google Tag Manager -->
   <title>Ford Araç Seçimi</title>
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/vehicle-select.css">
 </head>
 
 <body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBTV9BQ"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div class="page vehicle-select-page">
 
     <header class="vs-header">
@@ -57,5 +68,27 @@
     </div>
 
   </div>
+
+  <script>
+    document.querySelectorAll('.vs-card').forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        var href = this.getAttribute('href');
+        var modelName = this.querySelector('h2').innerText.replace('®', '').trim();
+        
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          'event': 'ga4_event',
+          'event_name': 'kiosk_arac_secimi',
+          'model': modelName
+        });
+        
+        // GTM'in event'i göndermesi için kısa bir süre bekleyip yönlendirme yapıyoruz
+        setTimeout(function() {
+          window.location.href = href;
+        }, 150);
+      });
+    });
+  </script>
 </body>
 </html>
