@@ -349,6 +349,79 @@ button, a { font: inherit; }
 	text-align: center;
 }
 
+/* === SPECS — DUAL VARIANT (v2 / "ikili") =====================================
+   İki menzil satırı (standart / uzun) + sütun başlıkları + ince silik ayırıcı.
+   Yeniden kullanılabilir: başka araçlara da uygulanabilir. Mevcut .specs kurallarını
+   etkilemez — sadece .specs--dual ile birlikte kullanıldığında devreye girer. */
+.specs-section--dual { margin-top: 20px; } /* sayfa yüksekliğini korumak için üst boşluk kısıldı */
+
+.specs--dual {
+	display: block;   /* taban .specs'in 4 sütunlu grid'ini sıfırla; satırlar kendi grid'leriyle dizilsin */
+	gap: 0;
+	text-align: left;
+}
+
+.specs--dual__head,
+.specs--dual__row {
+	display: grid;
+	grid-template-columns: 130px repeat(4, 1fr);
+	align-items: center;
+	column-gap: 16px;
+}
+
+.specs--dual__head { margin-bottom: 8px; }
+.specs--dual__row { padding: 2px 0; }
+
+/* Sütun başlıkları: 12px / Medium(500) */
+.specs--dual .spec-label {
+	margin-bottom: 0;
+	text-align: left;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: 0;
+}
+
+/* Sol etiket (standart / uzun menzil): 13px / Semibold(600) */
+.specs--dual__row-label {
+	font-family: "FordF1";
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: 0;
+	color: var(--dark-blue);
+	text-align: left;
+}
+
+/* Değerler: 20px / Medium(500), sola hizalı */
+.specs--dual .spec-value {
+	text-align: left;
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: 0;
+}
+
+/* Değer içindeki birim (km, dakika, kW, PS, Nm): sayılardan küçük, 11px / Medium(500) */
+.specs--dual .spec-value .unit {
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1;
+	letter-spacing: 0;
+}
+
+/* "/" ayırıcı (figma: 18.49px) */
+.specs--dual .spec-value .sep {
+	font-size: 18.5px;
+}
+
+/* İnce silik ayırıcı çizgi (figma: border: 0.64px solid #00000029) */
+.specs--dual__divider {
+	border: 0;
+	border-top: 0.64px solid #00000029;
+	margin: 12px 0;
+}
+
 /* === FEATURE BANNER === */
 .feature-banner {
 	position: relative;
