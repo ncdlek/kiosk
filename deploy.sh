@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
-# Doğrula → push et → deploy'u tetikle → sonucu bekle.
+# Doğrula → push et → deploy'u izle.
 #
-# `on: push` tetikleyicisi bu repoda çalışmıyor (sebebi tespit edilemedi),
-# bu yüzden deploy elle tetikleniyor. Bu betik iki adımı birleştirip
-# tetiklemenin unutulmasını engeller.
+# Push normalde iş akışını kendisi tetikler. Tetiklemezse bu betik elle
+# tetikler. Her iki durumda da PUSH EDİLEN COMMIT'in çalışması izlenir —
+# "en son çalışma"ya bakmak yanlış, çünkü araya başka bir çalışma girebilir.
 #
 #   ./deploy.sh
 
@@ -20,41 +20,64 @@ if [ "$BRANCH" != "main" ]; then
   exit 1
 fi
 
-# 1) Veriyi doğrula — bozuksa push bile etme.
-echo "▸ Doğrulanıyor"
-node build.js --check
-
-# 2) Commit'lenmemiş değişiklik varsa uyar.
 if ! git diff --quiet || ! git diff --cached --quiet; then
   echo "✗ Commit'lenmemiş değişiklik var. Önce commit'leyin:"
   git status --short
   exit 1
 fi
 
-# 3) Push (zaten güncelse git kendisi 'Everything up-to-date' der).
+echo "▸ Doğrulanıyor"
+node build.js --check
+
 echo "▸ Push ediliyor"
 git push origin main
+SHA=$(git rev-parse HEAD)
+echo "  $SHA"
 
-# 4) Deploy'u tetikle.
-echo "▸ Deploy tetikleniyor"
-gh workflow run deploy.yml --ref main
+# Bu commit için bir çalışma var mı? Push tetikleyicisi çalışıyorsa birkaç
+# saniyede belirir.
+run_for_sha() {
+  gh api "repos/{owner}/{repo}/actions/workflows/deploy.yml/runs?per_page=20" \
+    --jq "[.workflow_runs[] | select(.head_sha == \"$SHA\")] | first | .id // empty" 2>/dev/null || true
+}
 
-# Çalışmanın kaydedilmesi bir iki saniye sürüyor.
 echo "▸ Çalışma bekleniyor"
 RUN_ID=""
-for _ in $(seq 1 15); do
-  sleep 2
-  RUN_ID=$(gh run list --workflow=deploy.yml --limit 1 --json databaseId --jq '.[0].databaseId' 2>/dev/null || true)
-  [ -n "$RUN_ID" ] && break
+for _ in $(seq 1 6); do
+  sleep 3
+  RUN_ID=$(run_for_sha)
+  [ -n "$RUN_ID" ] && { echo "  push tetikledi"; break; }
 done
 
+# Tetiklenmediyse elle tetikle.
 if [ -z "$RUN_ID" ]; then
-  echo "! Çalışma bulunamadı. Actions sekmesinden kontrol edin."
+  echo "  push tetiklemedi, elle tetikleniyor"
+  gh workflow run deploy.yml --ref main
+  for _ in $(seq 1 15); do
+    sleep 3
+    RUN_ID=$(run_for_sha)
+    [ -n "$RUN_ID" ] && break
+  done
+fi
+
+if [ -z "$RUN_ID" ]; then
+  echo "✗ $SHA için çalışma bulunamadı. Actions sekmesinden kontrol edin."
   exit 1
 fi
 
-# 5) Sonucu bekle. Build kırılırsa exit-status sıfırdan farklı döner.
-gh run watch "$RUN_ID" --exit-status --interval 5
+echo "  https://github.com/ncdlek/kiosk/actions/runs/$RUN_ID"
+
+# gh run watch iptal edilen çalışmalarda güvenilir bir çıkış kodu vermiyor;
+# sonucu bittikten sonra kendimiz okuyoruz.
+gh run watch "$RUN_ID" --interval 5 >/dev/null 2>&1 || true
+
+CONCLUSION=$(gh api "repos/{owner}/{repo}/actions/runs/$RUN_ID" --jq .conclusion)
+if [ "$CONCLUSION" != "success" ]; then
+  echo
+  echo "✗ Deploy başarısız: $CONCLUSION"
+  echo "  https://github.com/ncdlek/kiosk/actions/runs/$RUN_ID"
+  exit 1
+fi
 
 echo
 echo "✓ Yayında: https://ncdlek.github.io/kiosk/"

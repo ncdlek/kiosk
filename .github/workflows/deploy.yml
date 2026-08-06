@@ -18,11 +18,13 @@ permissions:
   pages: write
   id-token: write
 
-# Arka arkaya iki push gelirse ikincisi birincisini iptal etsin —
-# yarım kalan bir deploy'un üstüne yenisi binmesin.
+# Aynı anda tek deploy. cancel-in-progress KAPALI olmalı: açıkken devam eden
+# çalışma iptal edilir ve hayatta kalanın hangi commit'i build ettiği sıraya
+# bağlı olur — eski içeriğin yeniyi ezmesi mümkün. Kapalıyken çalışmalar
+# sıraya girer ve son push en son yayınlanır.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   deploy:
