@@ -65,9 +65,26 @@ function prefixAssets(value, prefix) {
 
 // -------------------------------------------------------------- doğrulama
 
+// Kıvrık tırnaklar sayfalar arasında karışık kullanılıyordu (aynı cümlede
+// bile). Kuralı README'de anlatmak yerine burada zorunlu kılıyoruz —
+// yazım tutarlılığı dikkate değil, build'e bağlı olsun.
+const CURLY = { '‘': "'", '’': "'", '“': '"', '”': '"' };
+
+function checkTypography(data, file, fail) {
+	walkStrings(data, (s, where) => {
+		for (const [curly, straight] of Object.entries(CURLY)) {
+			if (s.includes(curly)) {
+				fail(file, `${where}: kıvrık ${curly} yerine düz ${straight} kullanılmalı — ${s.slice(0, 60)}`);
+			}
+		}
+	});
+}
+
 function validate(vehicles, shared) {
 	const errors = [];
 	const fail = (file, msg) => errors.push(`${file}: ${msg}`);
+
+	checkTypography(shared, 'data/shared.json', fail);
 
 	for (const v of vehicles) {
 		const file = `data/${v.slug}.json`;
@@ -146,6 +163,9 @@ function validate(vehicles, shared) {
 			if (!s.startsWith('assets/')) return;
 			if (!fs.existsSync(path.join(ROOT, s))) fail(file, `görsel bulunamadı: ${s} (${where})`);
 		});
+
+		// 6) Tipografi tekliği
+		checkTypography(v, file, fail);
 	}
 
 	return errors;

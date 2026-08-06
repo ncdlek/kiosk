@@ -1,80 +1,100 @@
 # Ford Bayi Kiosk
 
-Bayi showroom'larındaki dokunmatik kiosk sitesi. Statik; GitHub Pages'te yayınlanıyor.
+Ford bayi showroom'larındaki dokunmatik kiosk uygulaması. Üç araç modelini (Puma, Explorer, Capri) dört sekmede tanıtır: Anasayfa, İç Tasarım, Dış Tasarım, Teknoloji.
 
-**https://ncdlek.github.io/kiosk/**
+**Canlı:** https://ncdlek.github.io/kiosk/
 
-## Nasıl çalışıyor
-
-HTML elle yazılmıyor, **üretiliyor**:
+Statik site; sunucu, veritabanı veya npm bağımlılığı yok. HTML elle yazılmaz, JSON verisinden üretilir.
 
 ```
-data/*.json  +  src/*.js   →   build.js   →   dist/
+data/*.json  +  src/*.js  ──▶  build.js  ──▶  dist/
 ```
 
-- `data/` — tek gerçek kaynak. Fiyatlar, opsiyonlar, metinler, görsel yolları.
-- `src/` — şablonlar. Her HTML bloğu için bir saf fonksiyon.
-- `dist/` — üretilen site. **Commit'lenmiyor** (`.gitignore`), her build'de sıfırdan yazılıyor.
+## Gereksinimler
 
-`assets/css/style.css` ve `assets/js/script.js` bu yapının dışında; olduğu gibi kopyalanıyorlar.
+- Node.js 18+
+- Python 3 (yalnızca yerel önizleme için)
 
-> `dist/` içindeki dosyaları düzenlemeyin — bir sonraki build'de silinir.
+## Kullanım
 
-## Fiyat / metin güncelleme
+```bash
+node build.js                                        # dist/ üret
+node build.js --check                                # yalnızca veriyi doğrula
+python3 -m http.server 8791 --directory dist         # http://localhost:8791
+```
 
-İlgili aracın JSON'unu düzenleyip push edin. Fiyatlar **sayı** olarak yazılır, `TL` ve binlik ayırıcı build sırasında eklenir:
+## Proje yapısı
+
+| Yol | Açıklama |
+|---|---|
+| `data/shared.json` | Araçlar arası ortak içerik: sekme etiketleri, bölüm başlıkları, donanım etiketleri, emisyon yasal metni |
+| `data/<slug>.json` | Araca ait tüm içerik: fiyatlar, opsiyonlar, renkler, teknik veriler |
+| `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
+| `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
+| `src/vehicle-page.js` | Araç sayfası şablonu |
+| `src/index-page.js` | Araç seçim ekranı şablonu |
+| `build.js` | Doğrulama ve üretim |
+| `tools/compare.js` | İki HTML dosyasını normalize edip karşılaştırır |
+| `assets/` | CSS, JS, font, görseller — olduğu gibi kopyalanır |
+| `dist/` | Üretilen site. Sürüm kontrolünde değil, her build'de sıfırdan yazılır |
+
+`assets/css/style.css` ve `assets/js/script.js` şablon sisteminin dışındadır.
+
+> `dist/` içindeki dosyalar bir sonraki build'de silinir. Değişiklikler `data/` ve `src/` üzerinde yapılır.
+
+## İçerik güncelleme
+
+### Fiyat ve metin
+
+İlgili aracın JSON dosyası düzenlenir. Fiyatlar sayı olarak tutulur; binlik ayırıcı ve `TL` eki build sırasında eklenir.
 
 ```jsonc
-// data/capri.json
-"isi-pompasi": {
-  "title": "Isı Pompası",
-  "price": 139600,           // → "139.600 TL"
-  "packages": "Premium"
+{
+  "startingPrice": 3211600,        // "3.211.600 TL'den başlayan fiyatlarla*"
+
+  "options": {
+    "isi-pompasi": {
+      "title": "Isı Pompası",
+      "price": 139600,             // "139.600 TL"
+      "packages": "Premium"
+    },
+    "metalik-renk": {
+      "price": [12700, 32400]      // "12.700 TL - 32.400 TL"
+    }
+  }
 }
-
-"price": [12700, 32400]      // → "12.700 TL - 32.400 TL"
-"startingPrice": 3211600     // → "3.211.600 TL'den başlayan fiyatlarla*"
 ```
 
-Bir opsiyon **bir kez** tanımlanır, sekmeler `id` ile referans verir. Yani bir fiyatı değiştirmek tek satır — anasayfa, iç tasarım, dış tasarım ve araç seçim ekranı birlikte güncellenir.
+Opsiyonlar bir kez tanımlanır; sekmeler `id` ile referans verir. Bir fiyatın değiştirilmesi tek satırlık işlemdir ve aracın tüm sekmeleriyle araç seçim ekranını birlikte günceller.
 
-## Yeni araç ekleme
+### Yeni araç
 
-1. `data/<slug>.json` oluşturun (en yakın aracı kopyalayıp düzenlemek en hızlısı)
-2. Görselleri `assets/images/<slug>/` altına koyun
-3. `data/shared.json` içindeki `vehicles` listesine slug'ı ekleyin — sıra, araç seçim ekranındaki sıradır
+1. `data/<slug>.json` oluşturun — mevcut bir araç dosyasını kopyalamak en pratiği
+2. Görselleri `assets/images/<slug>/` altına yerleştirin
+3. `data/shared.json` içindeki `vehicles` dizisine `<slug>` ekleyin
 
-Araç sayfası ve seçim ekranı kartı otomatik üretilir.
+Dizideki sıra, araç seçim ekranındaki kart sırasıdır. Araç sayfası ve seçim kartı otomatik üretilir.
 
-## Yerel önizleme
+### Ortak içerik ve etiketler
 
-```bash
-node build.js && python3 -m http.server 8791 --directory dist
-```
+Araçlar arası tekrar eden metinler `data/shared.json` içindedir. Bir aracın farklılaşması gerekirse kendi dosyasında aynı alanı tanımlayarak ortak değeri ezer.
 
-Sonra http://localhost:8791/ — Node dışında bir şey gerekmiyor, `npm install` yok.
-
-Yalnızca veriyi denetlemek için:
-
-```bash
-node build.js --check
-```
+Donanım etiketleri varsayılan/istisna mantığıyla çalışır: kartların çoğu etiket alanı taşımaz ve aracın `defaultTag` değerini alır. Farklı olan kart `tag` (sözlük anahtarı) veya `note` (serbest metin) belirtir.
 
 ## Doğrulama
 
-`build.js` üretmeden önce veriyi denetler. Hata bulursa **build durur ve `dist/` yazılmaz** — yani bozuk veri yayına çıkmaz, site son sağlam sürümde kalır.
+`build.js` üretimden önce veriyi denetler. Hata bulunursa build durur ve `dist/` yazılmaz.
 
-Yakalananlar:
-
-| Kontrol | Engellediği |
+| Kontrol | Engellediği hata |
 |---|---|
-| Sekmedeki her opsiyon id'si tanımlı mı | Sessizce kaybolan opsiyon kartı |
-| Referans edilen her görsel diskte var mı | Kioskta kırık görsel |
-| `price` sayı ya da `[sayı, sayı]` mı | `"139.600 TL"` string'inin geri sızması |
-| Etiket anahtarı `shared.json`'da var mı | Yazım kayması |
-| Zorunlu alanlar dolu mu | Yarım sayfa |
+| Sekmedeki opsiyon id'leri tanımlı mı | Sessizce kaybolan opsiyon kartı |
+| Referans edilen görseller diskte var mı | Kırık görsel |
+| `price` sayı veya `[sayı, sayı]` mı | Biçimlendirilmiş fiyat string'i |
+| Etiket anahtarı sözlükte var mı | Tutarsız donanım etiketi |
+| Metinler düz tırnak kullanıyor mu | Karışık tipografi |
+| Zorunlu alanlar dolu mu | Eksik içerikli sayfa |
 
-Hata mesajı dosya ve alan adını verir:
+Hata çıktısı dosya ve alan adı verir:
 
 ```
 ✗ Doğrulama başarısız — 1 hata:
@@ -86,22 +106,10 @@ dist/ yazılmadı, deploy olmayacak.
 
 ## Deploy
 
-`main`'e push → GitHub Actions `node build.js` çalıştırır → `dist/` Pages'e gider.
-(Pages kaynağı: Settings → Pages → Source = **GitHub Actions**.)
+`main` dalına yapılan push, GitHub Actions üzerinden `node build.js` çalıştırır ve `dist/` dizinini GitHub Pages'e yayınlar (`.github/workflows/deploy.yml`).
 
-Build kırmızıya dönerse deploy olmaz. Push'tan sonra Actions sekmesine bakma alışkanlığı gerekiyor.
+Doğrulama başarısız olursa iş kırmızıya döner ve yayın yapılmaz; site son başarılı sürümde kalır. Push sonrası Actions sekmesinin kontrol edilmesi önerilir.
 
-Elle tetikleme: Actions → Deploy → Run workflow.
+Elle tetikleme: **Actions → Deploy → Run workflow**
 
-## Ortak içerik
-
-`data/shared.json` araçlar arası tekrar eden her şeyi tutar — sekme etiketleri, bölüm başlıkları, donanım etiketleri, CO₂ emisyon yasal metni, fiyat dipnotu. Bir aracın farklılaşması gerekirse kendi dosyasında aynı alanı tanımlayıp ezer.
-
-Donanım etiketleri varsayılan + istisna mantığıyla çalışır: kartların çoğu etiket alanı taşımaz, aracın `defaultTag`'ini alır; farklı olan kart `tag` (sözlükten) ya da `note` (serbest metin) yazar.
-
-## Yazım standardı
-
-Build çıktısı tutarlılığı garanti eder, ama JSON'a girerken dikkat:
-
-- Kesme işareti **düz** `'` — `TL'den`, `Premium'da` (kıvrık `'` kullanmayın)
-- Çift tırnak **düz** `"` — `14.6" SYNC Move` (JSON içinde `\"` olarak kaçırılır)
+Pages yapılandırması: **Settings → Pages → Source = GitHub Actions**
