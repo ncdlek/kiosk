@@ -1,0 +1,45 @@
+{
+  "gtmId": "GTM-NBTV9BQ",
+
+  "//vehicles": "Üretilecek araçlar ve index.html'deki sıraları. Yeni araç: data/<slug>.json + buraya bir satır.",
+  "vehicles": ["puma", "explorer", "capri"],
+
+  "indexTitle": "Ford Araç Seçimi",
+  "indexHeading": "Araç Seçin",
+  "indexSubheading": "Tanıtımını görmek istediğiniz aracı seçin",
+
+  "disclaimer": "* Anahtar teslim fiyatıdır",
+
+  "tabs": [
+    { "id": "anasayfa",    "label": "ANASAYFA" },
+    { "id": "ic-tasarim",  "label": "İÇ TASARIM" },
+    { "id": "dis-tasarim", "label": "DIŞ TASARIM" },
+    { "id": "teknoloji",   "label": "TEKNOLOJİ" }
+  ],
+
+  "sectionTitles": {
+    "options": "OPSİYONLAR",
+    "other": "DİĞER ÖZELLİKLER",
+    "connected": "BAĞLANTILI TEKNOLOJİLER",
+    "next-gen": "YENİ NESİL BAĞLANMA SEÇENEKLERİ"
+  },
+
+  "tags": {
+    "standart": "Standart donanım",
+    "tum-donanim": "Tüm donanımlarda standart",
+    "donanima-gore": "Donanıma göre değişebilir",
+    "surus-destek": "Sürüş Destek Paketi ile",
+    "premium-standart": "Premium'da standart",
+    "stlinex-standart": "ST-Line X'te standart"
+  },
+
+  "emissionHeading": "Çevresel Bilgi",
+
+  "emissionText": "Bir otomobilin yakıt tüketimi ve CO₂ emisyonunun belirlenmesinde, otomobilin yakıt verimliliğinin yanı sıra araç sürme alışkanlığı gibi diğer teknik olmayan faktörler de önemli rol oynar. CO₂, küresel ısınmaya neden olan en önemli sera gazıdır.",
+
+  "emissionLegal": [
+    "Tüm yakıt ekonomisi, elektrik tüketimi, elektrikli mesafe ve emisyon değerleri WLTP laboratuvarından ve bu araca özgüdür. Bu değerler, ideal şartlarda ulaşılabilecek değerler için gerçekçi ve güvenilir bir bulgu sunmaktadır. Fakat hiçbir test, gerçek dünya sürüş şartlarını ve davranışlarını tamamı ile yansıtamayacağından, her zaman farklılıklar olacaktır.",
+    "Yeni binek otomobil modelleri için yakıt ekonomisi ve CO₂ emisyonu ile ilgili verileri içeren kılavuzlar, satış noktalarında ücretsiz olarak bulundurulur.",
+    "Önemli Not: Bu markanın/modelin bazı varyasyonları daha düşük CO₂ emisyonu değerine sahip olabilir. Satıcınızdan bilgi alınız."
+  ]
+}

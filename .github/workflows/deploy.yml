@@ -1,0 +1,55 @@
+name: Deploy
+
+# Tek iş: veriden HTML üret, dist/'i GitHub Pages'e yolla.
+# npm install adımı yok — proje sıfır bağımlılıklı, `node build.js` yeter.
+#
+# TEK SEFERLİK AYAR: repo Settings → Pages → Source = "GitHub Actions"
+# (bugün "Deploy from a branch"). Bu yapılmadan workflow çalışır ama
+# yayına çıkmaz.
+
+on:
+  push:
+    branches: [main]
+  # Elle tetikleme: veri değişmeden yeniden yayınlamak gerekirse.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Arka arkaya iki push gelirse ikincisi birincisini iptal etsin —
+# yarım kalan bir deploy'un üstüne yenisi binmesin.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Doğrulama build'in içinde: eksik görsel, tanımsız opsiyon, string
+      # fiyat vb. bulunursa `node build.js` çıkış kodu 1 döner ve iş burada
+      # kırmızıya döner. dist/ yazılmadığı için deploy adımlarına geçilmez;
+      # site son sağlam sürümde kalır.
+      - name: Build
+        run: node build.js
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

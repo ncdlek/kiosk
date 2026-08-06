@@ -1,0 +1,334 @@
+{
+  "slug": "explorer",
+  "name": "Ford Explorer®",
+  "shortName": "Explorer",
+  "heroAlt": "Yeni Ford Explorer",
+  "pageTitle": "Ford Explorer Tasarım",
+  "gtmModel": "Yeni Ford Explorer",
+  "startingPrice": 2232300,
+  "meta": "Select & Premium Elektrikli SUV Seçenekleri",
+
+  "co2": "(A) 0 g/km",
+  "emissionImage": "assets/images/explorer/popup/emisyon.jpg",
+  "qrImage": "assets/images/explorer/popup/qr.jpg",
+  "emission": [
+    { "package": "Select",  "image": "assets/images/explorer/popup/emisyon-select.jpg",  "value": "0 g/km" },
+    { "package": "Premium", "image": "assets/images/explorer/popup/emisyon-premium.jpg", "value": "0 g/km" }
+  ],
+
+  "defaultTag": "tum-donanim",
+
+  "models": {
+    "layout": "switcher",
+    "packages": [
+      {
+        "name": "Select",
+        "activeColor": 0,
+        "colors": [
+          { "label": "Kutup Mavisi",   "swatch": "assets/images/explorer/anasayfa/models/swatches/kutup-mavisi.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-kutup-mavisi.jpg" },
+          { "label": "Buz Beyazı",     "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-buz-beyazi.jpg" },
+          { "label": "Manyetik Gri",   "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-manyetik-gri.jpg" },
+          { "label": "Akik Siyah",     "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-akik-siyah.jpg" },
+          { "label": "Mercan Kırmızı", "swatch": "assets/images/explorer/anasayfa/models/swatches/mercan-kirmizi.jpg", "image": "assets/images/explorer/anasayfa/models/select/explorer-select-mercan-kirmizi.jpg" },
+          { "label": "Düş Mavisi",     "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-dus-mavisi.jpg" }
+        ]
+      },
+      {
+        "name": "Premium",
+        "activeColor": 4,
+        "colors": [
+          { "label": "Kutup Mavisi", "swatch": "assets/images/explorer/anasayfa/models/swatches/kutup-mavisi.jpg", "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-kutup-mavisi.jpg" },
+          { "label": "Buz Beyazı",   "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-buz-beyazi.jpg" },
+          { "label": "Manyetik Gri", "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg", "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-manyetik-gri.jpg" },
+          { "label": "Akik Siyah",   "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-akik-siyah.jpg" },
+          { "label": "Düş Mavisi",   "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-dus-mavisi.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "//specs": "İki menzil satırlı düzen — plandaki tek yapısal istisna (.specs--dual).",
+  "specs": {
+    "layout": "dual",
+    "columns": [
+      "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+      "DC (%10-80) HIZLI ŞARJ SÜRESİ",
+      "GÜÇ (PS)",
+      "TORK"
+    ],
+    "rows": [
+      {
+        "label": "Standart Menzil:",
+        "values": [
+          [{ "n": "415 - 619", "u": "km" }],
+          [{ "n": "26", "u": "dakika" }],
+          [{ "n": "140", "u": "kW" }, { "n": "190", "u": "PS" }],
+          [{ "n": "350", "u": "Nm" }]
+        ]
+      },
+      {
+        "label": "Uzun Menzil:",
+        "values": [
+          [{ "n": "529 - 670", "u": "km" }],
+          [{ "n": "26", "u": "dakika" }],
+          [{ "n": "250", "u": "kW" }, { "n": "340", "u": "PS" }],
+          [{ "n": "679", "u": "Nm" }]
+        ]
+      }
+    ]
+  },
+
+  "featured": [
+    {
+      "title": "14.6\" SYNC Move",
+      "image": "assets/images/explorer/anasayfa/featured/anasayfa-one-cikan.jpg",
+      "desc": ["Akıllı bağlantı teknolojileri ile", "sürüş deneyimini ileri taşıyın."]
+    },
+    {
+      "title": "Matrix LED Farlar",
+      "image": "assets/images/explorer/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg",
+      "desc": ["Gelişmiş aydınlatma teknolojisiyle", "gece sürüşlerinde görüşünüzü artırın."]
+    },
+    {
+      "title": "Mega Orta Konsol",
+      "image": "assets/images/explorer/anasayfa/featured/anasayfa-one-cikan-mega-orta-konsol.jpg",
+      "desc": ["Esnek depolama alanlarıyla", "konforu ve düzeni bir arada yaşayın."]
+    },
+    {
+      "title": "Kablosuz Bağlantı",
+      "image": "assets/images/explorer/anasayfa/featured/anasayfa-one-cikan-kablosuz-baglanti.jpg",
+      "desc": ["Apple CarPlay® ve Android Auto® desteğiyle", "her an bağlantıda kal."]
+    }
+  ],
+
+  "options": {
+    "isi-pompasi": {
+      "title": "Isı Pompası",
+      "price": 112600,
+      "packages": "Select, Premium",
+      "badge": "* TÜM PAKETLERDE OPSİYONEL",
+      "desc": "Soğuk hava koşullarında batarya verimliliğini destekleyerek daha konforlu ve dengeli bir sürüş deneyimi sunar.",
+      "overlay": "light",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/isi-pompasi.jpg",
+        "ic-tasarim": "assets/images/explorer/ic-tasarim/options/isi-pompasi.jpg",
+        "dis-tasarim": "assets/images/explorer/dis-tasarim/options/isi-pompasi.jpg"
+      }
+    },
+    "surus-destek-select": {
+      "title": "Sürüş Destek Paketi",
+      "price": 107500,
+      "packages": "Select",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/surus-destek-select.jpg"
+      }
+    },
+    "surus-destek-premium": {
+      "title": "Sürüş Destek Paketi",
+      "price": 92100,
+      "packages": "Premium",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/surus-destek-premium.jpg"
+      }
+    },
+    "metalik-renk": {
+      "title": "Metalik ve Özel Gövde Renkleri",
+      "price": [10300, 25600],
+      "packages": "Select, Premium",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/metalik-govde-renkleri.jpg"
+      }
+    },
+    "bo-ses": {
+      "title": "B&O Ses Sistemi",
+      "price": 32700,
+      "packages": "Premium",
+      "badge": "* PREMIUM'DA OPSİYONEL, SELECT'TE YER ALMAZ",
+      "desc": "Gelişmiş hoparlör sistemi ile yolculuklarınıza güçlü, net ve premium bir ses deneyimi kazandırır.",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/ses-sistemi.jpg",
+        "ic-tasarim": "assets/images/explorer/ic-tasarim/options/ses-sistemi.jpg",
+        "dis-tasarim": "assets/images/explorer/dis-tasarim/options/ses-sistemi.jpg"
+      }
+    },
+    "jant-21": {
+      "title": "21\" Alüminyum Alaşımlı Jantlar",
+      "price": 25600,
+      "packages": "Select, Premium",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/21-alasim-jant.jpg"
+      }
+    }
+  },
+
+  "tabs": {
+    "anasayfa": {
+      "heroImage": "assets/images/explorer/anasayfa/hero/anasayfa.jpg",
+      "sections": [
+        { "type": "models" },
+        { "type": "specs" },
+        { "type": "featureBanner" },
+        {
+          "type": "homeOptions",
+          "titleKey": "options",
+          "layout": "compact",
+          "options": [
+            "isi-pompasi",
+            "surus-destek-select",
+            "metalik-renk",
+            "bo-ses",
+            "surus-destek-premium",
+            "jant-21"
+          ]
+        }
+      ]
+    },
+
+    "ic-tasarim": {
+      "heroImage": "assets/images/explorer/ic-tasarim/hero/ic-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM EXPLORER'LARDA STANDART",
+          "cards": [
+            {
+              "title": "14.6\" SYNC Move Ekran",
+              "image": "assets/images/explorer/ic-tasarim/standard/move-ekran.jpg",
+              "desc": "Akıllı ve sezgisel bağlantı deneyimi."
+            },
+            {
+              "title": "Mega Orta Konsol",
+              "image": "assets/images/explorer/ic-tasarim/standard/mega-orta-konsol.jpg",
+              "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı."
+            },
+            {
+              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
+              "desc": "Telefonunu kablosuz bağla, yolculuğu kesintisiz sürdür."
+            },
+            {
+              "title": "Seçilebilir Sürüş Modları",
+              "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg",
+              "desc": "Farklı sürüş modlarıyla her yol koşuluna uyum sağlar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["bo-ses", "isi-pompasi"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Isıtmalı Sensico® Direksiyon",       "image": "assets/images/explorer/ic-tasarim/other/isitmali-sensico-direksiyon.jpg", "tag": "donanima-gore" },
+            { "title": "5\" Dijital Gösterge Paneli",         "image": "assets/images/explorer/ic-tasarim/other/dijital-gosterge-paneli.jpg" },
+            { "title": "Bardak Tutacaklı Arka Kol Dayama",   "image": "assets/images/explorer/ic-tasarim/other/bardak-tutacakli-arka-kol-dayama.jpg", "tag": "premium-standart" },
+            { "title": "Elektrikli Hafızalı Sürücü Koltuğu", "image": "assets/images/explorer/ic-tasarim/other/elektrikli-hafizali-koltuk.jpg", "tag": "premium-standart" },
+            { "title": "Ambiyans Işıklandırma",              "image": "assets/images/explorer/ic-tasarim/other/ambiyans-aydinlatma.jpg", "tag": "premium-standart" },
+            { "title": "60/40 Katlanabilir Arka Koltuklar",  "image": "assets/images/explorer/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg" },
+            { "title": "2 Bölgeli Otomatik Klima",           "image": "assets/images/explorer/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg" },
+            { "title": "7 Hoparlörlü Ses Sistemi",           "image": "assets/images/explorer/ic-tasarim/other/7-hoparlorlu-ses-sistemi.jpg" }
+          ]
+        }
+      ]
+    },
+
+    "dis-tasarim": {
+      "heroImage": "assets/images/explorer/dis-tasarim/hero/dis-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "DIŞ TASARIM STANDARTLARI",
+          "cards": [
+            {
+              "title": "Otomatik Yanan Uzun Farlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/led-on-farlar.jpg",
+              "desc": "Modern görünüm ve güçlü aydınlatma."
+            },
+            {
+              "title": "LED Arka Farlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/led-arka-farlar.jpg",
+              "desc": "Şık tasarım ile yüksek görünürlük."
+            },
+            {
+              "title": "Karartılmış Arka Camlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/karartilmis-arka-camlar.jpg",
+              "desc": "Sportif ve premium görünüm."
+            },
+            {
+              "title": "Ön / Arka Park Sensörü",
+              "image": "assets/images/explorer/dis-tasarim/standard/on-arka-park-sensoru.jpg",
+              "desc": "Park manevralarında daha güvenli hareket etmeyi destekler."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["bo-ses", "isi-pompasi"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Logo Aydınlatmalı Yan Aynalar",   "image": "assets/images/explorer/dis-tasarim/other/logo-aydinlatmali-yan-aynalar.jpg", "tag": "premium-standart" },
+            { "title": "Akıllı Bagaj Kapağı",             "image": "assets/images/explorer/dis-tasarim/other/akilli-bagaj-kapagi.jpg", "tag": "donanima-gore" },
+            { "title": "Yağmur Sensörü",                  "image": "assets/images/explorer/dis-tasarim/other/yagmur-sensoru.jpg" },
+            { "title": "Elektrikli Katlanabilir Aynalar", "image": "assets/images/explorer/dis-tasarim/other/elektrikli-katlanabilir-aynalar.jpg", "tag": "donanima-gore" },
+            { "title": "Kapı Kolu Ambiyans Aydınlatma",   "image": "assets/images/explorer/dis-tasarim/other/kapi-kolu-ambiyans-andinlatma.jpg", "tag": "donanima-gore" },
+            { "title": "Panoramik Cam Tavan",             "image": "assets/images/explorer/dis-tasarim/other/panoramik-cam-tavan.jpg", "tag": "premium-standart" }
+          ]
+        }
+      ]
+    },
+
+    "teknoloji": {
+      "heroImage": "assets/images/explorer/teknoloji/hero/teknoloji.jpg",
+      "sections": [
+        {
+          "type": "techWide",
+          "titleKey": "connected",
+          "card": {
+            "title": "14.6\" SYNC Move™",
+            "image": "assets/images/explorer/teknoloji/connected/baglantili-teknolojiler.jpg",
+            "desc": ["Hareketli 14.6\" dokunmatik ekranıyla kişiselleştirilmiş ve", "sezgisel bir dijital sürüş deneyimi sunar."]
+          }
+        },
+        {
+          "type": "mediaCards",
+          "title": "DİJİTAL SÜRÜŞ DENEYİMİ",
+          "cards": [
+            {
+              "title": "5\" Dijital Gösterge Paneli",
+              "image": "assets/images/explorer/teknoloji/infotainment/gelismis-goz-hizasi-gosterge-paneli.jpg",
+              "desc": "Sürüş bilgilerini dijital ekran üzerinden sezgisel ve kolay okunabilir şekilde görüntüler."
+            },
+            {
+              "title": "Seçilebilir Sürüş Modları",
+              "image": "assets/images/explorer/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
+              "desc": "Normal, ECO, Sport, Individual ile uzun menzilli Traction modları her koşula uyum sağlar."
+            },
+            {
+              "title": "Kablosuz Apple CarPlay® ve Android Auto®",
+              "image": "assets/images/explorer/teknoloji/infotainment/kablosuz-apple-carplay-android-auto.jpg",
+              "desc": "Akıllı telefonunuzu kablosuz bağlayarak favori uygulamalarınıza kolayca erişin."
+            }
+          ]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "next-gen",
+          "features": [
+            { "title": "Adaptif Hız Sabitleyici", "image": "assets/images/explorer/teknoloji/advanced/adaptif-hiz-sabitleyici.jpg" },
+            { "title": "Kör Nokta Uyarı Sistemi", "image": "assets/images/explorer/teknoloji/advanced/kor-nokta-uyari-sistemi.jpg" },
+            { "title": "Aktif Park Asistanı",     "image": "assets/images/explorer/teknoloji/advanced/aktif-park-asistani.jpg", "tag": "surus-destek" },
+            { "title": "Şerit Takip Sistemi",     "image": "assets/images/explorer/teknoloji/advanced/serit-takip-sistemi.jpg" },
+            { "title": "360° Kamera",             "image": "assets/images/explorer/teknoloji/advanced/360-kamera.jpg", "tag": "surus-destek" }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -4,3 +4,11 @@
 # Font kaynak dosyaları (woff2'ye subset edilir; kaynaklar repoda tutulmaz — ~152MB)
 assets/fonts/*.ttf
 assets/fonts/*.otf
+
+# Üretilen site. Tek gerçek kaynak data/ + src/ — dist/ commit'lenirse
+# iki gerçek kaynak olur ve hangisinin doğru olduğu bilinmez.
+dist/
+
+# İç planlama dokümanları. Repo public olduğu için yayınlanmıyorlar
+# (maliyet kalemleri, tedarikçi değerlendirmesi, bayi/kiosk sayıları).
+docs/
