@@ -106,10 +106,14 @@ dist/ yazılmadı, deploy olmayacak.
 
 ## Deploy
 
-`main` dalına yapılan push, GitHub Actions üzerinden `node build.js` çalıştırır ve `dist/` dizinini GitHub Pages'e yayınlar (`.github/workflows/deploy.yml`).
+```bash
+./deploy.sh
+```
 
-Doğrulama başarısız olursa iş kırmızıya döner ve yayın yapılmaz; site son başarılı sürümde kalır. Push sonrası Actions sekmesinin kontrol edilmesi önerilir.
+Veriyi doğrular, `main` dalına push eder, GitHub Actions iş akışını tetikler ve sonucu bekler. Doğrulama başarısız olursa push yapılmadan durur; build başarısız olursa yayın yapılmaz ve site son başarılı sürümde kalır.
 
-Elle tetikleme: **Actions → Deploy → Run workflow**
+İş akışı `dist/` dizinini GitHub Pages'e yayınlar (`.github/workflows/deploy.yml`). Gereksinim: [GitHub CLI](https://cli.github.com) (`gh`).
+
+> Deploy elle tetikleniyor. Bu repoda iş akışının `on: push` tetikleyicisi çalışmıyor — `workflow_dispatch` sorunsuz. Sebep tespit edilemedi; `deploy.sh` tetiklemeyi push'a bağlayarak adımın atlanmasını önlüyor. Alternatif elle tetikleme: **Actions → Deploy → Run workflow**
 
 Pages yapılandırması: **Settings → Pages → Source = GitHub Actions**
