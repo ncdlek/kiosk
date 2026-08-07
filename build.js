@@ -222,6 +222,23 @@ function validate(vehicles, shared) {
 
 // ------------------------------------------------------------------- build
 
+// Build edilen commit. Build ortamı SHA'yı ortam değişkeninde verir:
+// Cloudflare Workers Builds WORKERS_CI_COMMIT_SHA, Cloudflare Pages
+// CF_PAGES_COMMIT_SHA. Hiçbiri yoksa (yerel, GitHub Actions) git'ten okunur.
+// O da olmazsa "unknown" — build.txt'in eksikliği build'i durdurmasın.
+function buildSha() {
+	const env = process.env.WORKERS_CI_COMMIT_SHA || process.env.CF_PAGES_COMMIT_SHA;
+	if (env) return env;
+	try {
+		return require('child_process')
+			.execSync('git rev-parse HEAD', { cwd: ROOT, stdio: ['ignore', 'pipe', 'ignore'] })
+			.toString()
+			.trim();
+	} catch {
+		return 'unknown';
+	}
+}
+
 function main() {
 	const checkOnly = process.argv.includes('--check');
 
@@ -266,6 +283,11 @@ function main() {
 		// CSS yalnızca woff2 kullanıyor, deploy'a girmesinler.
 		filter: src => !/\.(otf|ttf)$/i.test(src) && !/\.DS_Store$/.test(src),
 	});
+
+	// Yayındaki sürümün hangi commit olduğunu dışarıdan okunabilir kılar.
+	// deploy.sh bunu yoklayarak push edilen commit'in gerçekten yayına
+	// çıktığını anlar; Cloudflare'a API token'ı vermek gerekmez.
+	fs.writeFileSync(path.join(DIST, 'build.txt'), `${buildSha()}\n`);
 
 	const extra = preview.length ? ` (${preview.length} tanesi index'te listelenmiyor)` : '';
 	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası${extra}`);

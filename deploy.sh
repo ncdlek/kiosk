@@ -1,18 +1,32 @@
 #!/usr/bin/env bash
 #
-# Doğrula → push et → deploy'u izle.
+# Doğrula → push et → her iki yayının da çıkmasını bekle.
 #
-# Push normalde iş akışını kendisi tetikler. Tetiklemezse bu betik elle
-# tetikler. Her iki durumda da PUSH EDİLEN COMMIT'in çalışması izlenir —
-# "en son çalışma"ya bakmak yanlış, çünkü araya başka bir çalışma girebilir.
+# Geçiş dönemi: site aynı anda iki yerde yayında.
+#
+#   GitHub Pages       .github/workflows/deploy.yml build eder
+#   Cloudflare Workers repoya bağlı, kendi altyapısında build eder
+#
+# İkisi de aynı push'la tetiklenir, ikisi de `node build.js` çalıştırır. Tek
+# gerçek kaynak yine data/ + src/ olduğu için içerikleri ayrışmaz.
+#
+# Beklemenin yolu build.txt: build.js, build ettiği commit'in SHA'sını
+# dist/build.txt içine yazıyor. Her iki adresteki değer push edilen SHA'ya
+# dönene kadar yokluyoruz. Ne `gh` ne de Cloudflare API token'ı gerekiyor —
+# ve "yayında" derken bir panele değil, sitelerin kendisine bakmış oluyoruz.
 #
 #   ./deploy.sh
+#
+# Worker adı ya da hesap alt alanı değişirse:
+#   CF_URL=https://<worker>.<hesap>.workers.dev ./deploy.sh
 
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
-command -v gh >/dev/null || { echo "✗ gh (GitHub CLI) bulunamadı: brew install gh"; exit 1; }
+GH_URL="${GH_URL:-https://ncdlek.github.io/kiosk}"
+CF_URL="${CF_URL:-https://ford-kiosk.ferikoy.workers.dev}"
+TIMEOUT=300   # saniye
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [ "$BRANCH" != "main" ]; then
@@ -34,50 +48,58 @@ git push origin main
 SHA=$(git rev-parse HEAD)
 echo "  $SHA"
 
-# Bu commit için bir çalışma var mı? Push tetikleyicisi çalışıyorsa birkaç
-# saniyede belirir.
-run_for_sha() {
-  gh api "repos/{owner}/{repo}/actions/workflows/deploy.yml/runs?per_page=20" \
-    --jq "[.workflow_runs[] | select(.head_sha == \"$SHA\")] | first | .id // empty" 2>/dev/null || true
+# Sitedeki build.txt'i okur. Cache-buster + no-cache: edge'de duran eski bir
+# kopyayı "yayına çıktı" sanmayalım.
+live_sha() {
+  curl -fsS -H 'Cache-Control: no-cache' "$1/build.txt?ts=$SECONDS" 2>/dev/null | tr -d '[:space:]' || true
 }
 
-echo "▸ Çalışma bekleniyor"
-RUN_ID=""
-for _ in $(seq 1 6); do
-  sleep 3
-  RUN_ID=$(run_for_sha)
-  [ -n "$RUN_ID" ] && { echo "  push tetikledi"; break; }
+echo "▸ Yayın bekleniyor"
+echo "  GitHub      $GH_URL"
+echo "  Cloudflare  $CF_URL"
+
+DEADLINE=$(( SECONDS + TIMEOUT ))
+GH_LIVE=""
+CF_LIVE=""
+GH_OK=0
+CF_OK=0
+
+while [ "$SECONDS" -lt "$DEADLINE" ]; do
+  if [ "$GH_OK" -eq 0 ]; then
+    GH_LIVE=$(live_sha "$GH_URL")
+    if [ "$GH_LIVE" = "$SHA" ]; then GH_OK=1; echo "  ✓ GitHub"; fi
+  fi
+  if [ "$CF_OK" -eq 0 ]; then
+    CF_LIVE=$(live_sha "$CF_URL")
+    if [ "$CF_LIVE" = "$SHA" ]; then CF_OK=1; echo "  ✓ Cloudflare"; fi
+  fi
+  if [ "$GH_OK" -eq 1 ] && [ "$CF_OK" -eq 1 ]; then break; fi
+  sleep 5
 done
 
-# Tetiklenmediyse elle tetikle.
-if [ -z "$RUN_ID" ]; then
-  echo "  push tetiklemedi, elle tetikleniyor"
-  gh workflow run deploy.yml --ref main
-  for _ in $(seq 1 15); do
-    sleep 3
-    RUN_ID=$(run_for_sha)
-    [ -n "$RUN_ID" ] && break
-  done
-fi
-
-if [ -z "$RUN_ID" ]; then
-  echo "✗ $SHA için çalışma bulunamadı. Actions sekmesinden kontrol edin."
-  exit 1
-fi
-
-echo "  https://github.com/ncdlek/kiosk/actions/runs/$RUN_ID"
-
-# gh run watch iptal edilen çalışmalarda güvenilir bir çıkış kodu vermiyor;
-# sonucu bittikten sonra kendimiz okuyoruz.
-gh run watch "$RUN_ID" --interval 5 >/dev/null 2>&1 || true
-
-CONCLUSION=$(gh api "repos/{owner}/{repo}/actions/runs/$RUN_ID" --jq .conclusion)
-if [ "$CONCLUSION" != "success" ]; then
-  echo
-  echo "✗ Deploy başarısız: $CONCLUSION"
-  echo "  https://github.com/ncdlek/kiosk/actions/runs/$RUN_ID"
-  exit 1
-fi
-
 echo
-echo "✓ Yayında: https://ncdlek.github.io/kiosk/"
+if [ "$GH_OK" -eq 1 ] && [ "$CF_OK" -eq 1 ]; then
+  echo "✓ Her ikisi de yayında:"
+  echo "  $GH_URL/"
+  echo "  $CF_URL/"
+  exit 0
+fi
+
+# Biri çıkıp diğeri çıkmadıysa da hata veriyoruz: iki yayının ayrışmış olması
+# geçiş döneminde en tehlikeli durum — bayiye eski fiyat gösteren bir kopya
+# kalır. Hangisinin geri kaldığı aşağıda yazıyor.
+echo "✗ $(( TIMEOUT / 60 )) dakikada iki yayın da çıkmadı. Beklenen: $SHA"
+echo
+if [ "$GH_OK" -eq 1 ]; then
+  echo "  ✓ GitHub      $GH_URL/"
+else
+  echo "  ✗ GitHub      sürüm: ${GH_LIVE:-okunamadı}"
+  echo "                https://github.com/ncdlek/kiosk/actions"
+fi
+if [ "$CF_OK" -eq 1 ]; then
+  echo "  ✓ Cloudflare  $CF_URL/"
+else
+  echo "  ✗ Cloudflare  sürüm: ${CF_LIVE:-okunamadı}"
+  echo "                https://dash.cloudflare.com/?to=/:account/workers/services/view/ford-kiosk"
+fi
+exit 1

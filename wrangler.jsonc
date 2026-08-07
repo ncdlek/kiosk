@@ -1,0 +1,27 @@
+// Cloudflare Workers (Static Assets) yapılandırması.
+//
+// Bu dosya olmasaydı Wrangler her build'de kendisi bir tane üretirdi ve
+// `compatibility_date` build'in çalıştığı gün olurdu — yani aynı commit
+// farklı günlerde farklı davranabilirdi. Dosyayı repoda tutmak build'i
+// yeniden üretilebilir kılar.
+//
+// Worker kodu yok: yalnızca dist/ altındaki dosyalar servis ediliyor.
+// Bu yüzden ne `nodejs_compat` ne de `observability` var — ikisi de
+// çalışan bir script olmadan anlamsız.
+{
+	"name": "ford-kiosk",
+	"compatibility_date": "2026-08-07",
+
+	"assets": {
+		"directory": "dist"
+	},
+
+	// İkisi de Wrangler'ın varsayılanı, ama açıkça yazıyoruz: sitenin canlı
+	// adresi workers.dev alt alanı. Varsayılan ileride değişirse URL sessizce
+	// ölmesin.
+	"workers_dev": true,
+
+	// main dışındaki her dal ve her sürüm için ayrı önizleme adresi üretir.
+	// Onaya sunulacak sayfalar için kullanışlı. Kapatmak için: false.
+	"preview_urls": true
+}

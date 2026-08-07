@@ -2,7 +2,7 @@
 
 Ford bayi showroom'larındaki dokunmatik kiosk uygulaması. Üç araç modelini (Puma, Explorer, Capri) dört sekmede tanıtır: Anasayfa, İç Tasarım, Dış Tasarım, Teknoloji.
 
-**Canlı:** https://ncdlek.github.io/kiosk/
+**Canlı:** https://ford-kiosk.ferikoy.workers.dev · https://ncdlek.github.io/kiosk/ (geçiş dönemi, ikisi de aynı içerik)
 
 Statik site; sunucu, veritabanı veya npm bağımlılığı yok. HTML elle yazılmaz, JSON verisinden üretilir.
 
@@ -38,6 +38,8 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 | `tools/compare.js` | İki HTML dosyasını normalize edip karşılaştırır |
 | `assets/` | CSS, JS, font, görseller — olduğu gibi kopyalanır |
 | `dist/` | Üretilen site. Sürüm kontrolünde değil, her build'de sıfırdan yazılır |
+| `wrangler.jsonc` | Cloudflare Worker yapılandırması: ad, servis edilen dizin |
+| `.node-version` | Cloudflare build ortamının Node sürümü |
 
 `assets/css/style.css` ve `assets/js/script.js` şablon sisteminin dışındadır.
 
@@ -153,10 +155,50 @@ dist/ yazılmadı, deploy olmayacak.
 ./deploy.sh
 ```
 
-Veriyi doğrular, `main` dalına push eder, GitHub Actions iş akışını tetikler ve sonucu bekler. Doğrulama başarısız olursa push yapılmadan durur; build başarısız olursa yayın yapılmaz ve site son başarılı sürümde kalır.
+Veriyi doğrular, `main` dalına push eder ve push edilen commit **her iki yayında da** çıkana kadar bekler. Doğrulama başarısız olursa push yapılmadan durur; build başarısız olursa o yayın güncellenmez ve site son başarılı sürümde kalır.
 
-İş akışı `dist/` dizinini GitHub Pages'e yayınlar (`.github/workflows/deploy.yml`). Gereksinim: [GitHub CLI](https://cli.github.com) (`gh`).
+### Geçiş dönemi: iki yayın birden
 
-> Deploy elle tetikleniyor. Bu repoda iş akışının `on: push` tetikleyicisi çalışmıyor — `workflow_dispatch` sorunsuz. Sebep tespit edilemedi; `deploy.sh` tetiklemeyi push'a bağlayarak adımın atlanmasını önlüyor. Alternatif elle tetikleme: **Actions → Deploy → Run workflow**
+Site şu an iki yerde birden yayında:
 
-Pages yapılandırması: **Settings → Pages → Source = GitHub Actions**
+| Yayın | Build eden | Adres |
+|---|---|---|
+| GitHub Pages | `.github/workflows/deploy.yml` | https://ncdlek.github.io/kiosk/ |
+| Cloudflare Workers | Cloudflare (repoya bağlı) | https://ford-kiosk.ferikoy.workers.dev |
+
+İkisi de aynı push'la tetiklenir ve ikisi de `node build.js` çalıştırır. Tek gerçek kaynak yine `data/` + `src/` olduğu için içerikleri ayrışmaz.
+
+`deploy.sh` ikisi birden yayına çıkmadan başarılı saymaz. Ayrışmış iki yayın geçiş döneminin en tehlikeli durumu: bir bayide eski fiyatı gösteren bir kopya kalır. Biri geri kalırsa betik hangisi olduğunu ve log adresini yazar.
+
+Geçiş bitince GitHub Pages kapatılır: `.github/workflows/deploy.yml` silinir, **Settings → Pages → Source = None** yapılır, `deploy.sh` içindeki `GH_URL` bloğu çıkarılır. Repo ancak bundan sonra private yapılabilir — GitHub Pages ücretsiz planda private repoda çalışmaz, taşınma sebebi de budur.
+
+### Deploy nasıl izleniyor
+
+`deploy.sh` ne `gh` ne de Cloudflare API token'ı kullanır. `build.js`, build ettiği commit'in SHA'sını `dist/build.txt` içine yazar (Cloudflare'da `WORKERS_CI_COMMIT_SHA`, GitHub Actions'ta `git rev-parse HEAD`); betik iki adresin `build.txt` dosyasını da push edilen SHA'ya dönene kadar yoklar. Yani "yayında" çıktısı bir panelin yeşiline değil, sitenin gerçekten yeni içeriği servis etmesine bakar.
+
+Worker adı ya da hesap alt alanı değişirse `deploy.sh` içindeki `CF_URL` satırı güncellenir (ya da `CF_URL=https://<worker>.<hesap>.workers.dev ./deploy.sh`).
+
+### Cloudflare yapılandırması
+
+Cloudflare, Pages'i Workers ile birleştirdi: repoya bağlanan proje bir **Worker (Static Assets)** olarak kurulur, adres `*.pages.dev` değil `*.workers.dev` olur. Panelde **Workers & Pages → Create → Connect to Git**, sonra `ncdlek/kiosk`.
+
+Panelde tutulan ayarlar:
+
+| Ayar | Değer |
+|---|---|
+| Production branch | `main` |
+| Build command | `node build.js` |
+| Deploy command | `npx wrangler deploy` |
+
+Gerisi repoda:
+
+| Dosya | Belirlediği |
+|---|---|
+| `.node-version` | Build ortamının Node sürümü |
+| `wrangler.jsonc` | Worker adı, servis edilecek dizin (`dist`), `compatibility_date` |
+
+`wrangler.jsonc` repoda durmalı. Olmasaydı Wrangler her build'de bir tane üretir ve `compatibility_date` alanına build'in çalıştığı günü yazardı — aynı commit farklı günlerde farklı davranabilirdi.
+
+Cloudflare `/vehicles/puma.html` isteğini `/vehicles/puma` adresine 307 ile yönlendirir. Bağlantılar ve varlık yolları göreli olduğu için bu davranış sayfaları etkilemez.
+
+Preview URL'ler açık: `main` dışındaki her dal ve her sürüm ayrı bir adres alır. Kapatmak için `wrangler.jsonc` içinde `"preview_urls": false`.

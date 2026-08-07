@@ -13,6 +13,11 @@ dist/
 # (maliyet kalemleri, tedarikçi değerlendirmesi, bayi/kiosk sayıları).
 docs/
 
+# Wrangler'ın yerel önbelleği ve gizli değişken dosyası. Yapılandırma
+# wrangler.jsonc'de ve repoda; bunlar makineye özel.
+.wrangler/
+.dev.vars
+
 # Claude Code'un makineye özel izin listesi ve geçici worktree'leri.
 # .claude/launch.json paylaşılır (önizleme sunucusu tanımı), bunlar paylaşılmaz.
 .claude/settings.local.json
