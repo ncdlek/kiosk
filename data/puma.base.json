@@ -1,0 +1,244 @@
+{
+  "//": "Puma ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Varyantlar: puma.json (iki paket), puma-titanium.json, puma-st-line-x.json.",
+
+  "name": "Ford Puma®",
+  "shortName": "Puma",
+  "startingPrice": 2238900,
+
+  "emissionImage": "assets/images/puma/popup/emisyon.jpg",
+  "qrImage": "assets/images/puma/popup/qr.jpg",
+
+  "//defaultTag": "Tek donanımlı sayfaların varsayılanı. puma.json iki paket gösterdiği için bunu tum-donanim ile ezer.",
+  "defaultTag": "standart",
+
+  "specs": {
+    "layout": "simple",
+    "rows": [
+      { "label": "GÜÇ (PS)",        "value": "125-155" },
+      { "label": "Yakıt Tüketimi",  "value": "4,8 - 6,9" },
+      { "label": "VİTES",           "value": "7 İleri Otomatik" },
+      { "label": "Bagaj Hacmi (L)", "value": "410 - 456" }
+    ]
+  },
+
+  "featured": [
+    {
+      "title": "Dijital Kokpit",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan.png",
+      "desc": ["1.0L EcoBoost ile sessiz, güçlü ve bütçe dostu", "155 PS Hibrit performansının keyfini çıkarın."]
+    },
+    {
+      "title": "Panoramik Cam Tavan",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-panoramik-cam-tavan.jpg",
+      "desc": ["Kabini doğal ışıkla doldurarak", "ferah bir sürüş atmosferi yaratır."]
+    },
+    {
+      "title": "Matrix LED Farlar",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg",
+      "desc": ["Akıllı aydınlatma teknolojisiyle", "her sürüşte üstün görüş sağlar."]
+    },
+    {
+      "title": "80L MegaBox",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-80l-megabox.jpg",
+      "desc": ["Akıllı depolama alanıyla günlük ihtiyaçlarınızı", "daha pratik şekilde taşıyın."]
+    }
+  ],
+
+  "//options": "Fiyat, açıklama ve görseller burada tek nüsha. packages ve badge donanıma göre değiştiği için varyantta. Panoramik cam tavan Titanium'da bulunmadığı için aile ortağı değil — onu kullanan varyantlar kendi dosyasında tanımlar.",
+  "options": {
+    "metalik-renk": {
+      "title": "Metalik ve Özel Gövde Renkleri",
+      "price": [28600, 53900],
+      "images": {
+        "anasayfa": "assets/images/puma/anasayfa/options/metalik-renkler.png"
+      }
+    },
+    "stepne": {
+      "title": "Stepne",
+      "price": 5700,
+      "desc": "Olası lastik hasarlarına karşı ek güvenlik. (Not: Stepne opsiyonu tercih edildiğinde MegaBox'ın su tahliye özelliği araçtan çıkarılır.)",
+      "overlay": "light",
+      "images": {
+        "anasayfa": "assets/images/puma/anasayfa/options/celik-stepne.png",
+        "ic-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png",
+        "dis-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png"
+      }
+    },
+    "teknoloji-paketi": {
+      "title": "Teknoloji Paketi",
+      "price": 81800,
+      "images": {
+        "anasayfa": "assets/images/puma/anasayfa/options/teknoloji-paketi.png"
+      }
+    }
+  },
+
+  "tabs": {
+    "anasayfa": {
+      "heroImage": "assets/images/puma/anasayfa/hero/anasayfa.png",
+      "sections": [
+        { "type": "models" },
+        { "type": "specs" },
+        { "type": "featureBanner" },
+        {
+          "type": "homeOptions",
+          "titleKey": "options",
+          "options": [
+            "panoramik-tavan",
+            "metalik-renk",
+            { "id": "stepne", "title": "16\" Çelik Stepne" },
+            "teknoloji-paketi"
+          ]
+        }
+      ]
+    },
+
+    "ic-tasarim": {
+      "heroImage": "assets/images/puma/ic-tasarim/hero/ic-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM PUMALARDA STANDART",
+          "cards": [
+            {
+              "title": "12\" SYNC® 4 Dokunmatik Ekran",
+              "image": "assets/images/puma/ic-tasarim/standard/sync4-dokunmatik-ekran.png",
+              "desc": "Kablosuz Apple CarPlay & Android Auto."
+            },
+            {
+              "title": "80L Ford MegaBox",
+              "image": "assets/images/puma/ic-tasarim/standard/megabox.png",
+              "desc": "Su tahliyeli, yıkanabilir ek depolama."
+            },
+            {
+              "title": "12.8\" Dijital Yol Bilgisayarı",
+              "image": "assets/images/puma/ic-tasarim/standard/dijital-yol-bilgisayari.png",
+              "desc": "Kişiselleştirilebilir tam dijital panel."
+            },
+            {
+              "title": "Kış Konforu",
+              "image": "assets/images/puma/ic-tasarim/standard/kis-konforu.png",
+              "desc": "Isıtmalı Ön Cam, Isıtmalı Sensico® Direksiyon ve Ön Koltuklar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["panoramik-tavan", "stepne"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "SYNC® 4 Sistemi",               "image": "assets/images/puma/ic-tasarim/other/sync4-sistemi.png" },
+            { "title": "Apple CarPlay / Android Auto",  "image": "assets/images/puma/ic-tasarim/other/apple-carplay-android-auto.png" },
+            { "title": "Seçilebilir Sürüş Modları",     "image": "assets/images/puma/ic-tasarim/other/secilebilir-surus-modlari.png" },
+            { "title": "Ford Eco Coach",                "image": "assets/images/puma/ic-tasarim/other/eco-coach.png" },
+            { "title": "Anahtarsız Çalıştırma",         "image": "assets/images/puma/ic-tasarim/other/anahtarsiz-calistirma.jpg" },
+            { "title": "Isıtmalı Ön Koltuklar",         "image": "assets/images/puma/ic-tasarim/other/isitmali-on-koltuklar.jpg" },
+            { "title": "Navigasyon Sistemi",            "image": "assets/images/puma/ic-tasarim/other/navigasyon-sistemi.png" },
+            { "title": "Otomatik Kararan Dikiz Aynası", "image": "assets/images/puma/ic-tasarim/other/otomatik-kararan-dikiz-aynasi.jpg" },
+            { "title": "FordPass",                      "image": "assets/images/puma/ic-tasarim/other/fordpass.png" }
+          ]
+        }
+      ]
+    },
+
+    "dis-tasarim": {
+      "heroImage": "assets/images/puma/dis-tasarim/hero/dis-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM PUMALARDA STANDART",
+          "cards": [
+            {
+              "title": "LED Arka Farlar",
+              "image": "assets/images/puma/dis-tasarim/standard/led-arka-farlar.png",
+              "desc": "Modern tasarım ve yüksek görünürlük sağlayan LED arka aydınlatma."
+            },
+            {
+              "title": "Karartılmış Arka Camlar",
+              "image": "assets/images/puma/dis-tasarim/standard/karartilmis-arka-camlar.png",
+              "desc": "Sportif görünümü tamamlayan şık cam tasarımı."
+            },
+            {
+              "title": "Alaşım Jantlar",
+              "image": "assets/images/puma/dis-tasarim/standard/alasim-jantlar.png",
+              "desc": "17\" veya 19\" alüminyum alaşım jant seçenekleriyle güçlü duruş."
+            },
+            {
+              "title": "Isıtmalı Ön Cam",
+              "image": "assets/images/puma/dis-tasarim/standard/isitmali-on-cam.png",
+              "desc": "Soğuk havalarda hızlı görüş desteği sağlar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["panoramik-tavan", "stepne"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Elektrikli ve Isıtmalı Yan Aynalar", "image": "assets/images/puma/dis-tasarim/other/elektrikli-isitmali-yan-aynalar.png" },
+            { "title": "Spor Süspansiyon",                   "image": "assets/images/puma/dis-tasarim/other/spor-suspansiyon.png" },
+            { "title": "Arka Spoiler",                       "image": "assets/images/puma/dis-tasarim/other/arka-spoiler.png" },
+            { "title": "Karartılmış Arka Camlar",            "image": "assets/images/puma/dis-tasarim/other/karartilmis-arka-camlar.png" },
+            { "title": "360° Kamera",                        "image": "assets/images/puma/dis-tasarim/other/360-kamera.png" },
+            { "title": ["Park Sensörleri", "(Ön & Arka)"],   "image": "assets/images/puma/dis-tasarim/other/park-sensorleri.png" }
+          ]
+        }
+      ]
+    },
+
+    "teknoloji": {
+      "heroImage": "assets/images/puma/teknoloji/hero/teknoloji.jpg",
+      "sections": [
+        {
+          "type": "techWide",
+          "title": "BAĞLANTILI ARAÇ DENEYİMİ",
+          "card": {
+            "title": "Ford Uygulaması",
+            "image": "assets/images/puma/teknoloji/connected/ford-uygulamasi.png",
+            "desc": "Aracını uzaktan kontrol et, her an bağlantıda kal."
+          }
+        },
+        {
+          "type": "mediaCards",
+          "title": "BİLGİ EĞLENCE SİSTEMLERİ",
+          "cards": [
+            {
+              "title": "SYNC® 4 Sistemi",
+              "image": "assets/images/puma/teknoloji/infotainment/sync-sistemi.png",
+              "desc": "Akıllı bağlantı ile daha hızlı ve sezgisel kontrol deneyimi."
+            },
+            {
+              "title": "Apple CarPlay / Android Auto",
+              "image": "assets/images/puma/teknoloji/infotainment/apple-carplay-android-auto.png",
+              "desc": "Telefonunuzu aracınızla senkronize edin, yolculuğun keyfini çıkarın."
+            },
+            {
+              "title": "Seçilebilir Sürüş Modları",
+              "image": "assets/images/puma/teknoloji/infotainment/secilebilir-surus-modlari.png",
+              "desc": "Normal, Eco, Sport ve Kaygan zemin modları."
+            }
+          ]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "next-gen",
+          "features": [
+            { "title": "Navigasyon Sistemi",      "image": "assets/images/puma/teknoloji/connectivity/navigasyon-sistemi.png",      "note": "Dahili harita ve canlı rota takibi." },
+            { "title": "Adaptif Hız Sabitleyici", "image": "assets/images/puma/teknoloji/connectivity/adaptif-hiz-sabitleyici.png", "note": "Trafiğe uyum sağlayarak konforlu ve güvenli sürüş sunar." },
+            { "title": "Şerit Takip",             "image": "assets/images/puma/teknoloji/connectivity/serit-takip.png",             "note": "Şeridinde kalmana destek olarak sürüş güvenliğini artırır." },
+            { "title": "Kör Nokta Uyarı",         "image": "assets/images/puma/teknoloji/connectivity/kor-nokta-uyari.png",         "note": "Görüş alanının dışındaki araçları algılayarak seni uyarır." },
+            { "title": "Ford Eco Coach",          "image": "assets/images/puma/teknoloji/connectivity/eco-coach.png",               "note": "Sürüşünü analiz eder, daha verimli kullanım önerileri sunar." }
+          ]
+        }
+      ]
+    }
+  }
+}

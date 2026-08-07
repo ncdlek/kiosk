@@ -4,6 +4,9 @@
   "//vehicles": "Üretilecek araçlar ve index.html'deki sıraları. Yeni araç: data/<slug>.json + buraya bir satır.",
   "vehicles": ["puma", "explorer", "capri"],
 
+  "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Onaylanınca slug'ı yukarıdaki vehicles dizisine taşıyın.",
+  "previewVehicles": ["puma-titanium", "puma-st-line-x", "explorer-select", "explorer-premium", "capri-premium"],
+
   "indexTitle": "Ford Araç Seçimi",
   "indexHeading": "Araç Seçin",
   "indexSubheading": "Tanıtımını görmek istediğiniz aracı seçin",

@@ -1,0 +1,181 @@
+{
+  "base": "puma",
+
+  "slug": "puma-titanium",
+  "heroAlt": "Ford Puma Titanium",
+  "pageTitle": "Ford Puma Titanium Tasarım",
+  "gtmModel": "Ford Puma Titanium",
+  "meta": "Titanium",
+
+  "//startingPrice": "Tabandaki ortak Puma fiyatı kullanılıyor. Titanium'a özel fiyat gelince burada ezilir.",
+
+  "co2": "(G) 128 g/km",
+  "emission": [
+    { "package": "Titanium", "image": "assets/images/puma/popup/emisyon-titanium.jpg", "value": "128 g/km" }
+  ],
+
+  "models": {
+    "layout": "carousel",
+    "packages": [
+      {
+        "name": "Titanium",
+        "imageAltPrefix": "Puma Titanium",
+        "activeColor": 0,
+        "colors": [
+          { "label": "Okyanus Mavi",      "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/titanium/okyanus-mavi.jpg" },
+          { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/titanium/fantastik-kirmizi.jpg" },
+          { "label": "Kaktüs Gri",        "swatch": "assets/images/puma/anasayfa/models/swatches/kaktus-gri.png",        "image": "assets/images/puma/anasayfa/models/titanium/kaktus-gri.jpg" },
+          { "label": "Kurşun Gri",        "swatch": "assets/images/puma/anasayfa/models/swatches/kursun-gri.png",        "image": "assets/images/puma/anasayfa/models/titanium/kursun-gri.jpg" },
+          { "label": "Akik Siyah",        "swatch": "assets/images/puma/anasayfa/models/swatches/akik-siyah.png",        "image": "assets/images/puma/anasayfa/models/titanium/akik-siyah.jpg" },
+          { "label": "Elektrik Sarı",     "swatch": "assets/images/puma/anasayfa/models/swatches/elektrik-sari.jpg",     "image": "assets/images/puma/anasayfa/models/titanium/elektrik-sari.jpg" },
+          { "label": "Buz Beyazı",        "swatch": "assets/images/puma/anasayfa/models/swatches/buz-beyazi.png",        "image": "assets/images/puma/anasayfa/models/titanium/buz-beyazi.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "//featured": "Panoramik cam tavan Titanium'da yer almadığı için taban listesi üç kartla yeniden yazıldı.",
+  "featured": [
+    {
+      "title": "Dijital Kokpit",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan.png",
+      "desc": ["1.0L EcoBoost ile sessiz, güçlü ve bütçe dostu", "155 PS Hibrit performansının keyfini çıkarın."]
+    },
+    {
+      "title": "Matrix LED Farlar",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg",
+      "desc": ["Akıllı aydınlatma teknolojisiyle", "her sürüşte üstün görüş sağlar."]
+    },
+    {
+      "title": "80L MegaBox",
+      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-80l-megabox.jpg",
+      "desc": ["Akıllı depolama alanıyla günlük ihtiyaçlarınızı", "daha pratik şekilde taşıyın."]
+    }
+  ],
+
+  "//options": "Panoramik cam tavan tabanda tanımlı değil, burada da tanımlanmıyor — Titanium'da bulunmuyor.",
+  "options": {
+    "metalik-renk":     { "packages": "Titanium" },
+    "stepne":           { "packages": "Titanium", "badge": "* OPSİYONEL" },
+    "teknoloji-paketi": { "packages": "Titanium" }
+  },
+
+  "//tabs": "Üç sekme de panoramik cam tavan opsiyonunu ya da spor süspansiyonu içerdiği için taban listeleri baştan yazıldı. Teknoloji sekmesi tabandan geliyor.",
+  "tabs": {
+    "anasayfa": {
+      "sections": [
+        { "type": "models" },
+        { "type": "specs" },
+        { "type": "featureBanner" },
+        {
+          "type": "homeOptions",
+          "titleKey": "options",
+          "options": [
+            "metalik-renk",
+            { "id": "stepne", "title": "16\" Çelik Stepne" },
+            "teknoloji-paketi"
+          ]
+        }
+      ]
+    },
+
+    "ic-tasarim": {
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM PUMALARDA STANDART",
+          "cards": [
+            {
+              "title": "12\" SYNC® 4 Dokunmatik Ekran",
+              "image": "assets/images/puma/ic-tasarim/standard/sync4-dokunmatik-ekran.png",
+              "desc": "Kablosuz Apple CarPlay & Android Auto."
+            },
+            {
+              "title": "80L Ford MegaBox",
+              "image": "assets/images/puma/ic-tasarim/standard/megabox.png",
+              "desc": "Su tahliyeli, yıkanabilir ek depolama."
+            },
+            {
+              "title": "12.8\" Dijital Yol Bilgisayarı",
+              "image": "assets/images/puma/ic-tasarim/standard/dijital-yol-bilgisayari.png",
+              "desc": "Kişiselleştirilebilir tam dijital panel."
+            },
+            {
+              "title": "Kış Konforu",
+              "image": "assets/images/puma/ic-tasarim/standard/kis-konforu.png",
+              "desc": "Isıtmalı Ön Cam, Isıtmalı Sensico® Direksiyon ve Ön Koltuklar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["stepne"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "SYNC® 4 Sistemi",               "image": "assets/images/puma/ic-tasarim/other/sync4-sistemi.png" },
+            { "title": "Apple CarPlay / Android Auto",  "image": "assets/images/puma/ic-tasarim/other/apple-carplay-android-auto.png" },
+            { "title": "Seçilebilir Sürüş Modları",     "image": "assets/images/puma/ic-tasarim/other/secilebilir-surus-modlari.png" },
+            { "title": "Ford Eco Coach",                "image": "assets/images/puma/ic-tasarim/other/eco-coach.png" },
+            { "title": "Anahtarsız Çalıştırma",         "image": "assets/images/puma/ic-tasarim/other/anahtarsiz-calistirma.jpg" },
+            { "title": "Isıtmalı Ön Koltuklar",         "image": "assets/images/puma/ic-tasarim/other/isitmali-on-koltuklar.jpg" },
+            { "title": "Navigasyon Sistemi",            "image": "assets/images/puma/ic-tasarim/other/navigasyon-sistemi.png" },
+            { "title": "Otomatik Kararan Dikiz Aynası", "image": "assets/images/puma/ic-tasarim/other/otomatik-kararan-dikiz-aynasi.jpg" },
+            { "title": "FordPass",                      "image": "assets/images/puma/ic-tasarim/other/fordpass.png" }
+          ]
+        }
+      ]
+    },
+
+    "dis-tasarim": {
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM PUMALARDA STANDART",
+          "cards": [
+            {
+              "title": "LED Arka Farlar",
+              "image": "assets/images/puma/dis-tasarim/standard/led-arka-farlar.png",
+              "desc": "Modern tasarım ve yüksek görünürlük sağlayan LED arka aydınlatma."
+            },
+            {
+              "title": "Karartılmış Arka Camlar",
+              "image": "assets/images/puma/dis-tasarim/standard/karartilmis-arka-camlar.png",
+              "desc": "Sportif görünümü tamamlayan şık cam tasarımı."
+            },
+            {
+              "title": "Alaşım Jantlar",
+              "image": "assets/images/puma/dis-tasarim/standard/alasim-jantlar.png",
+              "desc": "17\" veya 19\" alüminyum alaşım jant seçenekleriyle güçlü duruş."
+            },
+            {
+              "title": "Isıtmalı Ön Cam",
+              "image": "assets/images/puma/dis-tasarim/standard/isitmali-on-cam.png",
+              "desc": "Soğuk havalarda hızlı görüş desteği sağlar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["stepne"]
+        },
+        {
+          "//features": "Spor Süspansiyon yalnızca ST-Line X'te standart.",
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Elektrikli ve Isıtmalı Yan Aynalar", "image": "assets/images/puma/dis-tasarim/other/elektrikli-isitmali-yan-aynalar.png" },
+            { "title": "Arka Spoiler",                       "image": "assets/images/puma/dis-tasarim/other/arka-spoiler.png" },
+            { "title": "Karartılmış Arka Camlar",            "image": "assets/images/puma/dis-tasarim/other/karartilmis-arka-camlar.png" },
+            { "title": "360° Kamera",                        "image": "assets/images/puma/dis-tasarim/other/360-kamera.png" },
+            { "title": ["Park Sensörleri", "(Ön & Arka)"],   "image": "assets/images/puma/dis-tasarim/other/park-sensorleri.png" }
+          ]
+        }
+      ]
+    }
+  }
+}

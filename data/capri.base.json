@@ -1,0 +1,283 @@
+{
+  "//": "Capri ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Şu an tek donanım var; ikinci donanım gelince yalnızca kendi farkını yazan bir varyant dosyası eklenir.",
+
+  "name": "Yeni Ford Capri®",
+  "shortName": "Capri",
+  "startingPrice": 3211600,
+
+  "co2": "(A) 0 g/km",
+  "emissionImage": "assets/images/capri/popup/emisyon.jpg",
+  "qrImage": "assets/images/capri/popup/qr.jpg",
+  "emission": [
+    {
+      "package": "Premium",
+      "image": "assets/images/capri/popup/emisyon-premium.jpg",
+      "value": "0 g/km"
+    }
+  ],
+
+  "defaultTag": "standart",
+
+  "models": {
+    "layout": "carousel",
+    "packages": [
+      {
+        "name": "Premium",
+        "imageAltPrefix": "Capri",
+        "activeColor": 2,
+        "colors": [
+          { "label": "Düş Mavisi",     "swatch": "assets/images/capri/anasayfa/models/swatches/dus-mavisi.jpg",     "image": "assets/images/capri/anasayfa/models/premium/dus-mavisi/yan.jpg" },
+          { "label": "Mercan Kırmızı", "swatch": "assets/images/capri/anasayfa/models/swatches/mercan-kirmizi.jpg", "image": "assets/images/capri/anasayfa/models/premium/mercan-kirmizi/yan.jpg" },
+          { "label": "Enerjik Sarı",   "swatch": "assets/images/capri/anasayfa/models/swatches/enerjik-sari.jpg",   "image": "assets/images/capri/anasayfa/models/premium/enerjik-sari/yan.jpg" },
+          { "label": "Akik Siyah",     "swatch": "assets/images/capri/anasayfa/models/swatches/akik-siyah.jpg",     "image": "assets/images/capri/anasayfa/models/premium/akik-siyah/yan.jpg" },
+          { "label": "Manyetik Gri",   "swatch": "assets/images/capri/anasayfa/models/swatches/manyetik-gri.jpg",   "image": "assets/images/capri/anasayfa/models/premium/manyetik-gri/yan.jpg" },
+          { "label": "Buz Beyazı",     "swatch": "assets/images/capri/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/capri/anasayfa/models/premium/buz-beyazi/yan.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "specs": {
+    "layout": "simple",
+    "rows": [
+      { "label": "ELEKTRİKLİ MENZİL",            "value": "373 - 471 km" },
+      { "label": "GÜÇ",                          "value": "125 kW - 170 PS" },
+      { "label": "DC (%10-80) HIZLI ŞARJ SÜRESİ", "value": "25 dakika" },
+      { "label": "TORK",                         "value": "310 Nm" }
+    ]
+  },
+
+  "featured": [
+    {
+      "title": "14.6\" SYNC® Move",
+      "image": "assets/images/capri/anasayfa/featured/anasayfa-one-cikan.jpg",
+      "desc": ["Bağlantı ve eğlence sistemlerini", "tek ekranda buluşturur."]
+    },
+    {
+      "title": "Matrix LED Farlar",
+      "image": "assets/images/capri/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg",
+      "desc": ["Gece sürüşlerinde yolu akıllıca aydınlatır,", "konfor ve görüşü artırır."]
+    },
+    {
+      "title": "20\" Alaşım Jantlar",
+      "image": "assets/images/capri/anasayfa/featured/anasayfa-one-cikan-20-jant.jpg",
+      "desc": ["Aerodinamik tasarımıyla sportif görünümü ve", "sürüş karakterini destekler."]
+    },
+    {
+      "title": "Mega Orta Konsol",
+      "image": "assets/images/capri/anasayfa/featured/anasayfa-one-cikan-mega-orta-konsol.jpg",
+      "desc": ["Geniş iç hacmiyle eşyalarınız için", "ekstra saklama alanı sunar."]
+    }
+  ],
+
+  "options": {
+    "isi-pompasi": {
+      "title": "Isı Pompası",
+      "price": 139600,
+      "packages": "Premium",
+      "badge": "* TÜM PAKETLERDE OPSİYONEL",
+      "desc": "Enerji kullanımını optimize ederek soğuk hava koşullarında menzil ve konforun korunmasına yardımcı olur.",
+      "overlay": "light",
+      "images": {
+        "anasayfa": "assets/images/capri/anasayfa/options/isi-pompasi.jpg",
+        "ic-tasarim": "assets/images/capri/ic-tasarim/options/isi-pompasi.jpg",
+        "dis-tasarim": "assets/images/capri/dis-tasarim/options/isi-pompasi.jpg"
+      }
+    },
+    "surus-destek": {
+      "title": "Sürüş Destek Paketi",
+      "price": 114200,
+      "packages": "Premium",
+      "images": {
+        "anasayfa": "assets/images/capri/anasayfa/options/surus-destek-premium.jpg"
+      }
+    },
+    "bo-ses": {
+      "title": "B&O Ses Sistemi",
+      "price": 40500,
+      "packages": "Premium",
+      "badge": "* TÜM PAKETLERDE OPSİYONEL",
+      "desc": "Her notayı net ve etkileyici şekilde sunarak kabin içinde sürükleyici bir ses deneyimi oluşturur.",
+      "images": {
+        "anasayfa": "assets/images/capri/anasayfa/options/bo-ses-sistemi.jpg",
+        "ic-tasarim": "assets/images/capri/ic-tasarim/options/ses-sistemi.jpg",
+        "dis-tasarim": "assets/images/capri/dis-tasarim/options/ses-sistemi.jpg"
+      }
+    },
+    "metalik-renk": {
+      "title": "Metalik ve Özel Gövde Renkleri",
+      "price": [12700, 32400],
+      "packages": "Premium",
+      "images": {
+        "anasayfa": "assets/images/capri/anasayfa/options/metalik-ozel-renk.jpg"
+      }
+    }
+  },
+
+  "tabs": {
+    "anasayfa": {
+      "heroImage": "assets/images/capri/anasayfa/hero/anasayfa.jpg",
+      "sections": [
+        { "type": "models" },
+        { "type": "specs" },
+        { "type": "featureBanner" },
+        {
+          "type": "homeOptions",
+          "titleKey": "options",
+          "options": ["isi-pompasi", "surus-destek", "bo-ses", "metalik-renk"]
+        }
+      ]
+    },
+
+    "ic-tasarim": {
+      "heroImage": "assets/images/capri/ic-tasarim/hero/ic-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM CAPRI'LERDE STANDART",
+          "cards": [
+            {
+              "title": "14.6\" SYNC® Move Ekran",
+              "image": "assets/images/capri/ic-tasarim/standard/move-ekran.jpg",
+              "desc": "Gelişmiş bağlantı teknolojileriyle sürüş deneyimini zenginleştirir."
+            },
+            {
+              "title": "Mega Orta Konsol",
+              "image": "assets/images/capri/ic-tasarim/standard/mega-orta-konsol.jpg",
+              "desc": "Geniş ve fonksiyonel tasarımıyla ekstra kullanım alanı sunar."
+            },
+            {
+              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "image": "assets/images/capri/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
+              "desc": "Favori uygulamalarınıza kolay ve hızlı erişim sağlar."
+            },
+            {
+              "title": "Ambiyans Aydınlatma",
+              "image": "assets/images/capri/ic-tasarim/standard/ambiyans-aydinlatma.jpg",
+              "desc": "İç mekâna şık ve kişiselleştirilebilir bir karakter kazandırır."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["bo-ses", "isi-pompasi"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Isıtmalı Sensico® Direksiyon",           "image": "assets/images/capri/ic-tasarim/other/isitmali-sensico-direksiyon.jpg" },
+            { "title": "Elektrikli Hafızalı Sürücü Koltuğu",     "image": "assets/images/capri/ic-tasarim/other/agr-sertifikali-koltuk.jpg" },
+            { "title": "İki Bölgeli Otomatik Klima",             "image": "assets/images/capri/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg" },
+            { "title": "5\" Dijital Gösterge Paneli",            "image": "assets/images/capri/ic-tasarim/other/dijital-gosterge-paneli.jpg" },
+            { "title": "Seçilebilir Sürüş Modları",              "image": "assets/images/capri/ic-tasarim/other/surus-modlari.jpg" },
+            { "title": "60/40 Katlanabilir Arka Koltuklar",      "image": "assets/images/capri/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg" },
+            { "title": "Isıtmalı ve Masajlı Sensico® Koltuklar", "image": "assets/images/capri/ic-tasarim/other/isitmali-masaj-ozellikli-sensico-koltuklar.jpg" },
+            { "title": "Kablosuz Şarj",                          "image": "assets/images/capri/ic-tasarim/other/kablosuz-sarj.jpg" },
+            { "title": "Bardak Tutacaklı Arka Kol Dayama",       "image": "assets/images/capri/ic-tasarim/other/bardak-tutacakli-arka-kol-dayama.jpg" }
+          ]
+        }
+      ]
+    },
+
+    "dis-tasarim": {
+      "heroImage": "assets/images/capri/dis-tasarim/hero/dis-tasarim.jpg",
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM CAPRI'LERDE STANDART",
+          "cards": [
+            {
+              "title": "Matrix LED Farlar",
+              "image": "assets/images/capri/dis-tasarim/standard/matrix-led-farlar.jpg",
+              "desc": "Üstün görüş performansı ve dikkat çekici tasarım sunar."
+            },
+            {
+              "title": "LED Arka Farlar",
+              "image": "assets/images/capri/dis-tasarim/standard/led-arka-farlar.jpg",
+              "desc": "Modern ışık imzasıyla güçlü bir görünüm kazandırır."
+            },
+            {
+              "title": "Karartılmış Arka Camlar",
+              "image": "assets/images/capri/dis-tasarim/standard/karartilmis-arka-camlar.jpg",
+              "desc": "Sportif ve premium tasarımı tamamlar."
+            },
+            {
+              "title": "20\" Alaşım Jantlar",
+              "image": "assets/images/capri/dis-tasarim/standard/20-alasim-jantlar.jpg",
+              "desc": "Dinamik görünümü güçlü duruşla buluşturur."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["bo-ses", "isi-pompasi"]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Logo Aydınlatmalı Yan Aynalar",   "image": "assets/images/capri/dis-tasarim/other/logo-aydinlatmali-yan-aynalar.jpg" },
+            { "title": "Yağmur Sensörü",                  "image": "assets/images/capri/dis-tasarim/other/yagmur-sensoru.jpg" },
+            { "title": "Kapı Kolu Ambiyans Aydınlatması", "image": "assets/images/capri/dis-tasarim/other/kapi-kolu-ambiyans-andinlatma.jpg" },
+            { "title": "Akıllı Bagaj Kapağı",             "image": "assets/images/capri/dis-tasarim/other/akilli-bagaj-kapagi.jpg" },
+            { "title": "Elektrikli Katlanabilir Aynalar", "image": "assets/images/capri/dis-tasarim/other/elektrikli-katlanabilir-aynalar.jpg" },
+            { "title": "Panoramik Cam Tavan",             "image": "assets/images/capri/dis-tasarim/other/panoramik-cam-tavan.jpg" }
+          ]
+        }
+      ]
+    },
+
+    "teknoloji": {
+      "heroImage": "assets/images/capri/teknoloji/hero/teknoloji.jpg",
+      "sections": [
+        {
+          "type": "techWide",
+          "titleKey": "connected",
+          "card": {
+            "title": "Kablosuz Apple CarPlay® & Android Auto®",
+            "image": "assets/images/capri/teknoloji/connected/baglantili-teknolojiler.jpg",
+            "desc": ["Akıllı telefonunuzu kablosuz bağlayarak favori uygulamalarınıza", "hızlı ve kolay erişim sağlar."]
+          }
+        },
+        {
+          "type": "mediaCards",
+          "title": "DİJİTAL TEKNOLOJİLER",
+          "cards": [
+            {
+              "title": "14.6\" SYNC® Move Ekran",
+              "image": "assets/images/capri/teknoloji/infotainment/sync-move-ekran.jpg",
+              "desc": "Gelişmiş bağlantı ve eğlence özelliklerini tek ekranda buluşturur."
+            },
+            {
+              "title": "Seçilebilir Sürüş Modları",
+              "image": "assets/images/capri/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
+              "desc": "Farklı sürüş ihtiyaçlarına uyum sağlayan sürüş deneyimi sunar."
+            },
+            {
+              "title": "Kablosuz Şarj",
+              "image": "assets/images/capri/teknoloji/infotainment/kablosuz-sarj.jpg",
+              "desc": "Uyumlu cihazlarınızı kablosuz olarak pratik ve kesintisiz şekilde şarj etmenizi sağlar."
+            }
+          ]
+        },
+        {
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Adaptif Hız Sabitleyici",                                 "image": "assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg" },
+            { "title": "Gelişmiş Göz Hizası Gösterge Paneli", "tag": "surus-destek", "image": "assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg" },
+            { "title": "Sürücü Dikkat Takip Sistemi",                             "image": "assets/images/capri/teknoloji/connectivity/trafik-isareti-tanıma-sistemi.jpg" },
+            { "title": "Kör Nokta Uyarı Sistemi",                                 "image": "assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg" },
+            { "title": "Akıllı Park Asistanı",                "tag": "surus-destek", "image": "assets/images/capri/teknoloji/connectivity/akilli-park-asistani.jpg" },
+            { "title": "Çarpışma Önleme Yardımcısı",                              "image": "assets/images/capri/teknoloji/connectivity/carpisma-onleme-yardimcisi.jpg" },
+            { "title": "Şerit Takip Sistemi",                                     "image": "assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg" },
+            { "title": "360° Kamera",                         "tag": "surus-destek", "image": "assets/images/capri/teknoloji/connectivity/360-kamera.jpg" }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -28,7 +28,8 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 | Yol | Açıklama |
 |---|---|
 | `data/shared.json` | Araçlar arası ortak içerik: sekme etiketleri, bölüm başlıkları, donanım etiketleri, emisyon yasal metni |
-| `data/<slug>.json` | Araca ait tüm içerik: fiyatlar, opsiyonlar, renkler, teknik veriler |
+| `data/<slug>.json` | Bir sayfanın içeriği: fiyatlar, opsiyonlar, renkler, teknik veriler |
+| `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik. Kendisi sayfaya dönüşmez |
 | `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
 | `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
 | `src/vehicle-page.js` | Araç sayfası şablonu |
@@ -67,13 +68,51 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 
 Opsiyonlar bir kez tanımlanır; sekmeler `id` ile referans verir. Bir fiyatın değiştirilmesi tek satırlık işlemdir ve aracın tüm sekmeleriyle araç seçim ekranını birlikte günceller.
 
-### Yeni araç
+### Donanım sayfaları ve taban dosya
 
-1. `data/<slug>.json` oluşturun — mevcut bir araç dosyasını kopyalamak en pratiği
-2. Görselleri `assets/images/<slug>/` altına yerleştirin
+Aynı aracın donanımları içeriğin yaklaşık %85'ini paylaşıyor. Ortak kısım `data/<aile>.base.json` içinde tek nüsha durur; her donanım dosyası `base` alanıyla ona bağlanır ve yalnızca farkını yazar.
+
+```jsonc
+// data/puma.base.json — teknik veriler, standart kartlar, teknoloji sekmesi, opsiyon fiyatları
+// data/puma-st-line-x.json
+{
+  "base": "puma",
+  "slug": "puma-st-line-x",
+  "meta": "ST-Line X",
+  "options": { "stepne": { "packages": "ST-Line X" } }   // fiyat ve açıklama tabandan
+}
+```
+
+Birleştirme kuralı iki maddelik:
+
+| | Davranış | Neden |
+|---|---|---|
+| Nesneler | Anahtar anahtar birleşir, varyant kazanır | `options` bir sözlük: fiyat tabanda, `packages` varyantta durabilir |
+| Diziler | Tamamen değişir | Yarı birleşmiş bir liste — sırası kaymış, kartı tekrar etmiş — dosyaya bakıp öngörülemez |
+
+Yani bir varyant altı kartlık listeden birini çıkaracaksa kalan beşini baştan yazar. Uzun ama okuyan herkes ekranda ne göreceğini dosyadan görür.
+
+Taban dosyalar tek seviyedir: bir taban dosya kendisi `base` kullanamaz.
+
+### Yeni sayfa
+
+1. `data/<slug>.json` oluşturun — aynı araçtan bir donanım daha ekliyorsanız `base` ile mevcut tabana bağlanın, yeni bir araçsa mevcut bir dosyayı kopyalayın
+2. Görselleri `assets/images/<araç>/` altına yerleştirin
 3. `data/shared.json` içindeki `vehicles` dizisine `<slug>` ekleyin
 
 Dizideki sıra, araç seçim ekranındaki kart sırasıdır. Araç sayfası ve seçim kartı otomatik üretilir.
+
+### Index'te görünmeyen sayfa
+
+`shared.json` iki liste tutar. Hangi `.html` dosyalarının üretileceğine **ikisinin toplamı** karar verir; aralarındaki tek fark araç seçim ekranında kart çıkıp çıkmamasıdır.
+
+| Slug nerede | `.html` üretilir | Index kartı |
+|---|---|---|
+| `vehicles` | evet | var |
+| `previewVehicles` | evet | yok |
+| hiçbiri | hayır | yok |
+
+Onaya sunulacak sayfalar `previewVehicles`'a konur, doğrudan URL ile açılır. Onaylanınca slug `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
 
 ### Ortak içerik ve etiketler
 
@@ -93,6 +132,10 @@ Donanım etiketleri varsayılan/istisna mantığıyla çalışır: kartların ç
 | Etiket anahtarı sözlükte var mı | Tutarsız donanım etiketi |
 | Metinler düz tırnak kullanıyor mu | Karışık tipografi |
 | Zorunlu alanlar dolu mu | Eksik içerikli sayfa |
+| `base` gösterdiği taban dosya var mı | Sessizce yarım kalan sayfa |
+| Taban dosyanın kendi `base`'i var mı | Alanın nereden geldiğini bulunamaz hâle getiren zincir |
+
+Doğrulama birleştirme **sonrası** veri üzerinde çalışır: tabandan gelen bir eksiklik de varyantın kendi hatası kadar görünür olur. `previewVehicles` sayfaları da aynı denetimden geçer — "nasıl olsa index'te yok" diye kaçamaz.
 
 Hata çıktısı dosya ve alan adı verir:
 

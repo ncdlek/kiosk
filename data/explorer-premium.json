@@ -1,0 +1,59 @@
+{
+  "base": "explorer",
+
+  "slug": "explorer-premium",
+  "heroAlt": "Yeni Ford Explorer Premium",
+  "pageTitle": "Ford Explorer Premium Tasarım",
+  "gtmModel": "Yeni Ford Explorer Premium",
+  "meta": "Premium Elektrikli SUV",
+
+  "//startingPrice": "Tabandaki ortak Explorer fiyatı (Select girişi) kullanılıyor. Premium'a özel fiyat gelince burada ezilir.",
+
+  "emission": [
+    { "package": "Premium", "image": "assets/images/explorer/popup/emisyon-premium.jpg", "value": "0 g/km" }
+  ],
+
+  "models": {
+    "layout": "carousel",
+    "packages": [
+      {
+        "name": "Premium",
+        "imageAltPrefix": "Explorer Premium",
+        "activeColor": 4,
+        "colors": [
+          { "label": "Kutup Mavisi", "swatch": "assets/images/explorer/anasayfa/models/swatches/kutup-mavisi.jpg", "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-kutup-mavisi.jpg" },
+          { "label": "Buz Beyazı",   "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-buz-beyazi.jpg" },
+          { "label": "Manyetik Gri", "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg", "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-manyetik-gri.jpg" },
+          { "label": "Akik Siyah",   "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-akik-siyah.jpg" },
+          { "label": "Düş Mavisi",   "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",   "image": "assets/images/explorer/anasayfa/models/premium/explorer-premium-dus-mavisi.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "options": {
+    "surus-destek": {
+      "title": "Sürüş Destek Paketi",
+      "price": 92100,
+      "packages": "Premium",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/surus-destek-premium.jpg"
+      }
+    },
+    "bo-ses": {
+      "title": "B&O Ses Sistemi",
+      "price": 32700,
+      "packages": "Premium",
+      "badge": "* OPSİYONEL",
+      "desc": "Gelişmiş hoparlör sistemi ile yolculuklarınıza güçlü, net ve premium bir ses deneyimi kazandırır.",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/ses-sistemi.jpg",
+        "ic-tasarim": "assets/images/explorer/ic-tasarim/options/ses-sistemi.jpg",
+        "dis-tasarim": "assets/images/explorer/dis-tasarim/options/ses-sistemi.jpg"
+      }
+    },
+    "isi-pompasi":  { "packages": "Premium", "badge": "* OPSİYONEL" },
+    "metalik-renk": { "packages": "Premium" },
+    "jant-21":      { "packages": "Premium" }
+  }
+}

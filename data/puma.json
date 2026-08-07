@@ -1,21 +1,21 @@
 {
+  "base": "puma",
+
+  "//": "İki paketi yan yana gösteren karşılaştırma sayfası. Tek donanım sayfalarıyla aynı tabandan besleniyor — teknik veriler, standart kartlar ve teknoloji sekmesi tek nüsha.",
+
   "slug": "puma",
-  "name": "Ford Puma®",
-  "shortName": "Puma",
   "heroAlt": "Ford Puma",
   "pageTitle": "Ford Puma Tasarım",
   "gtmModel": "Ford Puma",
-  "startingPrice": 2238900,
   "meta": "Titanium - St-Line X",
 
   "co2": { "from": "(G) 128 g/km", "to": "(H) 131 g/km" },
-  "emissionImage": "assets/images/puma/popup/emisyon.jpg",
-  "qrImage": "assets/images/puma/popup/qr.jpg",
   "emission": [
     { "package": "Titanium",  "image": "assets/images/puma/popup/emisyon-titanium.jpg", "value": "128 g/km" },
     { "package": "ST-Line X", "image": "assets/images/puma/popup/emisyon-stlinex.jpg",  "value": "131 g/km" }
   ],
 
+  "//defaultTag": "İki paket yan yana olduğu için etiket donanım ayrımı yapmak zorunda.",
   "defaultTag": "tum-donanim",
 
   "models": {
@@ -50,39 +50,6 @@
     ]
   },
 
-  "specs": {
-    "layout": "simple",
-    "rows": [
-      { "label": "GÜÇ (PS)",         "value": "125-155" },
-      { "label": "Yakıt Tüketimi",   "value": "4,8 - 6,9" },
-      { "label": "VİTES",            "value": "7 İleri Otomatik" },
-      { "label": "Bagaj Hacmi (L)",  "value": "410 - 456" }
-    ]
-  },
-
-  "featured": [
-    {
-      "title": "Dijital Kokpit",
-      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan.png",
-      "desc": ["1.0L EcoBoost ile sessiz, güçlü ve bütçe dostu", "155 PS Hibrit performansının keyfini çıkarın."]
-    },
-    {
-      "title": "Panoramik Cam Tavan",
-      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-panoramik-cam-tavan.jpg",
-      "desc": ["Kabini doğal ışıkla doldurarak", "ferah bir sürüş atmosferi yaratır."]
-    },
-    {
-      "title": "Matrix LED Farlar",
-      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-matrix-led-farlar.jpg",
-      "desc": ["Akıllı aydınlatma teknolojisiyle", "her sürüşte üstün görüş sağlar."]
-    },
-    {
-      "title": "80L MegaBox",
-      "image": "assets/images/puma/anasayfa/featured/anasayfa-one-cikan-80l-megabox.jpg",
-      "desc": ["Akıllı depolama alanıyla günlük ihtiyaçlarınızı", "daha pratik şekilde taşıyın."]
-    }
-  ],
-
   "options": {
     "panoramik-tavan": {
       "title": "Açılabilir Panoramik Cam Tavan",
@@ -96,59 +63,14 @@
         "dis-tasarim": "assets/images/puma/dis-tasarim/options/panoromik-cam-tavan.png"
       }
     },
-    "metalik-renk": {
-      "title": "Metalik ve Özel Gövde Renkleri",
-      "price": [28600, 53900],
-      "packages": "Titanium, ST-Line X",
-      "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/metalik-renkler.png"
-      }
-    },
-    "stepne": {
-      "title": "Stepne",
-      "price": 5700,
-      "packages": "Titanium, ST-Line X",
-      "badge": "* TÜM PAKETLERDE OPSİYONEL",
-      "desc": "Olası lastik hasarlarına karşı ek güvenlik. (Not: Stepne opsiyonu tercih edildiğinde MegaBox'ın su tahliye özelliği araçtan çıkarılır.)",
-      "overlay": "light",
-      "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/celik-stepne.png",
-        "ic-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png",
-        "dis-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png"
-      }
-    },
-    "teknoloji-paketi": {
-      "title": "Teknoloji Paketi",
-      "price": 81800,
-      "packages": "Titanium, ST-Line X",
-      "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/teknoloji-paketi.png"
-      }
-    }
+    "metalik-renk":     { "packages": "Titanium, ST-Line X" },
+    "stepne":           { "packages": "Titanium, ST-Line X", "badge": "* TÜM PAKETLERDE OPSİYONEL" },
+    "teknoloji-paketi": { "packages": "Titanium, ST-Line X" }
   },
 
+  "//tabs": "İç ve dış tasarımdaki 'diğer özellikler' listeleri donanım ayrımı yapan etiketler taşıdığı için baştan yazılıyor. Anasayfa ve teknoloji sekmeleri tabandan geliyor.",
   "tabs": {
-    "anasayfa": {
-      "heroImage": "assets/images/puma/anasayfa/hero/anasayfa.png",
-      "sections": [
-        { "type": "models" },
-        { "type": "specs" },
-        { "type": "featureBanner" },
-        {
-          "type": "homeOptions",
-          "titleKey": "options",
-          "options": [
-            "panoramik-tavan",
-            "metalik-renk",
-            { "id": "stepne", "title": "16\" Çelik Stepne" },
-            "teknoloji-paketi"
-          ]
-        }
-      ]
-    },
-
     "ic-tasarim": {
-      "heroImage": "assets/images/puma/ic-tasarim/hero/ic-tasarim.jpg",
       "sections": [
         {
           "type": "standardCards",
@@ -200,7 +122,6 @@
     },
 
     "dis-tasarim": {
-      "heroImage": "assets/images/puma/dis-tasarim/hero/dis-tasarim.jpg",
       "sections": [
         {
           "type": "standardCards",
@@ -243,53 +164,6 @@
             { "title": "Karartılmış Arka Camlar",            "image": "assets/images/puma/dis-tasarim/other/karartilmis-arka-camlar.png" },
             { "title": "360° Kamera",                        "image": "assets/images/puma/dis-tasarim/other/360-kamera.png", "tag": "donanima-gore" },
             { "title": ["Park Sensörleri", "(Ön & Arka)"],   "image": "assets/images/puma/dis-tasarim/other/park-sensorleri.png", "tag": "donanima-gore" }
-          ]
-        }
-      ]
-    },
-
-    "teknoloji": {
-      "heroImage": "assets/images/puma/teknoloji/hero/teknoloji.jpg",
-      "sections": [
-        {
-          "type": "techWide",
-          "title": "BAĞLANTILI ARAÇ DENEYİMİ",
-          "card": {
-            "title": "Ford Uygulaması",
-            "image": "assets/images/puma/teknoloji/connected/ford-uygulamasi.png",
-            "desc": "Aracını uzaktan kontrol et, her an bağlantıda kal."
-          }
-        },
-        {
-          "type": "mediaCards",
-          "title": "BİLGİ EĞLENCE SİSTEMLERİ",
-          "cards": [
-            {
-              "title": "SYNC® 4 Sistemi",
-              "image": "assets/images/puma/teknoloji/infotainment/sync-sistemi.png",
-              "desc": "Akıllı bağlantı ile daha hızlı ve sezgisel kontrol deneyimi."
-            },
-            {
-              "title": "Apple CarPlay / Android Auto",
-              "image": "assets/images/puma/teknoloji/infotainment/apple-carplay-android-auto.png",
-              "desc": "Telefonunuzu aracınızla senkronize edin, yolculuğun keyfini çıkarın."
-            },
-            {
-              "title": "Seçilebilir Sürüş Modları",
-              "image": "assets/images/puma/teknoloji/infotainment/secilebilir-surus-modlari.png",
-              "desc": "Normal, Eco, Sport ve Kaygan zemin modları."
-            }
-          ]
-        },
-        {
-          "type": "smallFeatures",
-          "titleKey": "next-gen",
-          "features": [
-            { "title": "Navigasyon Sistemi",      "image": "assets/images/puma/teknoloji/connectivity/navigasyon-sistemi.png",      "note": "Dahili harita ve canlı rota takibi." },
-            { "title": "Adaptif Hız Sabitleyici", "image": "assets/images/puma/teknoloji/connectivity/adaptif-hiz-sabitleyici.png", "note": "Trafiğe uyum sağlayarak konforlu ve güvenli sürüş sunar." },
-            { "title": "Şerit Takip",             "image": "assets/images/puma/teknoloji/connectivity/serit-takip.png",             "note": "Şeridinde kalmana destek olarak sürüş güvenliğini artırır." },
-            { "title": "Kör Nokta Uyarı",         "image": "assets/images/puma/teknoloji/connectivity/kor-nokta-uyari.png",         "note": "Görüş alanının dışındaki araçları algılayarak seni uyarır." },
-            { "title": "Ford Eco Coach",          "image": "assets/images/puma/teknoloji/connectivity/eco-coach.png",               "note": "Sürüşünü analiz eder, daha verimli kullanım önerileri sunar." }
           ]
         }
       ]

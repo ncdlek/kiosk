@@ -37,6 +37,55 @@ function readJson(file) {
 	}
 }
 
+// ------------------------------------------------------------ taban dosya
+//
+// Aynı aracın donanımları içeriğin %85'ini paylaşıyor. Ortak kısım
+// `data/<aile>.base.json`'da durur; varyant dosyası `"base": "<aile>"` yazıp
+// yalnızca farkını tanımlar.
+//
+// Birleştirme kuralı bilerek iki maddelik:
+//
+//   nesneler  anahtar anahtar birleşir, varyant kazanır. `options` bir sözlük
+//             olduğu için fiyat/açıklama tabanda, `packages` varyantta durabilir.
+//   diziler   tamamen değişir. Yarı birleşmiş bir liste — sırası kaymış, kartı
+//             tekrar etmiş — kimsenin dosyaya bakıp öngöremeyeceği bir sayfa
+//             üretir. Varyant bir listeyi değiştirecekse tamamını yazar.
+//
+// Tek seviye: taban dosyanın kendisi base kullanamaz. İki seviye olsaydı bir
+// alanın nereden geldiğini bulmak üç dosya açmayı gerektirirdi.
+
+function isPlainObject(v) {
+	return v !== null && typeof v === 'object' && !Array.isArray(v);
+}
+
+function merge(base, over) {
+	if (!isPlainObject(base) || !isPlainObject(over)) return over;
+
+	const out = Object.assign({}, base);
+	for (const [k, v] of Object.entries(over)) {
+		out[k] = k in base ? merge(base[k], v) : v;
+	}
+	return out;
+}
+
+function loadVehicle(slug) {
+	const file = path.join(DATA, `${slug}.json`);
+	const v = readJson(file);
+	if (!v.base) return v;
+
+	const basePath = path.join(DATA, `${v.base}.base.json`);
+	if (!fs.existsSync(basePath)) {
+		throw new Error(`data/${slug}.json: base "${v.base}" belirtilmiş ama data/${v.base}.base.json yok`);
+	}
+
+	const base = readJson(basePath);
+	if (base.base) {
+		throw new Error(`data/${v.base}.base.json kendisi base kullanıyor — taban dosyalar tek seviye`);
+	}
+
+	return merge(base, v);
+}
+
 // Veri içindeki her string'i ziyaret et. Doğrulama ve yol öneki bunun üstünde.
 function walkStrings(value, visit, trail = []) {
 	if (typeof value === 'string') return visit(value, trail.join('.'));
@@ -177,7 +226,15 @@ function main() {
 	const checkOnly = process.argv.includes('--check');
 
 	const shared = readJson(path.join(DATA, 'shared.json'));
-	const vehicles = shared.vehicles.map(slug => readJson(path.join(DATA, `${slug}.json`)));
+	// İki liste, tek fark: index'te görünüp görünmemek. Önizleme araçlarının
+	// sayfası normal üretilir ve aynı doğrulamadan geçer — yarım kalmış bir
+	// sayfanın "nasıl olsa listede yok" diye kaçması mümkün olmasın.
+	//
+	// Doğrulama birleştirme SONRASI veri üzerinde çalışır: tabandan gelen bir
+	// alanın eksikliği de varyantın kendi hatası kadar görünür olsun.
+	const listed = shared.vehicles.map(loadVehicle);
+	const preview = (shared.previewVehicles || []).map(loadVehicle);
+	const vehicles = listed.concat(preview);
 
 	const errors = validate(vehicles, shared);
 	if (errors.length) {
@@ -196,7 +253,7 @@ function main() {
 	fs.rmSync(DIST, { recursive: true, force: true });
 	fs.mkdirSync(path.join(DIST, 'vehicles'), { recursive: true });
 
-	fs.writeFileSync(path.join(DIST, 'index.html'), indexPage(vehicles, shared));
+	fs.writeFileSync(path.join(DIST, 'index.html'), indexPage(listed, shared));
 
 	for (const v of vehicles) {
 		const html = vehiclePage(prefixAssets(v, '../'), shared);
@@ -210,7 +267,8 @@ function main() {
 		filter: src => !/\.(otf|ttf)$/i.test(src) && !/\.DS_Store$/.test(src),
 	});
 
-	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası`);
+	const extra = preview.length ? ` (${preview.length} tanesi index'te listelenmiyor)` : '';
+	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası${extra}`);
 }
 
 try {

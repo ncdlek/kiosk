@@ -1,0 +1,163 @@
+{
+  "base": "explorer",
+
+  "slug": "explorer-select",
+  "heroAlt": "Yeni Ford Explorer Select",
+  "pageTitle": "Ford Explorer Select Tasarım",
+  "gtmModel": "Yeni Ford Explorer Select",
+  "meta": "Select Elektrikli SUV",
+
+  "emission": [
+    { "package": "Select", "image": "assets/images/explorer/popup/emisyon-select.jpg", "value": "0 g/km" }
+  ],
+
+  "models": {
+    "layout": "carousel",
+    "packages": [
+      {
+        "name": "Select",
+        "imageAltPrefix": "Explorer Select",
+        "activeColor": 0,
+        "colors": [
+          { "label": "Kutup Mavisi",   "swatch": "assets/images/explorer/anasayfa/models/swatches/kutup-mavisi.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-kutup-mavisi.jpg" },
+          { "label": "Buz Beyazı",     "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-buz-beyazi.jpg" },
+          { "label": "Manyetik Gri",   "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-manyetik-gri.jpg" },
+          { "label": "Akik Siyah",     "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-akik-siyah.jpg" },
+          { "label": "Mercan Kırmızı", "swatch": "assets/images/explorer/anasayfa/models/swatches/mercan-kirmizi.jpg", "image": "assets/images/explorer/anasayfa/models/select/explorer-select-mercan-kirmizi.jpg" },
+          { "label": "Düş Mavisi",     "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-dus-mavisi.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "//options": "B&O tabanda tanımlı değil, burada da tanımlanmıyor — Select'te yer almıyor.",
+  "options": {
+    "surus-destek": {
+      "title": "Sürüş Destek Paketi",
+      "price": 107500,
+      "packages": "Select",
+      "images": {
+        "anasayfa": "assets/images/explorer/anasayfa/options/surus-destek-select.jpg"
+      }
+    },
+    "isi-pompasi":  { "packages": "Select", "badge": "* OPSİYONEL" },
+    "metalik-renk": { "packages": "Select" },
+    "jant-21":      { "packages": "Select" }
+  },
+
+  "//tabs": "Üç sekme de B&O opsiyonuna ya da Premium'da standart olan kartlara referans verdiği için taban listeleri baştan yazıldı. Teknoloji sekmesi tabandan geliyor.",
+  "tabs": {
+    "anasayfa": {
+      "sections": [
+        { "type": "models" },
+        { "type": "specs" },
+        { "type": "featureBanner" },
+        {
+          "type": "homeOptions",
+          "titleKey": "options",
+          "options": [
+            "isi-pompasi",
+            "surus-destek",
+            "metalik-renk",
+            "jant-21"
+          ]
+        }
+      ]
+    },
+
+    "ic-tasarim": {
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "TÜM EXPLORER'LARDA STANDART",
+          "cards": [
+            {
+              "title": "14.6\" SYNC Move Ekran",
+              "image": "assets/images/explorer/ic-tasarim/standard/move-ekran.jpg",
+              "desc": "Akıllı ve sezgisel bağlantı deneyimi."
+            },
+            {
+              "title": "Mega Orta Konsol",
+              "image": "assets/images/explorer/ic-tasarim/standard/mega-orta-konsol.jpg",
+              "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı."
+            },
+            {
+              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
+              "desc": "Telefonunu kablosuz bağla, yolculuğu kesintisiz sürdür."
+            },
+            {
+              "title": "Seçilebilir Sürüş Modları",
+              "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg",
+              "desc": "Farklı sürüş modlarıyla her yol koşuluna uyum sağlar."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["isi-pompasi"]
+        },
+        {
+          "//features": "Premium'da standart olan kartlar (kol dayama, hafızalı koltuk, ambiyans) Select listesinde yok.",
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Isıtmalı Sensico® Direksiyon",      "image": "assets/images/explorer/ic-tasarim/other/isitmali-sensico-direksiyon.jpg" },
+            { "title": "5\" Dijital Gösterge Paneli",        "image": "assets/images/explorer/ic-tasarim/other/dijital-gosterge-paneli.jpg" },
+            { "title": "60/40 Katlanabilir Arka Koltuklar", "image": "assets/images/explorer/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg" },
+            { "title": "2 Bölgeli Otomatik Klima",          "image": "assets/images/explorer/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg" },
+            { "title": "7 Hoparlörlü Ses Sistemi",          "image": "assets/images/explorer/ic-tasarim/other/7-hoparlorlu-ses-sistemi.jpg" }
+          ]
+        }
+      ]
+    },
+
+    "dis-tasarim": {
+      "sections": [
+        {
+          "type": "standardCards",
+          "title": "DIŞ TASARIM STANDARTLARI",
+          "cards": [
+            {
+              "title": "Otomatik Yanan Uzun Farlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/led-on-farlar.jpg",
+              "desc": "Modern görünüm ve güçlü aydınlatma."
+            },
+            {
+              "title": "LED Arka Farlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/led-arka-farlar.jpg",
+              "desc": "Şık tasarım ile yüksek görünürlük."
+            },
+            {
+              "title": "Karartılmış Arka Camlar",
+              "image": "assets/images/explorer/dis-tasarim/standard/karartilmis-arka-camlar.jpg",
+              "desc": "Sportif ve premium görünüm."
+            },
+            {
+              "title": "Ön / Arka Park Sensörü",
+              "image": "assets/images/explorer/dis-tasarim/standard/on-arka-park-sensoru.jpg",
+              "desc": "Park manevralarında daha güvenli hareket etmeyi destekler."
+            }
+          ]
+        },
+        {
+          "type": "visualOptions",
+          "titleKey": "options",
+          "options": ["isi-pompasi"]
+        },
+        {
+          "//features": "Logo aydınlatmalı yan aynalar ve panoramik cam tavan Premium'da standart, Select listesinde yok.",
+          "type": "smallFeatures",
+          "titleKey": "other",
+          "features": [
+            { "title": "Akıllı Bagaj Kapağı",             "image": "assets/images/explorer/dis-tasarim/other/akilli-bagaj-kapagi.jpg" },
+            { "title": "Yağmur Sensörü",                  "image": "assets/images/explorer/dis-tasarim/other/yagmur-sensoru.jpg" },
+            { "title": "Elektrikli Katlanabilir Aynalar", "image": "assets/images/explorer/dis-tasarim/other/elektrikli-katlanabilir-aynalar.jpg" },
+            { "title": "Kapı Kolu Ambiyans Aydınlatma",   "image": "assets/images/explorer/dis-tasarim/other/kapi-kolu-ambiyans-andinlatma.jpg" }
+          ]
+        }
+      ]
+    }
+  }
+}

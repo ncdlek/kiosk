@@ -451,6 +451,9 @@ button, a { font: inherit; }
 	justify-content: space-between;
 }
 
+/* Sütun sayısı kart sayısından bağımsız sabit. Donanıma göre bir özellik
+   eksildiğinde (Puma Titanium'da panoramik cam tavan yok) kalanlar soldan
+   dizilir, sağdaki hücre boş kalır — pill genişliği sayfalar arası aynı. */
 .feature-pills {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
@@ -604,6 +607,9 @@ button, a { font: inherit; }
 .standard-card p { margin: 0; color: #777; font-size: 14px; line-height: 1.35; }
 
 /* === OPTION FEATURE CARDS === */
+/* Tek kart kalsa bile iki sütun korunur: kart sola dayalı durur, sağ hücre
+   boş kalır. Ortalamak kartı bölüm başlığından kaydırıyor ve sayfalar
+   arasında kart konumunu oynatıyordu. */
 .option-feature-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;

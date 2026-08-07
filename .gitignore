@@ -12,3 +12,8 @@ dist/
 # İç planlama dokümanları. Repo public olduğu için yayınlanmıyorlar
 # (maliyet kalemleri, tedarikçi değerlendirmesi, bayi/kiosk sayıları).
 docs/
+
+# Claude Code'un makineye özel izin listesi ve geçici worktree'leri.
+# .claude/launch.json paylaşılır (önizleme sunucusu tanımı), bunlar paylaşılmaz.
+.claude/settings.local.json
+.claude/worktrees/

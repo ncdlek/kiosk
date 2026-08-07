@@ -1,0 +1,54 @@
+{
+  "base": "puma",
+
+  "slug": "puma-st-line-x",
+  "heroAlt": "Ford Puma ST-Line X",
+  "pageTitle": "Ford Puma ST-Line X Tasarım",
+  "gtmModel": "Ford Puma ST-Line X",
+  "meta": "ST-Line X",
+
+  "//startingPrice": "Tabandaki ortak Puma fiyatı kullanılıyor. ST-Line X'e özel fiyat gelince burada ezilir.",
+
+  "co2": "(H) 131 g/km",
+  "emission": [
+    { "package": "ST-Line X", "image": "assets/images/puma/popup/emisyon-stlinex.jpg", "value": "131 g/km" }
+  ],
+
+  "models": {
+    "layout": "carousel",
+    "packages": [
+      {
+        "name": "ST-Line X",
+        "imageAltPrefix": "Puma ST-Line X",
+        "activeColor": 1,
+        "colors": [
+          { "label": "Okyanus Mavi",      "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/st-line-x/okyanus-mavi.jpg" },
+          { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/st-line-x/fantastik-kirmizi.jpg" },
+          { "label": "Kaktüs Gri",        "swatch": "assets/images/puma/anasayfa/models/swatches/kaktus-gri.png",        "image": "assets/images/puma/anasayfa/models/st-line-x/kaktus-gri.jpg" },
+          { "label": "Kurşun Gri",        "swatch": "assets/images/puma/anasayfa/models/swatches/kursun-gri.png",        "image": "assets/images/puma/anasayfa/models/st-line-x/kursun-gri.jpg" },
+          { "label": "Akik Siyah",        "swatch": "assets/images/puma/anasayfa/models/swatches/akik-siyah.png",        "image": "assets/images/puma/anasayfa/models/st-line-x/akik-siyah.jpg" },
+          { "label": "Elektrik Sarı",     "swatch": "assets/images/puma/anasayfa/models/swatches/elektrik-sari.jpg",     "image": "assets/images/puma/anasayfa/models/st-line-x/elektrik-sari.jpg" },
+          { "label": "Buz Beyazı",        "swatch": "assets/images/puma/anasayfa/models/swatches/buz-beyazi.png",        "image": "assets/images/puma/anasayfa/models/st-line-x/buz-beyazi.jpg" }
+        ]
+      }
+    ]
+  },
+
+  "options": {
+    "panoramik-tavan": {
+      "title": "Açılabilir Panoramik Cam Tavan",
+      "price": 74600,
+      "packages": "ST-Line X",
+      "badge": "* OPSİYONEL",
+      "desc": "Kabin içerisine doğal ışığı dolduran, elektrikli açılabilir cam tavan ile yolculuklarınızda maksimum ferahlık hissi yaşayın.",
+      "images": {
+        "anasayfa": "assets/images/puma/anasayfa/options/panoramik-cam-tavan.png",
+        "ic-tasarim": "assets/images/puma/ic-tasarim/options/panoromik-cam-tavan.png",
+        "dis-tasarim": "assets/images/puma/dis-tasarim/options/panoromik-cam-tavan.png"
+      }
+    },
+    "metalik-renk":     { "packages": "ST-Line X" },
+    "stepne":           { "packages": "ST-Line X", "badge": "* OPSİYONEL" },
+    "teknoloji-paketi": { "packages": "ST-Line X" }
+  }
+}
