@@ -1,7 +1,7 @@
 {
   "//": "Capri ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Şu an tek donanım var; ikinci donanım gelince yalnızca kendi farkını yazan bir varyant dosyası eklenir.",
 
-  "name": "Yeni Ford Capri®",
+  "name": "Ford Capri®",
   "shortName": "Capri",
   "startingPrice": 3211600,
 
@@ -37,13 +37,34 @@
     ]
   },
 
+  "//specs": "İki menzil satırlı düzen (.specs--dual). Batarya seçeneği olduğu için Explorer ile aynı yapıda.",
   "specs": {
-    "layout": "simple",
+    "layout": "dual",
+    "columns": [
+      "ELEKTRİKLİ MENZİL",
+      "DC (%10-80) HIZLI ŞARJ SÜRESİ",
+      "GÜÇ",
+      "TORK"
+    ],
     "rows": [
-      { "label": "ELEKTRİKLİ MENZİL",            "value": "373 - 471 km" },
-      { "label": "GÜÇ",                          "value": "125 kW - 170 PS" },
-      { "label": "DC (%10-80) HIZLI ŞARJ SÜRESİ", "value": "25 dakika" },
-      { "label": "TORK",                         "value": "310 Nm" }
+      {
+        "label": "Standart Menzil:",
+        "values": [
+          [{ "n": "437 - 586", "u": "km" }],
+          [{ "n": "26", "u": "dakika" }],
+          [{ "n": "140", "u": "kW" }, { "n": "190", "u": "PS" }],
+          [{ "n": "350", "u": "Nm" }]
+        ]
+      },
+      {
+        "label": "Uzun Menzil:",
+        "values": [
+          [{ "n": "557 - 683", "u": "km" }],
+          [{ "n": "26", "u": "dakika" }],
+          [{ "n": "250", "u": "kW" }, { "n": "340", "u": "PS" }],
+          [{ "n": "679", "u": "Nm" }]
+        ]
+      }
     ]
   },
 
