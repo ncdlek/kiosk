@@ -4,8 +4,8 @@
   "//": "Araç seçim ekranından açılan Capri sayfası. Capri'nin tek donanımı olduğu için içeriğin tamamı tabandan geliyor; burada yalnızca sayfanın kimliği var.",
 
   "slug": "capri",
-  "heroAlt": "Yeni Ford Capri",
+  "heroAlt": "Ford Capri",
   "pageTitle": "Ford Capri Tasarım",
-  "gtmModel": "Yeni Ford Capri",
+  "gtmModel": "Ford Capri",
   "meta": "Premium Elektrikli SUV"
 }
