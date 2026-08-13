@@ -65,7 +65,7 @@
     },
     "metalik-renk":     { "packages": "Titanium, ST-Line X" },
     "stepne":           { "packages": "Titanium, ST-Line X", "badge": "* TÜM PAKETLERDE OPSİYONEL" },
-    "teknoloji-paketi": { "packages": "Titanium, ST-Line X" }
+    "teknoloji-paketi": { "packages": "Titanium" }
   },
 
   "//tabs": "İç ve dış tasarımdaki 'diğer özellikler' listeleri donanım ayrımı yapan etiketler taşıdığı için baştan yazılıyor. Anasayfa ve teknoloji sekmeleri tabandan geliyor.",
