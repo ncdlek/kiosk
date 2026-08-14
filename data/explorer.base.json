@@ -7,7 +7,7 @@
 
   "co2": "(A) 0 g/km",
   "emissionImage": "assets/images/explorer/popup/emisyon.jpg",
-  "qrImage": "assets/images/explorer/popup/qr.jpg",
+  "qrImage": "assets/images/explorer/popup/qr.png",
 
   "//defaultTag": "Tek donanımlı sayfaların varsayılanı. explorer.json iki paket gösterdiği için bunu tum-donanim ile ezer.",
   "defaultTag": "standart",

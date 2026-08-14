@@ -7,7 +7,7 @@
 
   "co2": "(A) 0 g/km",
   "emissionImage": "assets/images/capri/popup/emisyon.jpg",
-  "qrImage": "assets/images/capri/popup/qr.jpg",
+  "qrImage": "assets/images/capri/popup/qr.png",
   "emission": [
     {
       "package": "Premium",

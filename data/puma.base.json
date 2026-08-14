@@ -6,7 +6,7 @@
   "startingPrice": 2238900,
 
   "emissionImage": "assets/images/puma/popup/emisyon.jpg",
-  "qrImage": "assets/images/puma/popup/qr.jpg",
+  "qrImage": "assets/images/puma/popup/qr.png",
 
   "//defaultTag": "Tek donanımlı sayfaların varsayılanı. puma.json iki paket gösterdiği için bunu tum-donanim ile ezer.",
   "defaultTag": "standart",
