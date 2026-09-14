@@ -3,7 +3,7 @@
 
   "name": "Ford Puma®",
   "shortName": "Puma",
-  "startingPrice": 2238900,
+  "startingPrice": 2305800,
 
   "emissionImage": "assets/images/puma/popup/emisyon.jpg",
   "qrImage": "assets/images/puma/popup/qr.png",
@@ -48,14 +48,14 @@
   "options": {
     "metalik-renk": {
       "title": "Metalik ve Özel Gövde Renkleri",
-      "price": [28600, 53900],
+      "price": [29400, 55500],
       "images": {
         "anasayfa": "assets/images/puma/anasayfa/options/metalik-renkler.png"
       }
     },
     "stepne": {
       "title": "Stepne",
-      "price": 5700,
+      "price": 5900,
       "desc": "Olası lastik hasarlarına karşı ek güvenlik. (Not: Stepne opsiyonu tercih edildiğinde MegaBox'ın su tahliye özelliği araçtan çıkarılır.)",
       "overlay": "light",
       "images": {
@@ -66,7 +66,7 @@
     },
     "teknoloji-paketi": {
       "title": "Teknoloji Paketi",
-      "price": 81800,
+      "price": 84300,
       "images": {
         "anasayfa": "assets/images/puma/anasayfa/options/teknoloji-paketi.png"
       }
