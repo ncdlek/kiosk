@@ -14,7 +14,7 @@
   "disclaimer": "* Anahtar teslim fiyatıdır",
 
   "tabs": [
-    { "id": "anasayfa",    "label": "ANASAYFA" },
+    { "id": "anasayfa",    "label": "GENEL BAKIŞ" },
     { "id": "ic-tasarim",  "label": "İÇ TASARIM" },
     { "id": "dis-tasarim", "label": "DIŞ TASARIM" },
     { "id": "teknoloji",   "label": "TEKNOLOJİ" }

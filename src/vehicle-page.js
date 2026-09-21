@@ -62,6 +62,10 @@ function hero(v, shared) {
 	return `<section class="hero">
   <img class="hero__bg" src="${attr(v.tabs.anasayfa.heroImage)}" alt="${attr(v.heroAlt)}">
 
+  <a class="hero__home" href="../index.html" aria-label="Araç seçim ekranına dön">
+    <img src="../assets/images/home-icon.png" alt="">
+  </a>
+
   <div class="hero__content">
     <div class="hero__copy">
       <h1 class="hero__title">${txt(v.name)}</h1>
