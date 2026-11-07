@@ -50,7 +50,7 @@
       "title": "Metalik ve Özel Gövde Renkleri",
       "price": [28800, 54500],
       "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/metalik-renkler.png"
+        "anasayfa": "assets/images/puma/anasayfa/options/metalik-govde-renkleri.jpg"
       }
     },
     "stepne": {
@@ -59,7 +59,7 @@
       "desc": "Olası lastik hasarlarına karşı ek güvenlik. (Not: Stepne opsiyonu tercih edildiğinde MegaBox'ın su tahliye özelliği araçtan çıkarılır.)",
       "overlay": "light",
       "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/celik-stepne.png",
+        "anasayfa": "assets/images/puma/anasayfa/options/celik-stepne.jpg",
         "ic-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png",
         "dis-tasarim": "assets/images/puma/ic-tasarim/options/stepne.png"
       }
@@ -68,7 +68,15 @@
       "title": "Teknoloji Paketi",
       "price": 82600,
       "images": {
-        "anasayfa": "assets/images/puma/anasayfa/options/teknoloji-paketi.png"
+        "anasayfa": "assets/images/puma/anasayfa/options/teknoloji-paketi.jpg"
+      }
+    },
+    "jant-paketi": {
+      "title": "Jant Paketi",
+      "price": 37100,
+      "packages": "ST-Line X",
+      "images": {
+        "anasayfa": "assets/images/puma/anasayfa/options/jant-paketi.jpg"
       }
     }
   },
@@ -83,9 +91,11 @@
         {
           "type": "homeOptions",
           "titleKey": "options",
+          "layout": "compact",
           "options": [
             "panoramik-tavan",
             "metalik-renk",
+            "jant-paketi",
             { "id": "stepne", "title": "16\" Çelik Stepne" },
             "teknoloji-paketi"
           ]

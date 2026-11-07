@@ -70,6 +70,7 @@
         {
           "type": "homeOptions",
           "titleKey": "options",
+          "layout": "compact",
           "options": [
             "metalik-renk",
             { "id": "stepne", "title": "16\" Çelik Stepne" },
