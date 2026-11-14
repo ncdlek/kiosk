@@ -12,10 +12,10 @@ const { formatPrice, txt, attr, text, richAttr, plain, indent } = require('./for
 
 // Başlıklı bölüm sarmalayıcısı: <section><h2 class="section-title">…</h2> …
 function titled(title, body) {
-	return `<section>
-  <h2 class="section-title">${txt(title)}</h2>
-
-${indent(body, 2)}
+	// title yoksa (başlığı kalkan bölüm) <h2> hiç çıkmaz.
+	const heading = title ? `  <h2 class="section-title">${txt(title)}</h2>\n\n` : '';
+	return `<section${title ? '' : ' class="section--untitled"'}>
+${heading}${indent(body, 2)}
 </section>`;
 }
 
@@ -39,7 +39,7 @@ function resolveOption(options, ref, tab) {
 
 // Capri düzeni: tek paket, renk swatch'ları + kayan carousel.
 // Slide sırası = swatch sırası; seçili slide .is-center alır.
-function modelsCarousel(models) {
+function modelsCarousel(models, frame) {
 	const pkg = models.packages[0];
 	// Carousel slide alt'ları paket adını değil araç adını taşır
 	// ("Capri Düş Mavisi"): tek paketli sayfada paket adı bilgi vermiyor.
@@ -53,10 +53,12 @@ function modelsCarousel(models) {
 		`<div class="carousel__slide${i === pkg.activeColor ? ' is-center' : ''}"><img class="model-img" src="${attr(c.image)}" alt="${plain(prefix + ' ' + c.label)}"></div>`
 	).join('\n');
 
-	return `<section class="models models--single">
+	// frame "tight": görselin kadrajında araç etrafında beyaz boşluk var; CSS
+	// (.models--tight) onu kırpar. Hangi aracın görselleri böyle olduğu veride
+	// tek yerde (aile tabanında modelFrame), stil tek dosyada.
+	const cls = frame === 'tight' ? 'models models--single models--tight' : 'models models--single';
+	return `<section class="${cls}">
   <article class="model-card">
-    <h2 class="model-name">${txt(pkg.name)}</h2>
-
     <div class="color-dots">
 ${indent(dots, 6)}
     </div>
@@ -81,8 +83,6 @@ function modelsSwitcher(models) {
 		const active = pkg.colors[pkg.activeColor];
 
 		return `<article class="model-card js-color-switcher">
-  <h2 class="model-name">${txt(pkg.name)}</h2>
-
   <div class="color-dots">
 ${indent(dots, 4)}
   </div>
@@ -96,8 +96,8 @@ ${indent(cards, 2)}
 </section>`;
 }
 
-function models(m) {
-	return m.layout === 'carousel' ? modelsCarousel(m) : modelsSwitcher(m);
+function models(m, frame) {
+	return m.layout === 'carousel' ? modelsCarousel(m, frame) : modelsSwitcher(m);
 }
 
 // --- Anasayfa: teknik veri satırları ----------------------------------
@@ -149,7 +149,28 @@ ${indent(rows, 4)}
 </section>`;
 }
 
+// Versiyon sayfası düzeni: tek versiyonun değerleri, sütun başına
+// başlık / sayı / birim alt alta, ortalı. Eksik değer (null) "—" olur;
+// build.js bunu uyarı olarak listeler.
+function specsStacked(specs) {
+	const cols = specs.columns.map((c, i) => {
+		const v = specs.values[i];
+		return `<div class="spec-stack">
+  <span class="spec-stack__label">${txt(c)}</span>
+  <span class="spec-stack__value">${v ? txt(v.n) : '—'}</span>
+  <span class="spec-stack__unit">${v ? txt(v.u) : ''}</span>
+</div>`;
+	}).join('\n');
+
+	return `<section class="specs-section specs-section--stacked">
+  <div class="specs-stacked">
+${indent(cols, 4)}
+  </div>
+</section>`;
+}
+
 function specs(s) {
+	if (s.layout === 'stacked') return specsStacked(s);
 	return s.layout === 'dual' ? specsDual(s) : specsSimple(s);
 }
 
@@ -182,21 +203,21 @@ ${indent(buttons, 6)}
 
 // --- Anasayfa: opsiyon kartları ---------------------------------------
 
-function homeOption(o) {
+function homeOption(o, showPackages) {
 	return `<article class="home-option">
   <img src="${attr(o.image)}" alt="${plain(o.title)}">
   <div>
     <h3>${text(o.title)}</h3>
     <strong>${txt(formatPrice(o.price))}</strong>
-    <p>${txt(o.packages)}</p>
+${showPackages ? `\n    <p>${txt(o.packages)}</p>` : ''}
   </div>
 </article>`;
 }
 
 // layout "compact": altı opsiyonlu Explorer ızgarası (.home-options--compact)
-function homeOptions(section, options) {
+function homeOptions(section, options, showPackages = true) {
 	const cls = section.layout === 'compact' ? 'home-options home-options--compact' : 'home-options';
-	const cards = section.options.map(ref => homeOption(resolveOption(options, ref, 'anasayfa'))).join('\n\n');
+	const cards = section.options.map(ref => homeOption(resolveOption(options, ref, 'anasayfa'), showPackages)).join('\n\n');
 
 	return titled(section.title, `<div class="${cls}">
 ${indent(cards, 2)}
@@ -224,13 +245,16 @@ ${indent(cards, 2)}
 
 // overlay "light": açık zeminli görselde metnin okunması için farklı overlay.
 // Opsiyona ait bir özellik (sekmeye değil) — aynı opsiyon her sekmede aynı.
-function visualOptionCard(o) {
+// textTop (bölüm düzeyi): "* OPSİYONEL" rozeti çıkmaz, metin bloğu kartın
+// üstüne yaslanır.
+function visualOptionCard(o, textTop) {
 	const light = o.overlay === 'light' ? ' visual-option-overlay--light' : '';
+	const top = textTop ? ' visual-option-overlay--top' : '';
+	const badge = textTop ? '' : `\n    <span>${txt(o.badge)}</span>`;
 
 	return `<article class="visual-option-card visual-option-card--bordered">
   <img src="${attr(o.image)}" alt="${plain(o.title)}">
-  <div class="visual-option-overlay${light}">
-    <span>${txt(o.badge)}</span>
+  <div class="visual-option-overlay${light}${top}">${badge}
     <div>
       <h3>${text(o.title)}</h3>
       <p>${text(o.desc)}</p>
@@ -241,7 +265,7 @@ function visualOptionCard(o) {
 }
 
 function visualOptions(section, options, tab) {
-	const cards = section.options.map(ref => visualOptionCard(resolveOption(options, ref, tab))).join('\n\n');
+	const cards = section.options.map(ref => visualOptionCard(resolveOption(options, ref, tab), section.textTop)).join('\n\n');
 	return titled(section.title, `<div class="option-feature-grid">
 ${indent(cards, 2)}
 </div>`);
@@ -259,15 +283,17 @@ function featureNote(f, shared, defaultTag) {
 	return txt(shared.tags[f.tag || defaultTag]);
 }
 
-function smallFeature(f, shared, defaultTag) {
-	return `<article class="small-feature">
+// hideNotes (bölüm düzeyi): kartın altındaki etiket/açıklama hiç yazılmaz.
+function smallFeature(f, shared, defaultTag, hideNotes) {
+	const note = hideNotes ? '' : `<p>${featureNote(f, shared, defaultTag)}</p>`;
+	return `<article class="small-feature${hideNotes ? ' small-feature--plain' : ''}">
   <img src="${attr(f.image)}" alt="${plain(f.title)}">
-  <div><h3>${text(f.title)}</h3><p>${featureNote(f, shared, defaultTag)}</p></div>
+  <div><h3>${text(f.title)}</h3>${note}</div>
 </article>`;
 }
 
 function smallFeatures(section, shared, defaultTag) {
-	const cards = section.features.map(f => smallFeature(f, shared, defaultTag)).join('\n');
+	const cards = section.features.map(f => smallFeature(f, shared, defaultTag, section.hideNotes)).join('\n');
 	return titled(section.title, `<div class="small-feature-grid">
 ${indent(cards, 2)}
 </div>`);
@@ -354,8 +380,26 @@ ${indent(cols, 4)}
 </template>`;
 }
 
+// --- Kampanya popup'ı -------------------------------------------------
+
+// Emisyon popup'ıyla aynı mekanizma: içerik <template>'te, script.js
+// tetikleyicideki data-popup-template id'sini klonlayıp popup gövdesine koyar.
+function campaignPopup(c, model) {
+	const fill = t => String(t).replace(/\{model\}/g, model);
+	const legal = c.popup.legal.map(p => `<p>${text(fill(p))}</p>`).join('\n');
+
+	return `<template id="campaign-popup-content">
+  <div class="campaign-popup">
+    <p class="campaign-popup__campaign">${text(fill(c.popup.campaign))}</p>
+    <div class="campaign-popup__legal">
+${indent(legal, 6)}
+    </div>
+  </div>
+</template>`;
+}
+
 module.exports = {
 	models, specs, featureBanner, homeOptions, standardCards,
 	visualOptions, smallFeatures, techWide, mediaCards,
-	panelFooter, emissionPopup,
+	panelFooter, emissionPopup, campaignPopup,
 };

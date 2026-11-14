@@ -5,6 +5,9 @@
   "shortName": "Explorer",
   "startingPrice": 2322000,
 
+  "//modelFrame": "Explorer model görselleri aynı kadrajda (araç etrafında beyaz boşluk); carousel sayfalarında .models--tight stili uygulanır. Boyut ve kırpma değerleri style.css'te tek yerde.",
+  "modelFrame": "tight",
+
   "co2": "(A) 0 g/km",
   "emissionImage": "assets/images/explorer/popup/emisyon.jpg",
   "qrImage": "assets/images/explorer/popup/qr.png",
@@ -41,6 +44,16 @@
         ]
       }
     ]
+  },
+
+  "//versionSpecs": "Versiyon sayfalarının teknik veri tablosu, güç etiketine (versions[].power) göre. null olan değer sayfada '—' görünür ve build uyarı verir. 250KW değerleri yukarıdaki specs tablosundan (Uzun Menzil satırı) alındı; 0-100 ve 125KW değerleri henüz gelmedi.",
+  "versionSpecs": {
+    "columns": ["ŞEHİR İÇİ MENZİL (BİRLEŞİK)", "DC (%10-80) HIZLI ŞARJ", "MAXİMUM GÜÇ", "0–100 km/sa"],
+    "values": {
+      "125KW": [null, null, null, null],
+      "140KW": [{ "n": "619", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "190", "u": "PS" }, { "n": "8", "u": "SN" }],
+      "250KW": [{ "n": "670", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "340", "u": "PS" }, null]
+    }
   },
 
   "featured": [
@@ -105,6 +118,7 @@
         {
           "type": "homeOptions",
           "titleKey": "options",
+          "layout": "compact",
           "options": [
             "isi-pompasi",
             "surus-destek",
@@ -121,7 +135,7 @@
       "sections": [
         {
           "type": "standardCards",
-          "title": "TÜM EXPLORER'LARDA STANDART",
+          "title": "STANDART ÖZELLİKLER",
           "cards": [
             {
               "title": "14.6\" SYNC Move Ekran",
@@ -134,14 +148,14 @@
               "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı."
             },
             {
-              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "title": "Kablosuz Apple CarPlay® ve Android Auto®",
               "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
-              "desc": "Telefonunu kablosuz bağla, yolculuğu kesintisiz sürdür."
+              "desc": "Uyumlu telefonunu kablosuz bağlayarak uygulamalarına eriş."
             },
             {
               "title": "Seçilebilir Sürüş Modları",
               "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg",
-              "desc": "Farklı sürüş modlarıyla her yol koşuluna uyum sağlar."
+              "desc": "Farklı sürüş modlarıyla sürüşünü ihtiyacına göre şekillendir."
             }
           ]
         },
@@ -230,7 +244,7 @@
         },
         {
           "type": "mediaCards",
-          "title": "DİJİTAL SÜRÜŞ DENEYİMİ",
+          "title": "DİJİTAL TEKNOLOJİLER",
           "cards": [
             {
               "title": "5\" Dijital Gösterge Paneli",
@@ -251,7 +265,7 @@
         },
         {
           "type": "smallFeatures",
-          "titleKey": "next-gen",
+          "titleKey": "other",
           "features": [
             { "title": "Adaptif Hız Sabitleyici", "image": "assets/images/explorer/teknoloji/advanced/adaptif-hiz-sabitleyici.jpg" },
             { "title": "Kör Nokta Uyarı Sistemi", "image": "assets/images/explorer/teknoloji/advanced/kor-nokta-uyari-sistemi.jpg" },

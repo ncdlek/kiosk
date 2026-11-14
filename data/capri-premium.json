@@ -1,11 +1,191 @@
 {
   "base": "capri",
-
   "//": "Donanım adıyla ayrı sayfa yolu — puma-titanium, explorer-premium ile aynı adlandırma. Capri'nin tek donanımı olduğu için içerik capri.json ile birebir aynı; ikinci donanım gelirse fark burada birikir.",
-
   "slug": "capri-premium",
+  "trim": "Premium",
   "heroAlt": "Ford Capri Premium",
   "pageTitle": "Ford Capri Premium Tasarım",
   "gtmModel": "Ford Capri Premium",
-  "meta": "Premium Elektrikli SUV"
+  "meta": "Premium Elektrikli SUV",
+  "//versions": "Capri'nin tek donanımı Premium; üç güç versiyonu. İçeriğin tamamı capri.base.json'dan gelir, burada yalnızca fiyat ve farklar var (teknik veri tabandaki versionSpecs'ten güce göre). Kampanya takas-4 Explorer ile aynı varsayıldı.",
+  "versions": [
+    {
+      "id": "125kw",
+      "power": "125KW",
+      "price": 3211600,
+      "campaign": "takas-4"
+    },
+    {
+      "id": "140kw",
+      "power": "140KW",
+      "price": 3371600,
+      "campaign": "takas-4"
+    },
+    {
+      "id": "250kw",
+      "power": "250KW",
+      "price": 4330000,
+      "campaign": "takas-4",
+      "//tabs": "İç Tasarım bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 8. özellik (Araç Dışı Şarj Paylaşımı).",
+      "tabs": {
+        "ic-tasarim": {
+          "sections": [
+            {
+              "type": "standardCards",
+              "title": "TÜM CAPRI'LERDE STANDART",
+              "cards": [
+                {
+                  "title": "14.6\" SYNC® Move Ekran",
+                  "image": "assets/images/capri/ic-tasarim/standard/move-ekran.jpg",
+                  "desc": "Gelişmiş bağlantı teknolojileriyle sürüş deneyimini zenginleştirir."
+                },
+                {
+                  "title": "Mega Orta Konsol",
+                  "image": "assets/images/capri/ic-tasarim/standard/mega-orta-konsol.jpg",
+                  "desc": "Geniş ve fonksiyonel tasarımıyla ekstra kullanım alanı sunar."
+                },
+                {
+                  "title": "Kablosuz Apple CarPlay & Android Auto",
+                  "image": "assets/images/capri/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
+                  "desc": "Favori uygulamalarınıza kolay ve hızlı erişim sağlar."
+                },
+                {
+                  "title": "Ambiyans Aydınlatma",
+                  "image": "assets/images/capri/ic-tasarim/standard/ambiyans-aydinlatma.jpg",
+                  "desc": "İç mekâna şık ve kişiselleştirilebilir bir karakter kazandırır."
+                }
+              ]
+            },
+            {
+              "type": "visualOptions",
+              "titleKey": "options",
+              "options": [
+                "bo-ses",
+                "isi-pompasi"
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "titleKey": "other",
+              "features": [
+                {
+                  "title": "Isıtmalı Sensico® Direksiyon",
+                  "image": "assets/images/capri/ic-tasarim/other/isitmali-sensico-direksiyon.jpg"
+                },
+                {
+                  "title": "Elektrikli Hafızalı, Bel Destekli Sürücü Koltuğu",
+                  "image": "assets/images/capri/ic-tasarim/other/agr-sertifikali-koltuk.jpg"
+                },
+                {
+                  "title": "İki Bölgeli Otomatik Klima",
+                  "image": "assets/images/capri/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg"
+                },
+                {
+                  "title": "5\" Dijital Gösterge Paneli",
+                  "image": "assets/images/capri/ic-tasarim/other/dijital-gosterge-paneli.jpg"
+                },
+                {
+                  "title": "Seçilebilir Sürüş Modları",
+                  "image": "assets/images/capri/ic-tasarim/other/surus-modlari.jpg"
+                },
+                {
+                  "title": "60/40 Katlanabilir Arka Koltuklar",
+                  "image": "assets/images/capri/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg"
+                },
+                {
+                  "title": "Isıtmalı ve Masajlı Sensico® Sürücü Koltuk",
+                  "image": "assets/images/capri/ic-tasarim/other/isitmali-masaj-ozellikli-sensico-koltuklar.jpg"
+                },
+                {
+                  "title": "Araç Dışı Şarj Paylaşımı (V2L)",
+                  "image": "assets/images/capri/ic-tasarim/other/arac-disi-sarj-paylasim.jpg"
+                },
+                {
+                  "title": "Akıllı Bagaj Kapağı",
+                  "image": "assets/images/capri/ic-tasarim/other/akilli-bagaj-kapak.jpg"
+                }
+              ]
+            }
+          ]
+        },
+        "teknoloji": {
+          "heroImage": "assets/images/capri/teknoloji/hero/teknoloji.jpg",
+          "sections": [
+            {
+              "type": "techWide",
+              "titleKey": "connected",
+              "card": {
+                "title": "14.6\" SYNC® Move Bilgi-Eğlence Sistemi",
+                "image": "assets/images/capri/teknoloji/connected/baglantili-teknolojiler.jpg",
+                "desc": [
+                  "Gelişmiş bağlantı ve eğlence özelliklerini yüksek çözünürlüklü",
+                  "dokunmatik ekranda bir araya getirir."
+                ]
+              }
+            },
+            {
+              "type": "mediaCards",
+              "title": "DİJİTAL TEKNOLOJİLER",
+              "cards": [
+                {
+                  "title": "Kablosuz Şarj",
+                  "image": "assets/images/capri/teknoloji/infotainment/kablosuz-sarj.jpg",
+                  "desc": "Uyumlu cihazlarınızı kabloya ihtiyaç duymadan pratik şekilde şarj edin."
+                },
+                {
+                  "title": "Seçilebilir Sürüş Modları",
+                  "image": "assets/images/capri/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
+                  "desc": "Farklı sürüş ihtiyaçlarına uyum sağlayan sürüş deneyimi sunar."
+                },
+                {
+                  "title": "7 Hoparlörlü Ses Sistemi",
+                  "image": "assets/images/capri/teknoloji/infotainment/7-hoparlorlu-ses-sistemi.jpg",
+                  "desc": "Kabin genelinde dengeli ve etkileyici bir ses deneyimi sunar."
+                }
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "titleKey": "other",
+              "features": [
+                {
+                  "title": "Dur & Kalk Özellikli Adaptif Hız Kontrolü",
+                  "image": "assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg"
+                },
+                {
+                  "title": "5\" Dijital Gösterge Paneli",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg"
+                },
+                {
+                  "title": "Otomatik Frenli Çapraz Trafik Uyarı Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/otomatik-frenli-trafik-uyari-sistemi.jpg"
+                },
+                {
+                  "title": "Kör Nokta Uyarı Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg"
+                },
+                {
+                  "title": "Geri Görüş Kamerası",
+                  "image": "assets/images/capri/teknoloji/connectivity/geri-gorus-kamera.jpg"
+                },
+                {
+                  "title": "Gelişmiş Fren Yardımcısı ve Acil Fren Desteği (EBA)",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-fren-yardimcisi.jpg"
+                },
+                {
+                  "title": "Şerit Takip Sistemi ve Şeritte Kalma Yardımcısı",
+                  "image": "assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg"
+                },
+                {
+                  "title": "Gelişmiş Sürücü Dikkat Takip Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-surucu-dikkat-takip.jpg"
+                }
+              ],
+              "hideNotes": true
+            }
+          ]
+        }
+      }
+    }
+  ]
 }

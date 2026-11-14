@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const { vehiclePage } = require('./src/vehicle-page');
+const { vehiclePage, campaignOf, DESIGN_TABS } = require('./src/vehicle-page');
 const { indexPage } = require('./src/index-page');
 
 const ROOT = __dirname;
@@ -53,6 +53,11 @@ function readJson(file) {
 //
 // Tek seviye: taban dosyanın kendisi base kullanamaz. İki seviye olsaydı bir
 // alanın nereden geldiğini bulmak üç dosya açmayı gerektirirdi.
+//
+// Versiyonlar (kW) bu yüzden ayrı dosya DEĞİL, donanım dosyasının içinde
+// `versions` dizisi: üçüncü bir dosya katmanı "taban → donanım → versiyon"
+// zinciri kurardı. Dizide durunca bir donanımın bütün versiyonları tek ekranda
+// okunur, zincir yine iki dosyada kalır. Bkz. expandVersions.
 
 function isPlainObject(v) {
 	return v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -84,6 +89,99 @@ function loadVehicle(slug) {
 	}
 
 	return merge(base, v);
+}
+
+// ---------------------------------------------------------------- versiyon
+//
+// Donanım dosyası `versions` taşıyorsa her girdi ayrı bir sayfa olur:
+//   slug = <donanım slug>-<id>   →   explorer-premium-250kw.html
+//
+// Girdi, donanımın (tabanla birleşmiş hâlinin) üstüne aynı `merge` kuralıyla
+// biner. Versiyona göre değişecek her alan — options, tabs, emission, specs,
+// models — bu yüzden ayrı kod gerektirmez: girdiye yazılır, gerisi miras.
+//
+// Meta alanlar (id, power, price, campaign, placeholder) içerik değil sayfanın
+// kimliği; sayfa verisinde `version` altında durur ki bir gün aynı adlı bir
+// içerik alanıyla çakışmasın. `versions` dizisi hiçbir sayfa verisine sızmaz.
+
+const VERSION_META = ['id', 'power', 'price', 'campaign', 'placeholder'];
+
+// Versiyon girdisinin ezmemesi gereken alanlar: sayfanın kimliğini ve
+// birleştirme zincirini bozarlar.
+const VERSION_FORBIDDEN = ['slug', 'base', 'versions', 'trim'];
+
+function withoutVersions(hw) {
+	const out = Object.assign({}, hw);
+	delete out.versions;
+	return out;
+}
+
+// "Ford Explorer®" → "Ford Explorer": başlık ve GTM etiketinde ® istenmiyor
+// (mevcut pageTitle/gtmModel değerlerinde de yok).
+function plainName(name) {
+	return String(name).replace(/[®™]/g, '').trim();
+}
+
+function expandVersions(hw) {
+	return (hw.versions || []).map(entry => {
+		const meta = {};
+		const over = {};
+		for (const [k, val] of Object.entries(entry)) {
+			if (VERSION_META.includes(k)) meta[k] = val;
+			// Yasak alanlar doğrulamada hata olarak raporlanır; burada atlanır ki
+			// hata mesajı bile bozuk bir slug'la yazılmasın.
+			else if (!VERSION_FORBIDDEN.includes(k)) over[k] = val;
+		}
+
+		// Türetilen kimlik alanları donanımınkini ezer; girdi isterse onu da ezer.
+		const label = `${plainName(hw.name)} ${hw.trim} ${meta.power}`;
+		const derived = {
+			slug: `${hw.slug}-${meta.id}`,
+			pageTitle: `${label} Tasarım`,
+			gtmModel: label,
+			heroAlt: label,
+			version: meta,
+		};
+
+		const page = merge(merge(withoutVersions(hw), derived), over);
+		return versionSpecs(page, 'specs' in over);
+	});
+}
+
+// Versiyon sayfasında teknik veri anasayfa sekmesinin en üstüne çıkar ve
+// yalnızca o versiyonun değerlerini, kendi düzeninde ("stacked": sütun başlığı,
+// altında büyük sayı, onun altında birim) gösterir.
+//
+// Değerler elle versiyona kopyalanmaz: ailenin tabanında `versionSpecs`
+// sözlüğü güç etiketine göre tutulur, versiyon kendi `power`'ıyla bulur.
+//
+//   "versionSpecs": {
+//     "columns": ["ŞEHİR İÇİ MENZİL (BİRLEŞİK)", ...],
+//     "values": { "140KW": [{ "n": "619", "u": "KM" }, ...] }
+//   }
+//
+// Aynı güç farklı donanımda farklı değer veriyorsa versiyon girdisi kendi
+// `specs`'ini ({ "layout": "stacked", "columns": [...], "values": [...] })
+// yazar; elle verilen kazanır. Sözlükte gücün karşılığı yoksa ya da bir değer
+// null ise o hücre "—" olur ve build uyarı verir — eski iki satırlı tabloya
+// düşmek, kioskta başka bir versiyonun verisini göstermek demekti.
+function versionSpecs(page, explicit) {
+	const out = Object.assign({}, page);
+
+	const anasayfa = out.tabs && out.tabs.anasayfa;
+	if (anasayfa && Array.isArray(anasayfa.sections)) {
+		const sections = anasayfa.sections;
+		const ordered = sections.filter(s => s.type === 'specs').concat(sections.filter(s => s.type !== 'specs'));
+		out.tabs = Object.assign({}, out.tabs, { anasayfa: Object.assign({}, anasayfa, { sections: ordered }) });
+	}
+
+	const table = out.versionSpecs;
+	delete out.versionSpecs;
+	if (explicit || !table) return out;
+
+	const values = table.values[out.version.power] || table.columns.map(() => null);
+	out.specs = { layout: 'stacked', columns: table.columns, values };
+	return out;
 }
 
 // Veri içindeki her string'i ziyaret et. Doğrulama ve yol öneki bunun üstünde.
@@ -129,6 +227,14 @@ function checkTypography(data, file, fail) {
 	});
 }
 
+// Hata satırının göstereceği dosya. Versiyon sayfasının kendi dosyası yok;
+// donanım dosyasını ve hangi sayfa olduğunu söyle.
+function sourceFile(v) {
+	if (!v.version) return `data/${v.slug}.json`;
+	const hwSlug = v.slug.slice(0, -(String(v.version.id).length + 1));
+	return `data/${hwSlug}.json → ${v.slug}`;
+}
+
 function validate(vehicles, shared) {
 	const errors = [];
 	const fail = (file, msg) => errors.push(`${file}: ${msg}`);
@@ -136,7 +242,7 @@ function validate(vehicles, shared) {
 	checkTypography(shared, 'data/shared.json', fail);
 
 	for (const v of vehicles) {
-		const file = `data/${v.slug}.json`;
+		const file = sourceFile(v);
 
 		// 1) Zorunlu alanlar — eksikse yarım sayfa üretilir, kimse fark etmez.
 		for (const field of ['name', 'shortName', 'heroAlt', 'pageTitle', 'gtmModel', 'startingPrice', 'co2', 'meta']) {
@@ -192,14 +298,14 @@ function validate(vehicles, shared) {
 					}
 					// Görsel opsiyon kartı badge ve desc olmadan yarım görünür.
 					if (s.type === 'visualOptions') {
-						if (!o.badge) fail(file, `options.${id}.badge eksik (${where} görsel kart olarak kullanıyor)`);
+						if (!o.badge && !DESIGN_TABS.includes(t.id)) fail(file, `options.${id}.badge eksik (${where} görsel kart olarak kullanıyor)`);
 						if (!o.desc) fail(file, `options.${id}.desc eksik (${where} görsel kart olarak kullanıyor)`);
 					}
 				}
 
 				// Küçük özellik etiketleri
 				for (const f of s.features || []) {
-					if (f.note !== undefined) continue;
+					if (s.hideNotes || DESIGN_TABS.includes(t.id) || f.note !== undefined) continue;
 					const key = f.tag || v.defaultTag;
 					if (!key) fail(file, `${where} "${f.title}" için etiket yok (tag/note ver ya da araca defaultTag ekle)`);
 					else if (!shared.tags[key]) fail(file, `${where} "${f.title}" bilinmeyen tag: "${key}"`);
@@ -215,9 +321,107 @@ function validate(vehicles, shared) {
 
 		// 6) Tipografi tekliği
 		checkTypography(v, file, fail);
+
+		// 7) Versiyon sayfası: hero'nun fiyat ve kampanya satırları buradan.
+		if (v.version) checkVersionPage(v, shared, file, fail);
 	}
 
 	return errors;
+}
+
+// Versiyon sayfasının birleşmiş verisi. Hata dosya adını değil sayfa slug'ını
+// da söylesin — beş versiyon aynı dosyada duruyor.
+function checkVersionPage(v, shared, file, fail) {
+	const ver = v.version;
+	const where = `versions[${ver.id}]`;
+
+	if (typeof ver.price !== 'number') {
+		fail(file, `${where}.price sayı olmalı, ${JSON.stringify(ver.price)} verilmiş`);
+	}
+	for (const field of ['id', 'power']) {
+		if (typeof ver[field] !== 'string' || !ver[field].trim()) fail(file, `${where}.${field} dolu bir metin olmalı`);
+	}
+
+	// Teknik veri: her sütunun bir değeri (ya da bilerek null) olmalı — kayan
+	// bir dizi değerleri yanlış başlığın altına yazar.
+	if (v.specs && v.specs.layout === 'stacked') {
+		const { columns, values } = v.specs;
+		if (!Array.isArray(values) || values.length !== columns.length) {
+			fail(file, `teknik veri (versionSpecs.values["${ver.power}"]) ${columns.length} değer olmalı, ${Array.isArray(values) ? values.length : 'dizi değil'} verilmiş`);
+		}
+	}
+
+	// Kampanya isteğe bağlı: yoksa hero'da kampanya bloğu hiç çıkmaz.
+	if (ver.campaign === undefined) return;
+	const c = campaignOf(v, shared);
+	if (!c) {
+		fail(file, `${where}.campaign "${ver.campaign}" ne shared.json ne araç verisindeki campaigns sözlüğünde var`);
+		return;
+	}
+	const cw = `campaigns.${ver.campaign}`;
+	if (!c.headline) fail(file, `${cw}.headline eksik`);
+	if (c.infoOn !== 'headline' && c.infoOn !== 'note') {
+		fail(file, `${cw}.infoOn "headline" ya da "note" olmalı, ${JSON.stringify(c.infoOn)} verilmiş`);
+	}
+	if (c.infoOn === 'note' && !c.note) fail(file, `${cw}.infoOn "note" ama note eksik — bilgi ikonu yerleşecek satır yok`);
+
+	// Popup'sız bir bilgi ikonu dokununca hiçbir şey yapmaz; kioskta bu bozuk görünür.
+	const p = c.popup;
+	if (!isPlainObject(p) || !p.campaign || !Array.isArray(p.legal) || !p.legal.length) {
+		fail(file, `${cw}.popup tanımlı olmalı: { "campaign": "...", "legal": ["..."] }`);
+	}
+}
+
+// Donanım düzeyi: tekillik ve trim, sayfa açılmadan önce bilinmesi gerekenler.
+function validateVersionDefs(hardware, listedSlugs, fail) {
+	for (const hw of hardware) {
+		const file = `data/${hw.slug}.json`;
+
+		// Index'teki satır etiketi ve versiyon sayfasının başlığı trim'den geliyor.
+		if (!hw.trim && (listedSlugs.has(hw.slug) || hw.versions !== undefined)) {
+			fail(file, 'trim eksik — index satırının etiketi ve versiyon sayfası başlığı (trim + power) bu alandan geliyor');
+		}
+
+		if (hw.versions === undefined) continue;
+		if (!Array.isArray(hw.versions) || !hw.versions.length) {
+			fail(file, 'versions boş olmayan bir dizi olmalı');
+			continue;
+		}
+
+		const seen = new Set();
+		hw.versions.forEach((ver, i) => {
+			const where = `versions[${i}]`;
+			// id dosya adının parçası olduğu için URL'de güvenli olmalı.
+			if (typeof ver.id !== 'string' || !/^[a-z0-9-]+$/.test(ver.id)) {
+				fail(file, `${where}.id küçük harf, rakam ve tireden oluşmalı, ${JSON.stringify(ver.id)} verilmiş`);
+			} else if (seen.has(ver.id)) {
+				fail(file, `${where}.id "${ver.id}" tekrar ediyor — iki versiyon aynı sayfaya yazılırdı`);
+			}
+			seen.add(ver.id);
+
+			for (const k of VERSION_FORBIDDEN) {
+				if (k in ver) fail(file, `${where}.${k} versiyon girdisinde tanımlanamaz`);
+			}
+		});
+	}
+}
+
+// Yer tutucu içerik build'i durdurmaz — sayfalar önizlenebilsin — ama her
+// build'in sonunda listelenir ki "geçici" fiyat sessizce kalıcı olmasın.
+function placeholderWarnings(pages, shared) {
+	const prices = [];
+	const campaigns = new Set();
+	for (const v of pages) {
+		if (!v.version) continue;
+		if (v.version.placeholder) prices.push(`${v.slug}: fiyat yer tutucu (${v.version.price})`);
+		if (v.specs && v.specs.layout === 'stacked') {
+			const missing = v.specs.columns.filter((c, i) => !v.specs.values[i]);
+			if (missing.length) prices.push(`${v.slug}: teknik veri eksik (${missing.join(', ')}) — sayfada "—" görünüyor`);
+		}
+		const c = campaignOf(v, shared);
+		if (c && c.placeholder) campaigns.add(`campaigns.${v.version.campaign}: içerik yer tutucu`);
+	}
+	return prices.concat(Array.from(campaigns));
 }
 
 // ------------------------------------------------------------------- build
@@ -248,12 +452,21 @@ function main() {
 	// sayfanın "nasıl olsa listede yok" diye kaçması mümkün olmasın.
 	//
 	// Doğrulama birleştirme SONRASI veri üzerinde çalışır: tabandan gelen bir
-	// alanın eksikliği de varyantın kendi hatası kadar görünür olsun.
-	const listed = shared.vehicles.map(loadVehicle);
-	const preview = (shared.previewVehicles || []).map(loadVehicle);
-	const vehicles = listed.concat(preview);
+	// alanın eksikliği de varyantın kendi hatası kadar görünür olsun. Versiyon
+	// sayfaları da öyle — donanım + versiyon birleşmiş hâliyle denetlenir.
+	const listedHw = shared.vehicles.map(loadVehicle);
+	const previewHw = (shared.previewVehicles || []).map(loadVehicle);
+	const hardware = listedHw.concat(previewHw);
 
-	const errors = validate(vehicles, shared);
+	const errors = [];
+	validateVersionDefs(hardware, new Set(shared.vehicles), (file, msg) => errors.push(`${file}: ${msg}`));
+
+	// Donanım (ve aile) sayfası her zaman üretilir; versiyonu varsa yanına
+	// versiyon sayfaları eklenir.
+	const versionPages = hardware.flatMap(expandVersions);
+	const vehicles = hardware.map(withoutVersions).concat(versionPages);
+
+	errors.push(...validate(vehicles, shared));
 	if (errors.length) {
 		console.error(`\n✗ Doğrulama başarısız — ${errors.length} hata:\n`);
 		for (const e of errors) console.error(`  ${e}`);
@@ -261,8 +474,17 @@ function main() {
 		process.exit(1);
 	}
 
+	const warnings = placeholderWarnings(vehicles, shared);
+	const printWarnings = () => {
+		if (!warnings.length) return;
+		console.warn(`\n⚠ ${warnings.length} yer tutucu — içerik gelince güncellenmeli:\n`);
+		for (const w of warnings) console.warn(`  ${w}`);
+		console.warn('');
+	};
+
 	if (checkOnly) {
-		console.log(`✓ ${vehicles.length} araç doğrulandı, hata yok.`);
+		console.log(`✓ ${vehicles.length} sayfa doğrulandı, hata yok.`);
+		printWarnings();
 		return;
 	}
 
@@ -270,6 +492,9 @@ function main() {
 	fs.rmSync(DIST, { recursive: true, force: true });
 	fs.mkdirSync(path.join(DIST, 'vehicles'), { recursive: true });
 
+	// Index donanım listesini versiyon sayfalarıyla birlikte alır: düğmeler
+	// doğrudan versiyon sayfasına gider, slug kuralı tek yerde (expandVersions).
+	const listed = listedHw.map(hw => ({ page: withoutVersions(hw), versions: expandVersions(hw) }));
 	fs.writeFileSync(path.join(DIST, 'index.html'), indexPage(listed, shared));
 
 	for (const v of vehicles) {
@@ -289,8 +514,8 @@ function main() {
 	// çıktığını anlar; Cloudflare'a API token'ı vermek gerekmez.
 	fs.writeFileSync(path.join(DIST, 'build.txt'), `${buildSha()}\n`);
 
-	const extra = preview.length ? ` (${preview.length} tanesi index'te listelenmiyor)` : '';
-	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası${extra}`);
+	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası (${versionPages.length} versiyon sayfası)`);
+	printWarnings();
 }
 
 try {

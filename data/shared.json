@@ -1,17 +1,41 @@
 {
   "gtmId": "GTM-NBTV9BQ",
 
-  "//vehicles": "Üretilecek araçlar ve index.html'deki sıraları. Yeni araç: data/<slug>.json + buraya bir satır.",
-  "vehicles": ["puma", "explorer", "capri"],
+  "//vehicles": "Index'te görünen donanımlar ve sıraları. Aynı base'i paylaşan donanımlar tek kartta toplanır; kart sırası ailenin bu listedeki ilk görünüşüdür, satır sırası buradaki sıradır. Donanımın versions'ı varsa satırda her versiyon için bir düğme çıkar, yoksa donanım sayfasına giden tek düğme. Yeni donanım: data/<slug>.json (trim alanıyla) + buraya bir satır.",
+  "vehicles": ["puma-titanium", "puma-st-line-x", "explorer-select", "explorer-premium", "capri-premium"],
 
-  "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Onaylanınca slug'ı yukarıdaki vehicles dizisine taşıyın.",
-  "previewVehicles": ["puma-titanium", "puma-st-line-x", "explorer-select", "explorer-premium", "capri-premium"],
+  "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Aile sayfaları (puma, explorer, capri) versiyon modeline geçişte buraya taşındı; eski bağlantılar kırılmasın diye üretilmeye devam ediyorlar.",
+  "previewVehicles": ["puma", "explorer", "capri"],
 
   "indexTitle": "Ford Araç Seçimi",
   "indexHeading": "Araç Seçin",
   "indexSubheading": "Tanıtımını görmek istediğiniz aracı seçin",
 
+  "//indexOpenLabel": "Versiyonu olmayan donanımın (Puma, Capri) index satırındaki tek düğme.",
+  "indexOpenLabel": "İNCELE",
+
   "disclaimer": "* Anahtar teslim fiyatıdır",
+
+  "//heroPriceLabel": "Versiyon sayfası hero'sundaki etiketler. Versiyonsuz sayfaların hero'su bunları kullanmaz.",
+  "heroPriceLabel": "*ANAHTAR TESLİM FİYAT",
+  "heroCampaignLabel": "KREDİ KAMPANYASI",
+
+  "//campaigns": "Versiyonların campaign alanı buradaki anahtara bakar. Araç verisi (base ya da donanım dosyası) aynı anahtarla bir campaigns girdisi tanımlarsa o kampanyanın tamamını değiştirir. infoOn: bilgi ikonunun hangi satırın sonunda duracağı (headline | note). placeholder: true olan kampanya build sonunda uyarı olarak listelenir.",
+  "campaigns": {
+    "takas-4": {
+      "headline": "%4 Takas İndirimi",
+      "note": "Courier'sini takasa getirene ek %2 indirim",
+      "infoOn": "headline",
+      "//popup": "campaign: üstteki büyük paragraf (23px). legal: alttaki yasal metin (15px). {model} sayfadaki aracın kısa adıyla (Explorer, Capri, Puma) değişir.",
+      "popup": {
+        "campaign": "Eski aracını Ford Yetkili Satıcılarına getirenler, Ford 2. El takas kampanyasıyla {model} için sunulan %4 takas avantajından yararlanıyor. Takasa verilen aracın Transit Courier veya Tourneo Courier model olması halinde mevcut takas avantajına ilave %2 ek avantaj uygulanır ve toplam takas avantajı %4+ %2 olarak hesaplanır.",
+        "legal": [
+          "Ford Otomotiv San.A.Ş. kampanya ile ilgili değişiklik yapma hakkını saklı tutar. Kampanya 7 Kasım 2026 – 30 Kasım 2026 tarihleri arasında geçerlidir.",
+          "¹ Ek olarak verilen %2 avantaj; takas kapsamında yetkili satıcıya teslim edilen ikinci el aracın Ford Transit Courier veya Ford Tourneo Courier model olması halinde, aracın model yılına bakılmaksızın uygulanır. Hurda statüsünde bulunan araçlar kampanya kapsamı dışındadır. Takasa konu aracın üzerinde devir ve satış işlemlerini engelleyen herhangi bir kayıt bulunmaması ve geçerli tescil ile zorunlu belgelerinin ibraz edilmesi gerekmektedir. Takas desteği ve ilave %2 avantaj, satın alınan yeni aracın Tavsiye Edilen Perakende Satış Fiyatı üzerinden hesaplanır."
+        ]
+      }
+    }
+  },
 
   "tabs": [
     { "id": "anasayfa",    "label": "GENEL BAKIŞ" },
@@ -21,6 +45,7 @@
   ],
 
   "sectionTitles": {
+    "standard": "STANDART ÖZELLİKLER",
     "options": "OPSİYONLAR",
     "other": "DİĞER ÖZELLİKLER",
     "connected": "BAĞLANTILI TEKNOLOJİLER",

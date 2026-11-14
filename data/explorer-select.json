@@ -2,10 +2,213 @@
   "base": "explorer",
 
   "slug": "explorer-select",
+  "trim": "Select",
   "heroAlt": "Yeni Ford Explorer Select",
   "pageTitle": "Ford Explorer Select Tasarım",
   "gtmModel": "Yeni Ford Explorer Select",
   "meta": "Select Elektrikli SUV",
+
+  "//versions": "Her girdi ayrı sayfa: <slug>-<id>.html. Girdi donanımın üstüne merge kuralıyla biner (options, tabs, emission, specs, models versiyona göre ezilebilir). placeholder: true olan versiyonun fiyatı yer tutucu (ailenin startingPrice'ı) — build sonunda uyarı olarak listelenir; gerçek fiyat gelince price güncellenip placeholder satırı silinir.",
+  "versions": [
+    { "id": "125kw", "power": "125KW", "price": 2322000, "campaign": "takas-4", "placeholder": true },
+    {
+      "id": "140kw", "power": "140KW", "price": 2391300, "campaign": "takas-4",
+
+      "options": {
+        "isi-pompasi": {
+          "packages": "Select",
+          "images": { "ic-tasarim": "assets/images/explorer/ic-tasarim/select-140kw/options/isi-pompasi.jpg" }
+        },
+        "surus-destek": { "images": { "anasayfa": "assets/images/explorer/anasayfa/options/select-140kw/surus-destek.png" } },
+        "ozel-renk": {
+          "title": "Özel Renk (Düş Mavisi & Mercan Kırmızı)",
+          "price": 25600,
+          "overlay": "light",
+          "desc": "Özel renk seçenekleriyle Explorer®'ın karakterini daha özgün ve dikkat çekici bir görünüme taşıyın.",
+          "images": {
+            "anasayfa": "assets/images/explorer/anasayfa/options/select-140kw/ozel-renk.jpg",
+            "dis-tasarim": "assets/images/explorer/dis-tasarim/select-140kw/options/ozel-renk.jpg"
+          }
+        },
+        "bo-ses": {
+          "title": "B&O Ses Sistemi",
+          "price": 32700,
+          "badge": "* OPSİYONEL",
+          "desc": "Gelişmiş hoparlör sistemi ile yolculuklarınıza güçlü, net ve premium bir ses deneyimi kazandırır.",
+          "images": {
+            "anasayfa": "assets/images/explorer/anasayfa/options/ses-sistemi.jpg",
+            "ic-tasarim": "assets/images/explorer/ic-tasarim/select-140kw/options/bo-ses-sistemi.jpg"
+          }
+        },
+        "jant-21": {
+          "desc": "Güçlü ve dinamik tasarımıyla Explorer®'ın karakterini tamamlayın.",
+          "images": { "dis-tasarim": "assets/images/explorer/dis-tasarim/select-140kw/options/21-alasim-jant.jpg" }
+        },
+        "metalik-renk": {
+          "title": "Metalik Renk",
+          "price": 10300,
+          "images": { "anasayfa": "assets/images/explorer/anasayfa/options/select-140kw/metalik-renk.jpg" }
+        }
+      },
+
+      "//tabs": "Bölüm listeleri dizi olduğu için tamamı yazılıyor. Anasayfa: altı opsiyonlu (compact) ızgara. İç/Dış Tasarım yerleşimi (sıra, başlıklar, rozetsiz opsiyon) şablonda; burada yalnızca içerik.",
+      "tabs": {
+        "teknoloji": {
+          "//": "Bölüm listesi dizi olduğu için tamamı yazılıyor; techWide ve mediaCards tabandan kopya, yalnızca diğer özellikler bu versiyona özel.",
+          "sections": [
+            {
+              "type": "techWide",
+              "titleKey": "connected",
+              "card": {
+                "title": "14.6\" SYNC Move™",
+                "image": "assets/images/explorer/teknoloji/connected/baglantili-teknolojiler.jpg",
+                "desc": [
+                  "Hareketli 14.6\" dokunmatik ekranıyla kişiselleştirilmiş ve",
+                  "sezgisel bir dijital sürüş deneyimi sunar."
+                ]
+              }
+            },
+            {
+              "type": "mediaCards",
+              "title": "DİJİTAL TEKNOLOJİLER",
+              "cards": [
+                {
+                  "title": "5\" Dijital Gösterge Paneli",
+                  "image": "assets/images/explorer/teknoloji/infotainment/gelismis-goz-hizasi-gosterge-paneli.jpg",
+                  "desc": "Sürüş bilgilerini dijital ekran üzerinden sezgisel ve kolay okunabilir şekilde görüntüler."
+                },
+                {
+                  "title": "Seçilebilir Sürüş Modları",
+                  "image": "assets/images/explorer/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
+                  "desc": "Normal, ECO, Sport, Individual ile uzun menzilli Traction modları her koşula uyum sağlar."
+                },
+                {
+                  "title": "Kablosuz Apple CarPlay® ve Android Auto®",
+                  "image": "assets/images/explorer/teknoloji/infotainment/kablosuz-apple-carplay-android-auto.jpg",
+                  "desc": "Akıllı telefonunuzu kablosuz bağlayarak favori uygulamalarınıza kolayca erişin."
+                }
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "titleKey": "other",
+              "hideNotes": true,
+              "features": [
+                { "title": "Dur & Kalk Özellikli Geliştirilmiş Adaptif Hız Kontrol Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/dur-kalk-hiz-kontrol.jpg" },
+                { "title": "Geri Görüş Kamerası", "image": "assets/images/explorer/teknoloji/select-140kw/features/geri-gorus-kamerasi.jpg" },
+                { "title": "Gelişmiş Sürücü Dikkat Takip Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/gelismis-surucu-dikkkat-takip.jpg" },
+                { "title": "Kör Nokta Uyarı Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/kor-nokta-uyari.jpg" },
+                { "title": "Çarpışma Önleme Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/carpisma-onleme-yardimcisi.jpg" },
+                { "title": "Ön Çapraz Trafik Uyarı Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/on-capraz-trafik-uari-sistem.jpg" },
+                { "title": "Şerit Takip Sistemi ve Şeritte Kalma Yardımcısı", "image": "assets/images/explorer/teknoloji/select-140kw/features/serit-takip.jpg" },
+                { "title": "Otomatik Frenli Çapraz Trafik Uyarı Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/otomatik-frenli-trafik-uyari.jpg" },
+                { "title": "Anahtarsız Çalıştırma Sistemi", "image": "assets/images/explorer/teknoloji/select-140kw/features/anahtarsiz-calistirma.jpg" }
+              ]
+            }
+          ]
+        },
+        "dis-tasarim": {
+          "sections": [
+            {
+              "type": "standardCards",
+              "cards": [
+                { "title": "Otomatik Yanan Uzun Farlar", "image": "assets/images/explorer/dis-tasarim/standard/led-on-farlar.jpg", "desc": "Modern görünüm ve güçlü aydınlatma." },
+                { "title": "LED Arka Farlar", "image": "assets/images/explorer/dis-tasarim/standard/led-arka-farlar.jpg", "desc": "Şık tasarım ile yüksek görünürlük." },
+                { "title": "Karartılmış Arka Camlar", "image": "assets/images/explorer/dis-tasarim/standard/karartilmis-arka-camlar.jpg", "desc": "Sportif ve premium görünüm." },
+                { "title": "Ön / Arka Park Sensörü", "image": "assets/images/explorer/dis-tasarim/standard/on-arka-park-sensoru.jpg", "desc": "Park manevralarında daha güvenli hareket etmeyi destekler." }
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "features": [
+                { "title": "LED Ön Farlar", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/led-farlar.jpg" },
+                { "title": "Geri Görüş Kamerası", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/geri-gorus-kamera.jpg" },
+                { "title": "Lastik Onarım Kiti", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/lastik-onarim-kiti.jpg" },
+                { "title": "Elektrikli, Isıtmalı, Sinyalli, Katlanabilir Yan Aynalar", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/katlanabilir-yan-aynalar.jpg" },
+                { "title": "Siyah Renk Yan Aynalar", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/siyah-renk-aynalar.jpg" },
+                { "title": "Yağmur Sensörü", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/yagmur-sensoru.jpg" },
+                { "title": "19\" Alüminyum Alaşımlı Jantlar", "image": "assets/images/explorer/dis-tasarim/select-140kw/features/19-alasim-jant.jpg" }
+              ]
+            },
+            {
+              "type": "visualOptions",
+              "titleKey": "options",
+              "options": ["jant-21", "ozel-renk"]
+            }
+          ]
+        },
+        "ic-tasarim": {
+          "sections": [
+            {
+              "type": "standardCards",
+              "title": "STANDART ÖZELLİKLER",
+              "cards": [
+                { "title": "14.6\" SYNC Move Ekran", "image": "assets/images/explorer/ic-tasarim/standard/move-ekran.jpg", "desc": "Akıllı ve sezgisel bağlantı deneyimi." },
+                { "title": "Mega Orta Konsol", "image": "assets/images/explorer/ic-tasarim/standard/mega-orta-konsol.jpg", "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı." },
+                { "title": "Kablosuz Apple CarPlay® ve Android Auto®", "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg", "desc": "Uyumlu telefonunu kablosuz bağlayarak uygulamalarına eriş." },
+                { "title": "Seçilebilir Sürüş Modları", "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg", "desc": "Farklı sürüş modlarıyla sürüşünü ihtiyacına göre şekillendir." }
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "features": [
+                { "title": "5\" Dijital Gösterge Paneli", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/dijital-gosterge-paneli.jpg" },
+                { "title": "Manuel 6 Yönlü Sürücü / Yolcu Koltuğu", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/manuel-6-yonlu-surucu-yolcu-koltuk.jpg" },
+                { "title": "Kumaş Kaplı Koltuklar", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/kumas-kapli-koltuklar.jpg" },
+                { "title": "2 Bölgeli (sürücü/ön yolcu) Otomatik Klima", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/iki-bolgeli-otomatik-klima.jpg" },
+                { "title": "Bagajda 12V Güç Çıkışı", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/bagajda-12V-guc-cikis.jpg" },
+                { "title": "Manuel Bagaj Kapağı", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/manuel-bagaj-kapak.jpg" },
+                { "title": "7 Hoparlörlü Ses Sistemi", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/7-hoparlorlu-ses-sistemi.jpg" },
+                { "title": "60/40 Katlanabilir Arka Koltuklar", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/katlanabilir-arka-koltuklar.jpg" },
+                { "title": "Araç Dışı Şarj Paylaşımı (V2L)", "image": "assets/images/explorer/ic-tasarim/select-140kw/features/arac-disi-sarj.jpg" }
+              ]
+            },
+            {
+              "type": "visualOptions",
+              "titleKey": "options",
+              "options": ["bo-ses", "isi-pompasi"]
+            }
+          ]
+        },
+        "anasayfa": {
+          "sections": [
+            { "type": "models" },
+            { "type": "specs" },
+            { "type": "featureBanner" },
+            {
+              "type": "homeOptions",
+              "titleKey": "options",
+              "layout": "compact",
+              "options": ["isi-pompasi", "surus-destek", "ozel-renk", "bo-ses", "jant-21", "metalik-renk"]
+            }
+          ]
+        }
+      },
+
+      "featured": [
+        {
+          "title": "14.6\" SYNC Move",
+          "image": "assets/images/explorer/anasayfa/featured/select-140kw/anasayfa-one-cikan-sync.jpg",
+          "desc": ["Apple CarPlay® ve Android Auto® desteğiyle", "her an bağlantıda kal."]
+        },
+        {
+          "title": "Mega Orta Konsol",
+          "image": "assets/images/explorer/anasayfa/featured/select-140kw/anasayfa-one-cikan-mega-orta-konsol.jpg",
+          "desc": ["Esnek depolama alanlarıyla", "konforu ve düzeni bir arada yaşayın."]
+        },
+        {
+          "title": "Led Ön Farlar",
+          "image": "assets/images/explorer/anasayfa/featured/select-140kw/anasayfa-one-cikan-led-on-farlar.jpg",
+          "desc": ["Güçlü ve modern aydınlatma performansıyla", "sürüş deneyimini destekler."]
+        },
+        {
+          "title": "7 Hoparlörlü Ses Sistemi",
+          "image": "assets/images/explorer/anasayfa/featured/select-140kw/anasayfa-one-cikan-7-hoparlorlu-ses-sistemi.jpg",
+          "desc": ["Kabin genelinde dengeli ve etkileyici", "bir ses deneyimi sunar."]
+        }
+      ]
+    }
+  ],
 
   "emission": [
     { "package": "Select", "image": "assets/images/explorer/popup/emisyon-select.jpg", "value": "0 g/km" }
@@ -23,7 +226,6 @@
           { "label": "Buz Beyazı",     "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-buz-beyazi.jpg" },
           { "label": "Manyetik Gri",   "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-manyetik-gri.jpg" },
           { "label": "Akik Siyah",     "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-akik-siyah.jpg" },
-          { "label": "Mercan Kırmızı", "swatch": "assets/images/explorer/anasayfa/models/swatches/mercan-kirmizi.jpg", "image": "assets/images/explorer/anasayfa/models/select/explorer-select-mercan-kirmizi.jpg" },
           { "label": "Düş Mavisi",     "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-dus-mavisi.jpg" }
         ]
       }
@@ -69,7 +271,7 @@
       "sections": [
         {
           "type": "standardCards",
-          "title": "TÜM EXPLORER'LARDA STANDART",
+          "title": "STANDART ÖZELLİKLER",
           "cards": [
             {
               "title": "14.6\" SYNC Move Ekran",
@@ -82,14 +284,14 @@
               "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı."
             },
             {
-              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "title": "Kablosuz Apple CarPlay® ve Android Auto®",
               "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
-              "desc": "Telefonunu kablosuz bağla, yolculuğu kesintisiz sürdür."
+              "desc": "Uyumlu telefonunu kablosuz bağlayarak uygulamalarına eriş."
             },
             {
               "title": "Seçilebilir Sürüş Modları",
               "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg",
-              "desc": "Farklı sürüş modlarıyla her yol koşuluna uyum sağlar."
+              "desc": "Farklı sürüş modlarıyla sürüşünü ihtiyacına göre şekillendir."
             }
           ]
         },

@@ -258,7 +258,7 @@ document.querySelectorAll('.feature-pills .pill').forEach(pill => {
 const page = document.querySelector('.page');
 if (page) {
 	const closeSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"><path d="M18 3.21429L12.2143 9L18 14.7857L14.7857 18L9 12.2143L3.21429 18L0 14.7857L5.78571 9L0 3.21429L3.21429 0L9 5.78571L14.7857 0L18 3.21429Z" fill="white"/></svg>';
-	const POPUP_LABELS = { brochure: 'Teknik Broşür', emission: 'CO₂ Emisyon Değerleri' };
+	const POPUP_LABELS = { brochure: 'Teknik Broşür', emission: 'CO₂ Emisyon Değerleri', campaign: 'Kampanya Koşulları' };
 	let lastFocused = null;
 
 	function createPopup(type) {
@@ -282,6 +282,8 @@ if (page) {
 		};
 
 		closeBar.addEventListener('click', close);
+		// Perde alanına (popup'ın kapsamadığı kısım) dokunmak da kapatır.
+		overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
 		closeBar.addEventListener('keydown', (e) => {
 			if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); close(); }
 		});
@@ -311,9 +313,31 @@ if (page) {
 	const brochurePopup = createPopup('brochure');
 	page.appendChild(brochurePopup);
 
-	// Emission popup
-	const emissionPopup = createPopup('emission');
-	page.appendChild(emissionPopup);
+	// <template> tabanlı popup'lar (emisyon, kampanya). İçerik build'de sayfaya
+	// <template id="..."> olarak yazılır; burada yalnızca klonlanıp gösterilir.
+	// Popup her tip için bir kez, ilk açılışta oluşturulur ve yeniden kullanılır.
+	const templatePopups = {};
+	function openTemplatePopup(type, templateId) {
+		if (!templatePopups[type]) {
+			templatePopups[type] = createPopup(type);
+			page.appendChild(templatePopups[type]);
+		}
+		const overlay = templatePopups[type];
+		const body = overlay.querySelector('.popup-body');
+		const tpl = document.getElementById(templateId);
+		body.innerHTML = '';
+		if (tpl) body.appendChild(tpl.content.cloneNode(true));
+		openPopup(overlay);
+	}
+
+	// Klavye erişimi: role="button" taşıyan div'ler (.co2) Enter/Space'e de yanıt versin.
+	function onActivate(el, fn) {
+		el.addEventListener('click', fn);
+		if (el.tagName === 'BUTTON') return; // <button> bunu zaten yapıyor
+		el.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); }
+		});
+	}
 
 	// Trigger: Teknik Brosur
 	document.querySelectorAll('.brochure-btn').forEach(btn => {
@@ -335,18 +359,15 @@ if (page) {
 		});
 	});
 
-	// Trigger: CO₂ Emisyon
+	// Trigger: CO₂ Emisyon — her sekmenin altındaki .co2 bloğu.
 	document.querySelectorAll('.co2').forEach(co2 => {
-		const open = () => {
-			const body = emissionPopup.querySelector('.popup-body');
-			const tpl = document.getElementById('emission-popup-content');
-			body.innerHTML = '';
-			if (tpl) body.appendChild(tpl.content.cloneNode(true));
-			openPopup(emissionPopup);
-		};
-		co2.addEventListener('click', open);
-		co2.addEventListener('keydown', (e) => {
-			if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
-		});
+		onActivate(co2, () => openTemplatePopup('emission', 'emission-popup-content'));
+	});
+
+	// Trigger: genel — data-popup (tip) + data-popup-template (şablon id'si).
+	// Yeni bir popup için script'e dokunmak gerekmez; tetikleyici bu iki
+	// attribute'u taşısın, şablon sayfada dursun. (Ör. hero'daki kampanya ikonu.)
+	document.querySelectorAll('[data-popup-template]').forEach(trigger => {
+		onActivate(trigger, () => openTemplatePopup(trigger.dataset.popup || 'info', trigger.dataset.popupTemplate));
 	});
 }

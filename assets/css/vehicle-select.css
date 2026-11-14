@@ -26,30 +26,24 @@
   margin: 0;
 }
 
-/* Grid */
+/* Grid — aile kartları, 2 sütun (920px içerik genişliği) */
 .vs-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
   justify-content: center;
+  align-items: flex-start;
 }
 
-/* Card */
+/* Card — kartın kendisi link değil; hedefler alttaki düğmeler */
 .vs-card {
   display: block;
   width: 440px;
   background: #fff;
   border-radius: 16px;
   overflow: hidden;
-  text-decoration: none;
   color: inherit;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.vs-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
 }
 
 .vs-card img {
@@ -60,7 +54,7 @@
 }
 
 .vs-card__info {
-  padding: 28px 32px;
+  padding: 28px 32px 32px;
 }
 
 .vs-card__info h2 {
@@ -74,4 +68,64 @@
   font-size: 16px;
   color: var(--muted);
   margin: 0;
+}
+
+/* Donanım satırları: etiket üstte, versiyon düğmeleri altında */
+.vs-trims {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.vs-trim {
+  padding: 20px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.vs-trim + .vs-trim {
+  margin-top: 20px;
+}
+
+.vs-trim__label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.vs-trim__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Dokunmatik kiosk: düğme en az 64px yüksek, kolayca isabet edilsin */
+.vs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  min-height: 64px;
+  padding: 0 24px;
+  border: 2px solid var(--dark-blue);
+  border-radius: 32px;
+  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.vs-btn:hover,
+.vs-btn:active {
+  background: var(--dark-blue);
+  color: #fff;
+}
+
+.vs-btn:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
 }

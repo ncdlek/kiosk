@@ -47,7 +47,8 @@ button, a { font: inherit; }
 .pill:focus-visible,
 .brochure-btn:focus-visible,
 .co2:focus-visible,
-.popup-close-bar:focus-visible {
+.popup-close-bar:focus-visible,
+.hero__info:focus-visible {
 	outline: 3px solid var(--blue);
 	outline-offset: 2px;
 }
@@ -134,6 +135,92 @@ button, a { font: inherit; }
 	line-height: 26.078px;
 }
 
+/* === HERO: versiyon sayfası (fiyat + kampanya) ===
+   Yedi satır, eski üç satırlık bloktan uzun. Home tuşunun altından (100px)
+   başlayıp sekmelerin üstünde (473 - 78 = 395px) bitmesi için üst boşluk
+   biraz daha dar ve satır yükseklikleri sıkı. */
+.hero__content--version { padding-top: 84px; }
+
+.hero__copy--version .hero__title {
+	margin: 0 0 4px;
+	font-size: 40px;
+	line-height: 48px;
+}
+
+.hero__trim,
+.hero__label,
+.hero__price,
+.hero__campaign-headline,
+.hero__campaign-note {
+	margin: 0;
+	color: #FFF;
+	font-family: "FordF1";
+	font-style: normal;
+}
+
+.hero__trim {
+	margin-bottom: 28px;   /* grup arası: başlık+trim | fiyat | kampanya */
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 26px;
+}
+.hero__trim strong { font-weight: 700; }
+
+.hero__label {
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 18px;
+	margin-bottom: 2px;
+}
+
+.hero__price {
+	margin-bottom: 28px;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 30px;
+}
+
+.hero__campaign-headline {
+	margin-bottom: 2px;
+	font-size: 24px;
+	font-weight: 700;
+	line-height: 30px;
+}
+
+.hero__campaign-note {
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 22px;
+}
+
+/* Bilgi ikonu: görünen 27px daire, dokunma alanı 44px. Negatif margin, büyük
+   dokunma alanının satır yüksekliğini itmesini engeller. */
+.hero__info {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	margin: -11px -10px -11px -6px;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: #FFF;
+	cursor: pointer;
+	vertical-align: middle;
+	-webkit-tap-highlight-color: transparent;
+}
+.hero__info-icon,
+.hero__info-icon img {
+	display: block;
+	width: 27px;
+	height: 27px;
+}
+/* vertical-align: middle ikonu x-yüksekliğinin ortasına koyuyor; büyük harf
+   yüksekliğinin ortasına denk gelmesi için yukarı kaydırılır. */
+.hero__info-icon { transform: translateY(-2.5px); }
+.hero__info:active { opacity: 0.6; }
+
 /* === TABS === */
 .tabs-wrap {
 	position: absolute;
@@ -208,17 +295,6 @@ button, a { font: inherit; }
 	gap: 26px;
 }
 
-.model-name {
-	margin: 0 0 -14px;
-	color: var(--dark-blue);
-	font-family: "FordF1";
-	font-size: 32px;
-	font-weight: 600;
-	font-style: normal;
-	line-height: normal;
-	text-align: center;
-}
-
 .model-img {
 	width: 100%;
 	height: 250px;
@@ -261,6 +337,14 @@ button, a { font: inherit; }
 }
 
 /* === MODELS: SINGLE CARD (Capri-style, ortalı tek kart) === */
+/* Versiyon sayfalarında teknik veri sekmenin en üstünde, model slider'ının
+   üstünde durur (build.js versionSpecs). Üst boşluk .content'in kendi
+   padding'inden gelir; alttaki slider başlığıyla arasına nefes payı. */
+.content > .specs-section:first-child {
+	margin-top: 0;
+	margin-bottom: 40px;
+}
+
 .models--single {
 	grid-template-columns: 1fr;
 	justify-items: center;
@@ -305,6 +389,23 @@ button, a { font: inherit; }
 .carousel__slide {
 	flex: 0 0 466px;       /* Puma/Explorer model görseliyle aynı genişlik */
 	width: 466px;
+}
+
+/* === TIGHT FRAME (Explorer) ================================================
+   Görsellerde (489x293) araç kadrajın %86'sını kaplıyor, etrafında beyaz
+   boşluk var. 466px'de araç eskisinden küçük kalıyordu: görsel 540px'e
+   büyütülür (araç ~466px) ve üst/alt boşluk kırpılır, araç renk butonlarına
+   yaklaşır. Tüm Explorer sayfaları bu tek kuralı kullanır. */
+.models--tight .carousel { margin-top: 20px; }   /* renk butonları ile araç arası ek boşluk */
+.models--tight .carousel__slide {
+	flex-basis: 540px;
+	width: 540px;
+	overflow: hidden;
+}
+.models--tight .carousel .model-img {
+	height: auto;
+	margin-top: -65px;
+	margin-bottom: -40px;
 }
 
 /* === COMING-SOON PLACEHOLDER PANEL (geçici) === */
@@ -363,6 +464,44 @@ button, a { font: inherit; }
 	font-style: normal;
 	line-height: 35px;
 	text-align: center;
+}
+
+/* === SPECS — STACKED (versiyon sayfası) =====================================
+   Dört eşit sütun, her sütunda başlık / sayı / birim alt alta, yatay ortalı. */
+.specs-stacked {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	column-gap: 16px;
+	text-align: center;
+	color: var(--dark-blue);
+	font-family: "FordF1";
+}
+
+.spec-stack {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.spec-stack__label {
+	margin-bottom: 10px;
+	color: #535353;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+.spec-stack__value {
+	font-size: 22px;
+	font-weight: 500;
+	line-height: 1.1;
+}
+
+.spec-stack__unit {
+	margin-top: 4px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
 }
 
 /* === SPECS — DUAL VARIANT (v2 / "ikili") =====================================
@@ -442,8 +581,8 @@ button, a { font: inherit; }
 .feature-banner {
 	position: relative;
 	margin-top: 64px;
-	height: 349px;
-	border-radius: 22px;
+	height: 411px;   /* öne çıkan görselleri 952x411 */
+	border-radius: 32px;
 	overflow: hidden;
 	background: #000;
 }
@@ -513,6 +652,40 @@ button, a { font: inherit; }
 	text-align: center;
 	transition: opacity 0.12s;
 }
+
+/* Başlığı olmayan bölüm: başlığın üst boşluğu (.section-title margin) yok,
+   üstündeki bölümün metni ile arasında nefes payı bırakır. */
+.section--untitled { margin-top: 36px; }
+
+/* BİNEK şablonu: İç / Dış / Teknoloji sekmelerinde bölüm yükseklikleri tüm
+   araçlarda sabit (tüm araçlardaki en yüksek içeriğe göre), artan yükseklik
+   bölümlerin arasına eşit dağıtılır. Böylece her araçta yerleşim birebir aynı.
+   Yeni bir araç bu yüksekliklerden uzunsa min-height onu keser değil, uzatır;
+   ölçümü tekrarlayıp değerleri güncelleyin. */
+#tab-ic-tasarim .content > section + section:not(.section--untitled),
+#tab-dis-tasarim .content > section + section:not(.section--untitled),
+#tab-teknoloji .content > section + section:not(.section--untitled) { margin-top: auto; }
+
+#tab-ic-tasarim .content > :nth-child(1) { min-height: 301px; }
+#tab-ic-tasarim .content > :nth-child(2) { min-height: 275px; }
+#tab-ic-tasarim .content > :nth-child(3) { min-height: 428px; }
+#tab-dis-tasarim .content > :nth-child(1) { min-height: 301px; }
+#tab-dis-tasarim .content > :nth-child(2) { min-height: 263px; }
+#tab-dis-tasarim .content > :nth-child(3) { min-height: 428px; }
+#tab-teknoloji .content > :nth-child(1) { min-height: 323px; }
+#tab-teknoloji .content > :nth-child(2) { min-height: 411px; }
+#tab-teknoloji .content > :nth-child(3) { min-height: 361px; }
+
+/* İç / Dış: üst başlık biraz aşağıda, altındaki özellik satırları biraz aşağıda,
+   opsiyonlar biraz yukarıda (opsiyonların üstündeki boşluk daralır, artan kısım
+   broşür satırının üstünde toplanır). Opsiyon bölümü iki sekmede de aynı hizada. */
+#tab-ic-tasarim .content > :nth-child(1),
+#tab-dis-tasarim .content > :nth-child(1),
+#tab-teknoloji .content > :nth-child(1) { margin-top: 12px; }
+#tab-ic-tasarim .content > .section--untitled,
+#tab-dis-tasarim .content > .section--untitled { margin-top: 48px; }
+#tab-ic-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 60px; }
+#tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 72px; }
 
 /* === SECTION TITLES === */
 .section-title {
@@ -613,14 +786,22 @@ button, a { font: inherit; }
 }
 
 .standard-card h3 {
-	margin: 12px 0 6px;
+	margin: 20px 0 10px;
 	color: var(--dark-blue);
-	font-size: 17px;
+	font-family: "FordF1";
+	font-size: 16px;
 	line-height: 1.2;
-	font-weight: 700;
+	font-weight: 600;
 }
 
-.standard-card p { margin: 0; color: #777; font-size: 14px; line-height: 1.35; }
+.standard-card p {
+	margin: 0;
+	color: #777;
+	font-family: "FordF1";
+	font-size: 13px;
+	line-height: 1.35;
+	font-weight: 400;
+}
 
 /* === OPTION FEATURE CARDS === */
 /* Tek kart kalsa bile iki sütun korunur: kart sola dayalı durur, sağ hücre
@@ -705,6 +886,9 @@ button, a { font: inherit; }
 	line-height: 35px;
 }
 
+/* Rozetsiz düzen: metin bloğu üstte. */
+.visual-option-overlay--top { justify-content: flex-start; }
+
 .visual-option-overlay--light {
 	color: var(--dark-blue);
 	background: none;
@@ -729,6 +913,11 @@ button, a { font: inherit; }
 	object-fit: cover;
 	border-radius: 5px;
 }
+
+/* Açıklaması olmayan kart: başlık görselin yanında dikey ortalı. */
+.small-feature--plain { align-items: center; }
+.small-feature--plain h3 { margin: 0; }
+.small-feature--plain > div { width: 170px; }   /* metin alanı genişliği */
 
 .small-feature h3 {
 	margin: 0 0 5px;
@@ -789,7 +978,7 @@ button, a { font: inherit; }
 
 .media-card {
 	position: relative;
-	height: 290px;
+	height: 315px;
 	border-radius: 10px;
 	overflow: hidden;
 	color: #fff;
@@ -1062,3 +1251,38 @@ button, a { font: inherit; }
 }
 .emission-legal p { margin: 0 0 10px; }
 .emission-legal p:last-child { margin-bottom: 0; }
+
+/* === KAMPANYA POPUP ===
+   Ekranın üst yarısını kaplar (KAPAT çubuğu + beyaz gövde = 960px); kalan yarı
+   %60 opak koyu perde, dokununca popup kapanır. İçerik versiyon sayfasındaki
+   <template id="campaign-popup-content">'ten. */
+.popup-overlay--campaign { background: rgba(0, 0, 0, 0.6); }
+.popup-overlay--campaign .popup-body {
+	flex: 0 0 840px;
+	background: #FAFAFA;
+	padding: 60px 80px;
+	justify-content: center;
+	overflow-y: auto;
+}
+
+.campaign-popup {
+	width: 100%;
+	max-width: 790px;
+	color: #00095B;
+	font-family: "FordF1";
+	font-weight: 500;
+}
+
+.campaign-popup__campaign {
+	margin: 0 0 32px;
+	font-size: 23px;
+	line-height: 1.5;
+}
+
+.campaign-popup__legal {
+	color: #6D6D6D;
+	font-size: 15px;
+	line-height: 1.5;
+}
+.campaign-popup__legal p { margin: 0 0 14px; }
+.campaign-popup__legal p:last-child { margin-bottom: 0; }

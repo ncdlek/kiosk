@@ -28,7 +28,6 @@
           { "label": "Buz Beyazı",     "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-buz-beyazi.jpg" },
           { "label": "Manyetik Gri",   "swatch": "assets/images/explorer/anasayfa/models/swatches/manyetik-gri.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-manyetik-gri.jpg" },
           { "label": "Akik Siyah",     "swatch": "assets/images/explorer/anasayfa/models/swatches/akik-siyah.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-akik-siyah.jpg" },
-          { "label": "Mercan Kırmızı", "swatch": "assets/images/explorer/anasayfa/models/swatches/mercan-kirmizi.jpg", "image": "assets/images/explorer/anasayfa/models/select/explorer-select-mercan-kirmizi.jpg" },
           { "label": "Düş Mavisi",     "swatch": "assets/images/explorer/anasayfa/models/swatches/dus-mavisi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-dus-mavisi.jpg" }
         ]
       },
@@ -108,7 +107,7 @@
       "sections": [
         {
           "type": "standardCards",
-          "title": "TÜM EXPLORER'LARDA STANDART",
+          "title": "STANDART ÖZELLİKLER",
           "cards": [
             {
               "title": "14.6\" SYNC Move Ekran",
@@ -121,14 +120,14 @@
               "desc": "Geniş saklama alanıyla ekstra kullanım kolaylığı."
             },
             {
-              "title": "Kablosuz Apple CarPlay & Android Auto",
+              "title": "Kablosuz Apple CarPlay® ve Android Auto®",
               "image": "assets/images/explorer/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
-              "desc": "Telefonunu kablosuz bağla, yolculuğu kesintisiz sürdür."
+              "desc": "Uyumlu telefonunu kablosuz bağlayarak uygulamalarına eriş."
             },
             {
               "title": "Seçilebilir Sürüş Modları",
               "image": "assets/images/explorer/ic-tasarim/standard/secilebilir-surus-modlari.jpg",
-              "desc": "Farklı sürüş modlarıyla her yol koşuluna uyum sağlar."
+              "desc": "Farklı sürüş modlarıyla sürüşünü ihtiyacına göre şekillendir."
             }
           ]
         },

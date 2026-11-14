@@ -21,6 +21,17 @@
     ]
   },
 
+  "//versionSpecs": "Versiyon sayfalarının teknik veri tablosu, güç etiketine (versions[].power) göre.",
+  "versionSpecs": {
+    "columns": ["GÜÇ (PS)", "YAKIT TÜKETİMİ", "CO₂ SALINIMI", "BAGAJ HACMİ"],
+    "values": {
+      "125KW": [{ "n": "125", "u": "kW" }, { "n": "4,8 - 6,9", "u": "L/100 KM" }, { "n": "109 - 157", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }],
+      "155KW": [{ "n": "155", "u": "kW" }, { "n": "5,0 - 6,9", "u": "L/100 KM" }, { "n": "112 - 155", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }]
+    }
+  },
+
+  "modelFrame": "tight",
+
   "featured": [
     {
       "title": "Dijital Kokpit",

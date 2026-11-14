@@ -27,13 +27,14 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 
 | Yol | Açıklama |
 |---|---|
-| `data/shared.json` | Araçlar arası ortak içerik: sekme etiketleri, bölüm başlıkları, donanım etiketleri, emisyon yasal metni |
-| `data/<slug>.json` | Bir sayfanın içeriği: fiyatlar, opsiyonlar, renkler, teknik veriler |
+| `data/shared.json` | Araçlar arası ortak içerik: index'teki donanım sırası, sekme etiketleri, bölüm başlıkları, donanım etiketleri, hero etiketleri, kampanyalar, emisyon yasal metni |
+| `data/<aile>-<donanım>.json` | Bir donanımın içeriği (fiyatlar, opsiyonlar, renkler) ve `versions` dizisiyle kW versiyonları |
+| `data/<aile>.json` | Aile sayfası (iki paket yan yana). Yedek olarak üretilir, index'te görünmez |
 | `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik. Kendisi sayfaya dönüşmez |
 | `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
 | `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
-| `src/vehicle-page.js` | Araç sayfası şablonu |
-| `src/index-page.js` | Araç seçim ekranı şablonu |
+| `src/vehicle-page.js` | Araç sayfası şablonu. Versiyon sayfasında hero fiyat + kampanya gösterir |
+| `src/index-page.js` | Araç seçim ekranı şablonu: aile kartı → donanım satırı → versiyon düğmesi |
 | `build.js` | Doğrulama ve üretim |
 | `tools/compare.js` | İki HTML dosyasını normalize edip karşılaştırır |
 | `assets/` | CSS, JS, font, görseller — olduğu gibi kopyalanır |
@@ -96,25 +97,100 @@ Yani bir varyant altı kartlık listeden birini çıkaracaksa kalan beşini baş
 
 Taban dosyalar tek seviyedir: bir taban dosya kendisi `base` kullanamaz.
 
+### Versiyonlar (kW)
+
+Donanımın altında bir katman daha var: güç versiyonu. Versiyonlar ayrı dosya değil, donanım dosyasındaki `versions` dizisidir — üçüncü bir dosya katmanı "taban → donanım → versiyon" zinciri kurardı; dizide durunca bir donanımın bütün versiyonları tek ekranda okunur.
+
+```jsonc
+// data/explorer-premium.json
+{
+  "base": "explorer",
+  "slug": "explorer-premium",
+  "trim": "Premium",                 // hero'da "PREMIUM 250KW", index'te satır etiketi
+  "versions": [
+    { "id": "125kw", "power": "125KW", "price": 2322000, "campaign": "takas-4", "placeholder": true },
+    { "id": "250kw", "power": "250KW", "price": 4217200, "campaign": "takas-4" }
+  ]
+}
+```
+
+Her girdi ayrı bir sayfa olur: `<donanım slug>-<id>` → `dist/vehicles/explorer-premium-250kw.html`. Donanımın kendi sayfası (`explorer-premium.html`) da eski düzeniyle üretilmeye devam eder.
+
+| Alan | Anlamı |
+|---|---|
+| `id` | Dosya adının parçası; küçük harf, rakam, tire. Donanım içinde tekil |
+| `power` | Hero ve index düğmesinde görünen güç etiketi |
+| `price` | Hero'daki anahtar teslim fiyat, sayı olarak |
+| `campaign` | Kampanya sözlüğündeki anahtar (isteğe bağlı; yoksa hero'da kampanya bloğu çıkmaz) |
+| `placeholder` | `true` ise fiyat yer tutucudur; build sonunda uyarı olarak listelenir |
+
+Bu meta alanlar sayfa verisinde `version` nesnesi altında durur. Girdideki **diğer her alan** donanımın (tabanla birleşmiş hâlinin) üstüne aynı birleştirme kuralıyla biner. Versiyona göre farklılaşan içerik için özel kod gerekmez:
+
+```jsonc
+{ "id": "250kw", "power": "250KW", "price": 4217200,
+  "emission": [ { "package": "Premium 250KW", "image": "...", "value": "0 g/km" } ],  // dizi: tamamen değişir
+  "options": { "jant-21": { "packages": "Premium 250KW'de standart" } }            // nesne: anahtar anahtar
+}
+```
+
+**Teknik veri** versiyon sayfasında anasayfa sekmesinin en üstüne çıkar ve yalnızca o versiyonun değerlerini gösterir (başlık / sayı / birim alt alta, `stacked` düzen). Değerler ailenin tabanındaki `versionSpecs` sözlüğünde güç etiketine göre durur; versiyon kendi `power`'ıyla bulur. Yeni bir güç için sözlüğe bir satır eklemek yeterlidir. `null` değer sayfada "—" görünür ve build uyarı verir. Aynı güç donanıma göre farklıysa versiyon girdisi kendi `specs`'ini (`{ "layout": "stacked", "columns": [...], "values": [...] }`) yazar.
+
+```jsonc
+// data/explorer.base.json
+"versionSpecs": {
+  "columns": ["ŞEHİR İÇİ MENZİL (BİRLEŞİK)", "DC (%10-80) HIZLI ŞARJ", "MAXİMUM GÜÇ", "0–100 km/sa"],
+  "values": { "140KW": [{ "n": "619", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "190", "u": "PS" }, { "n": "8", "u": "SN" }] }
+}
+```
+
+`pageTitle`, `gtmModel` ve `heroAlt` versiyon sayfasında `name` + `trim` + `power`'dan türetilir ("Ford Explorer Premium 250KW"); girdi isterse ezer. `slug`, `base`, `trim` ve `versions` girdide tanımlanamaz.
+
+### Kampanyalar
+
+Kampanyalar `options` gibi bir sözlüktür, ortak tanım `data/shared.json` → `campaigns` içindedir. Araç verisi (taban ya da donanım dosyası) aynı anahtarla bir `campaigns` girdisi yazarsa o kampanyanın **tamamını** değiştirir — alan alan birleşmez, kioskta hangi koşulun göründüğü tek yerden okunsun.
+
+```jsonc
+"campaigns": {
+  "takas-4": {
+    "headline": "%4 Takas İndirimi",
+    "note": "Courier'sini takasa getirene ek %2 indirim",
+    "infoOn": "note",                 // bilgi ikonu hangi satırın sonunda: "headline" | "note"
+    "popup": {
+      "campaign": "Büyük paragraf (23px). {model} aracın kısa adı olur.",
+      "legal": ["Yasal metin paragrafları (15px)..."]
+    }
+  }
+}
+```
+
+Bilgi ikonuna dokununca açılan popup, emisyon popup'ıyla aynı mekanizmayı kullanır (farkı: ekranın üst yarısını kaplar, alt yarı %60 opak perdedir ve dokununca kapanır): içerik sayfaya `<template>` olarak yazılır, `script.js` tetikleyicideki `data-popup-template` id'sini klonlar. `"placeholder": true` taşıyan kampanya da build sonunda uyarı olarak listelenir.
+
 ### Yeni sayfa
 
-1. `data/<slug>.json` oluşturun — aynı araçtan bir donanım daha ekliyorsanız `base` ile mevcut tabana bağlanın, yeni bir araçsa mevcut bir dosyayı kopyalayın
-2. Görselleri `assets/images/<araç>/` altına yerleştirin
-3. `data/shared.json` içindeki `vehicles` dizisine `<slug>` ekleyin
+**Yeni versiyon** (mevcut donanıma): donanım dosyasının `versions` dizisine bir girdi ekleyin. Sayfa ve index düğmesi otomatik çıkar.
 
-Dizideki sıra, araç seçim ekranındaki kart sırasıdır. Araç sayfası ve seçim kartı otomatik üretilir.
+**Yeni donanım:**
+
+1. `data/<aile>-<donanım>.json` oluşturun, `base` ile ailenin tabanına bağlayın ve `trim` yazın
+2. Versiyonları varsa `versions` dizisini ekleyin; yoksa index satırında donanım sayfasına giden tek düğme çıkar
+3. Görselleri `assets/images/<araç>/` altına yerleştirin
+4. `data/shared.json` içindeki `vehicles` dizisine `<slug>` ekleyin
+
+**Yeni araç ailesi:** `data/<aile>.base.json` + en az bir donanım dosyası (mevcut bir aileyi kopyalayın), sonra yukarıdaki adımlar.
+
+Araç seçim ekranı `vehicles` listesinden türetilir: aynı `base`'i paylaşan donanımlar tek kartta toplanır. Kart sırası ailenin listede ilk görünüşü, kart içindeki satır sırası listedeki sıradır. Kartın "X TL'den başlayan" satırı ailedeki en düşük versiyon fiyatıdır; yer tutucu fiyatlı versiyon yerine donanımın `startingPrice`'ı sayılır.
 
 ### Index'te görünmeyen sayfa
 
-`shared.json` iki liste tutar. Hangi `.html` dosyalarının üretileceğine **ikisinin toplamı** karar verir; aralarındaki tek fark araç seçim ekranında kart çıkıp çıkmamasıdır.
+`shared.json` iki liste tutar. Hangi `.html` dosyalarının üretileceğine **ikisinin toplamı** karar verir; aralarındaki tek fark araç seçim ekranında görünüp görünmemesidir. Listede donanım (ya da aile sayfası) slug'ı durur; versiyon sayfaları donanımla birlikte gelir.
 
-| Slug nerede | `.html` üretilir | Index kartı |
+| Slug nerede | `.html` üretilir | Index'te |
 |---|---|---|
-| `vehicles` | evet | var |
-| `previewVehicles` | evet | yok |
+| `vehicles` | donanım sayfası + her versiyonun sayfası | ailesinin kartında bir satır |
+| `previewVehicles` | donanım sayfası + her versiyonun sayfası | yok |
 | hiçbiri | hayır | yok |
 
-Onaya sunulacak sayfalar `previewVehicles`'a konur, doğrudan URL ile açılır. Onaylanınca slug `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
+Aile sayfaları (`puma`, `explorer`, `capri`) `previewVehicles`'tadır: index artık doğrudan versiyon sayfalarına gittiği için kart olarak görünmezler, ama eski bağlantılar kırılmasın diye eski hero düzeniyle üretilmeye devam ederler. Onaya sunulacak yeni bir donanım da önce buraya konur, onaylanınca `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
 
 ### Ortak içerik ve etiketler
 
@@ -136,8 +212,21 @@ Donanım etiketleri varsayılan/istisna mantığıyla çalışır: kartların ç
 | Zorunlu alanlar dolu mu | Eksik içerikli sayfa |
 | `base` gösterdiği taban dosya var mı | Sessizce yarım kalan sayfa |
 | Taban dosyanın kendi `base`'i var mı | Alanın nereden geldiğini bulunamaz hâle getiren zincir |
+| Versiyon `price` sayı, `id`/`power` dolu, `id` donanım içinde tekil | Eksik hero, birbirinin üstüne yazılan versiyon sayfası |
+| Versiyonun `campaign` anahtarı sözlükte var mı; `infoOn` ve `popup` geçerli mi | Boş kampanya satırı, dokununca açılmayan bilgi ikonu |
+| `versions` olan ya da index'te listelenen donanımda `trim` dolu mu | Etiketsiz index satırı, eksik versiyon başlığı |
 
-Doğrulama birleştirme **sonrası** veri üzerinde çalışır: tabandan gelen bir eksiklik de varyantın kendi hatası kadar görünür olur. `previewVehicles` sayfaları da aynı denetimden geçer — "nasıl olsa index'te yok" diye kaçamaz.
+Doğrulama birleştirme **sonrası** veri üzerinde çalışır: tabandan gelen bir eksiklik de varyantın kendi hatası kadar görünür olur. Versiyon sayfaları da donanım + versiyon birleşmiş hâliyle denetlenir. `previewVehicles` sayfaları da aynı denetimden geçer — "nasıl olsa index'te yok" diye kaçamaz.
+
+Yer tutucu içerik (`"placeholder": true` taşıyan versiyon ya da kampanya) build'i durdurmaz ama her build'in sonunda listelenir:
+
+```
+⚠ 5 yer tutucu — içerik gelince güncellenmeli:
+
+  explorer-select-125kw: fiyat yer tutucu (2322000)
+  ...
+  campaigns.takas-4: içerik yer tutucu
+```
 
 Hata çıktısı dosya ve alan adı verir:
 
