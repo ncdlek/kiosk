@@ -666,15 +666,15 @@ button, a { font: inherit; }
 #tab-dis-tasarim .content > section + section:not(.section--untitled),
 #tab-teknoloji .content > section + section:not(.section--untitled) { margin-top: auto; }
 
-#tab-ic-tasarim .content > :nth-child(1) { min-height: 301px; }
+#tab-ic-tasarim .content > :nth-child(1) { min-height: 313px; }
 #tab-ic-tasarim .content > :nth-child(2) { min-height: 275px; }
-#tab-ic-tasarim .content > :nth-child(3) { min-height: 428px; }
-#tab-dis-tasarim .content > :nth-child(1) { min-height: 301px; }
+#tab-ic-tasarim .content > :nth-child(3) { min-height: 440px; }
+#tab-dis-tasarim .content > :nth-child(1) { min-height: 313px; }
 #tab-dis-tasarim .content > :nth-child(2) { min-height: 296px; }
-#tab-dis-tasarim .content > :nth-child(3) { min-height: 428px; }
+#tab-dis-tasarim .content > :nth-child(3) { min-height: 440px; }
 #tab-teknoloji .content > :nth-child(1) { min-height: 335px; }
-#tab-teknoloji .content > :nth-child(2) { min-height: 411px; }
-#tab-teknoloji .content > :nth-child(3) { min-height: 361px; }
+#tab-teknoloji .content > :nth-child(2) { min-height: 423px; }
+#tab-teknoloji .content > :nth-child(3) { min-height: 373px; }
 
 /* İç / Dış: üst başlık biraz aşağıda, altındaki özellik satırları biraz aşağıda,
    opsiyonlar biraz yukarıda (opsiyonların üstündeki boşluk daralır, artan kısım
@@ -684,19 +684,17 @@ button, a { font: inherit; }
 #tab-teknoloji .content > :nth-child(1) { margin-top: 12px; }
 
 /* Teknoloji: ilk bölümün üst boşluğu iç sayfalarla aynı (12px, yukarıdaki kural).
-   Bağlantılı Teknolojiler'de başlık ile kart arası 28px (+12px; bölüm min-height
-   buna göre 335px). Diğer Özellikler ~10px yukarıda: son bölümün altına 36px pay,
-   bölüm arası boşluklar eşit kalır. */
-#tab-teknoloji .content > :nth-child(1) .section-title { margin-bottom: 28px; }
-#tab-teknoloji .content > :nth-child(3) { margin-bottom: 36px; }
+   Başlık ile içerik arası tüm bölümlerde 28px (.section-title). Diğer Özellikler
+   ~10px yukarıda: son bölümün altına 30px pay, bölüm arası boşluklar eşit kalır. */
+#tab-teknoloji .content > :nth-child(3) { margin-bottom: 30px; }
 #tab-ic-tasarim .content > .section--untitled,
 #tab-dis-tasarim .content > .section--untitled { margin-top: 48px; }
-#tab-ic-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 48px; }
-#tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 27px; }
+#tab-ic-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 36px; }
+#tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 15px; }
 
 /* === SECTION TITLES === */
 .section-title {
-	margin: 48px 0 16px;
+	margin: 48px 0 28px;
 	color: var(--dark-blue);
 	font-family: "FordF1";
 	font-size: 24px;
