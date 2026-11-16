@@ -904,7 +904,10 @@ button, a { font: inherit; }
 .small-feature-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 28px 40px;
+	/* Figma: kartlar 62px yüksekliğinde, satır başları ~86px arayla (3 satır = 234px).
+	   Satır en az 62px; metin daha uzunsa o satır uzar. */
+	grid-auto-rows: minmax(62px, auto);
+	gap: 24px 40px;
 }
 
 .small-feature {
@@ -915,7 +918,7 @@ button, a { font: inherit; }
 
 .small-feature img {
 	width: 80px;
-	height: 58px;
+	height: 62px;
 	object-fit: cover;
 	border-radius: 5px;
 }
