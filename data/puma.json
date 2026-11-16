@@ -23,7 +23,7 @@
     "packages": [
       {
         "name": "Titanium",
-        "activeColor": 0,
+        "activeColor": 2,
         "colors": [
           { "label": "Okyanus Mavi",     "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/titanium/okyanus-mavi.jpg" },
           { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/titanium/fantastik-kirmizi.jpg" },
@@ -36,7 +36,7 @@
       },
       {
         "name": "ST-Line X",
-        "activeColor": 1,
+        "activeColor": 2,
         "colors": [
           { "label": "Okyanus Mavi",     "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/st-line-x/okyanus-mavi.jpg" },
           { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/st-line-x/fantastik-kirmizi.jpg" },

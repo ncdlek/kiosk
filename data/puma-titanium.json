@@ -24,7 +24,7 @@
       {
         "name": "Titanium",
         "imageAltPrefix": "Puma Titanium",
-        "activeColor": 0,
+        "activeColor": 2,
         "colors": [
           { "label": "Okyanus Mavi",      "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/titanium/okyanus-mavi.png" },
           { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/titanium/fantastik-kirmizi.png" },

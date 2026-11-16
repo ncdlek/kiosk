@@ -220,7 +220,7 @@
       {
         "name": "Select",
         "imageAltPrefix": "Explorer Select",
-        "activeColor": 0,
+        "activeColor": 2,
         "colors": [
           { "label": "Kutup Mavisi",   "swatch": "assets/images/explorer/anasayfa/models/swatches/kutup-mavisi.jpg",   "image": "assets/images/explorer/anasayfa/models/select/explorer-select-kutup-mavisi.jpg" },
           { "label": "Buz Beyazı",     "swatch": "assets/images/explorer/anasayfa/models/swatches/buz-beyazi.jpg",     "image": "assets/images/explorer/anasayfa/models/select/explorer-select-buz-beyazi.jpg" },

@@ -24,7 +24,7 @@
       {
         "name": "ST-Line X",
         "imageAltPrefix": "Puma ST-Line X",
-        "activeColor": 1,
+        "activeColor": 2,
         "colors": [
           { "label": "Okyanus Mavi",      "swatch": "assets/images/puma/anasayfa/models/swatches/okyanus-mavi.png",      "image": "assets/images/puma/anasayfa/models/st-line-x/okyanus-mavi.png" },
           { "label": "Fantastik Kırmızı", "swatch": "assets/images/puma/anasayfa/models/swatches/fantastik-kirmizi.png", "image": "assets/images/puma/anasayfa/models/st-line-x/fantastik-kirmizi.png" },
