@@ -220,7 +220,7 @@
       "sections": [
         {
           "type": "techWide",
-          "title": "BAĞLANTILI ARAÇ DENEYİMİ",
+          "titleKey": "connected",
           "card": {
             "title": "Ford Uygulaması",
             "image": "assets/images/puma/teknoloji/connected/ford-uygulamasi.png",
@@ -229,7 +229,7 @@
         },
         {
           "type": "mediaCards",
-          "title": "BİLGİ EĞLENCE SİSTEMLERİ",
+          "title": "DİJİTAL TEKNOLOJİLER",
           "cards": [
             {
               "title": "SYNC® 4 Sistemi",
