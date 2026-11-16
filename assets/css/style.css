@@ -670,7 +670,7 @@ button, a { font: inherit; }
 #tab-ic-tasarim .content > :nth-child(2) { min-height: 275px; }
 #tab-ic-tasarim .content > :nth-child(3) { min-height: 428px; }
 #tab-dis-tasarim .content > :nth-child(1) { min-height: 301px; }
-#tab-dis-tasarim .content > :nth-child(2) { min-height: 263px; }
+#tab-dis-tasarim .content > :nth-child(2) { min-height: 296px; }
 #tab-dis-tasarim .content > :nth-child(3) { min-height: 428px; }
 #tab-teknoloji .content > :nth-child(1) { min-height: 323px; }
 #tab-teknoloji .content > :nth-child(2) { min-height: 411px; }
@@ -691,7 +691,7 @@ button, a { font: inherit; }
 #tab-ic-tasarim .content > .section--untitled,
 #tab-dis-tasarim .content > .section--untitled { margin-top: 48px; }
 #tab-ic-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 48px; }
-#tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 60px; }
+#tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 27px; }
 
 /* === SECTION TITLES === */
 .section-title {
