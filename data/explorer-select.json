@@ -250,6 +250,7 @@
   "//tabs": "Üç sekme de B&O opsiyonuna ya da Premium'da standart olan kartlara referans verdiği için taban listeleri baştan yazıldı. Teknoloji sekmesi tabandan geliyor.",
   "tabs": {
     "anasayfa": {
+      "heroImage": "assets/images/explorer/anasayfa/hero/anasayfa-select.jpg",
       "sections": [
         { "type": "models" },
         { "type": "specs" },
@@ -268,6 +269,7 @@
     },
 
     "ic-tasarim": {
+      "heroImage": "assets/images/explorer/ic-tasarim/hero/ic-tasarim-select.jpg",
       "sections": [
         {
           "type": "standardCards",
@@ -316,6 +318,7 @@
     },
 
     "dis-tasarim": {
+      "heroImage": "assets/images/explorer/dis-tasarim/hero/dis-tasarim-select.jpg",
       "sections": [
         {
           "type": "standardCards",

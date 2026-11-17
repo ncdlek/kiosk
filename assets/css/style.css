@@ -692,6 +692,15 @@ button, a { font: inherit; }
 #tab-ic-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 36px; }
 #tab-dis-tasarim .content > section + section:nth-child(3):not(.section--untitled) { margin-top: 15px; }
 
+/* İç / Dış: küçük özellikler 2 satıra düştüğünde (6 ve daha az öğe) sabit
+   yükseklik boş alan bırakır; bölüm içeriğine göre kısalır, opsiyonlar yukarı
+   çıkar, artan boşluk broşür satırının üstünde toplanır. */
+#tab-ic-tasarim .content > :nth-child(2):not(:has(.small-feature:nth-child(7))),
+#tab-dis-tasarim .content > :nth-child(2):not(:has(.small-feature:nth-child(7))) {
+  min-height: 0;
+  padding-bottom: 20px;
+}
+
 /* === SECTION TITLES === */
 .section-title {
 	margin: 48px 0 28px;

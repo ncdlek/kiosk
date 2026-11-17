@@ -19,7 +19,90 @@
       "id": "140kw",
       "power": "140KW",
       "price": 3371600,
-      "campaign": "takas-4"
+      "campaign": "takas-4",
+      "tabs": {
+        "teknoloji": {
+          "heroImage": "assets/images/capri/teknoloji/hero/teknoloji.jpg",
+          "sections": [
+            {
+              "type": "techWide",
+              "titleKey": "connected",
+              "card": {
+                "title": "14.6\" SYNC® Move Bilgi-Eğlence Sistemi",
+                "image": "assets/images/capri/teknoloji/connected/baglantili-teknolojiler.jpg",
+                "desc": [
+                  "Gelişmiş bağlantı ve eğlence özelliklerini yüksek çözünürlüklü",
+                  "dokunmatik ekranda bir araya getirir."
+                ]
+              }
+            },
+            {
+              "type": "mediaCards",
+              "title": "DİJİTAL TEKNOLOJİLER",
+              "cards": [
+                {
+                  "title": "Kablosuz Şarj",
+                  "image": "assets/images/capri/teknoloji/infotainment/kablosuz-sarj.jpg",
+                  "desc": "Uyumlu cihazlarınızı kabloya ihtiyaç duymadan pratik şekilde şarj edin."
+                },
+                {
+                  "title": "Seçilebilir Sürüş Modları",
+                  "image": "assets/images/capri/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
+                  "desc": "Farklı sürüş ihtiyaçlarına uyum sağlayan sürüş deneyimi sunar."
+                },
+                {
+                  "title": "7 Hoparlörlü Ses Sistemi",
+                  "image": "assets/images/capri/teknoloji/infotainment/7-hoparlorlu-ses-sistemi.jpg",
+                  "desc": "Kabin genelinde dengeli ve etkileyici bir ses deneyimi sunar."
+                }
+              ]
+            },
+            {
+              "type": "smallFeatures",
+              "titleKey": "other",
+              "features": [
+                {
+                  "title": "Dur & Kalk Özellikli Adaptif Hız Kontrolü",
+                  "image": "assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg"
+                },
+                {
+                  "title": "5\" Dijital Gösterge Paneli",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg"
+                },
+                {
+                  "title": "Otomatik Frenli Çapraz Trafik Uyarı Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/otomatik-frenli-trafik-uyari-sistemi.jpg"
+                },
+                {
+                  "title": "Kör Nokta Uyarı Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg"
+                },
+                {
+                  "title": "Geri Görüş Kamerası",
+                  "image": "assets/images/capri/teknoloji/connectivity/geri-gorus-kamera.jpg"
+                },
+                {
+                  "title": "Gelişmiş Fren Yardımcısı ve Acil Fren Desteği (EBA)",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-fren-yardimcisi.jpg"
+                },
+                {
+                  "title": "Şerit Takip Sistemi ve Şeritte Kalma Yardımcısı",
+                  "image": "assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg"
+                },
+                {
+                  "title": "Çarpışma Önleme Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/carpisma-onleme-sistemi.jpg"
+                },
+                {
+                  "title": "Gelişmiş Sürücü Dikkat Takip Sistemi",
+                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-surucu-dikkat-takip.jpg"
+                }
+              ],
+              "hideNotes": true
+            }
+          ]
+        }
+      }
     },
     {
       "id": "250kw",
@@ -105,83 +188,6 @@
                   "image": "assets/images/capri/ic-tasarim/other/akilli-bagaj-kapak.jpg"
                 }
               ]
-            }
-          ]
-        },
-        "teknoloji": {
-          "heroImage": "assets/images/capri/teknoloji/hero/teknoloji.jpg",
-          "sections": [
-            {
-              "type": "techWide",
-              "titleKey": "connected",
-              "card": {
-                "title": "14.6\" SYNC® Move Bilgi-Eğlence Sistemi",
-                "image": "assets/images/capri/teknoloji/connected/baglantili-teknolojiler.jpg",
-                "desc": [
-                  "Gelişmiş bağlantı ve eğlence özelliklerini yüksek çözünürlüklü",
-                  "dokunmatik ekranda bir araya getirir."
-                ]
-              }
-            },
-            {
-              "type": "mediaCards",
-              "title": "DİJİTAL TEKNOLOJİLER",
-              "cards": [
-                {
-                  "title": "Kablosuz Şarj",
-                  "image": "assets/images/capri/teknoloji/infotainment/kablosuz-sarj.jpg",
-                  "desc": "Uyumlu cihazlarınızı kabloya ihtiyaç duymadan pratik şekilde şarj edin."
-                },
-                {
-                  "title": "Seçilebilir Sürüş Modları",
-                  "image": "assets/images/capri/teknoloji/infotainment/secilebilir-surus-modlari.jpg",
-                  "desc": "Farklı sürüş ihtiyaçlarına uyum sağlayan sürüş deneyimi sunar."
-                },
-                {
-                  "title": "7 Hoparlörlü Ses Sistemi",
-                  "image": "assets/images/capri/teknoloji/infotainment/7-hoparlorlu-ses-sistemi.jpg",
-                  "desc": "Kabin genelinde dengeli ve etkileyici bir ses deneyimi sunar."
-                }
-              ]
-            },
-            {
-              "type": "smallFeatures",
-              "titleKey": "other",
-              "features": [
-                {
-                  "title": "Dur & Kalk Özellikli Adaptif Hız Kontrolü",
-                  "image": "assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg"
-                },
-                {
-                  "title": "5\" Dijital Gösterge Paneli",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg"
-                },
-                {
-                  "title": "Otomatik Frenli Çapraz Trafik Uyarı Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/otomatik-frenli-trafik-uyari-sistemi.jpg"
-                },
-                {
-                  "title": "Kör Nokta Uyarı Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg"
-                },
-                {
-                  "title": "Geri Görüş Kamerası",
-                  "image": "assets/images/capri/teknoloji/connectivity/geri-gorus-kamera.jpg"
-                },
-                {
-                  "title": "Gelişmiş Fren Yardımcısı ve Acil Fren Desteği (EBA)",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-fren-yardimcisi.jpg"
-                },
-                {
-                  "title": "Şerit Takip Sistemi ve Şeritte Kalma Yardımcısı",
-                  "image": "assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg"
-                },
-                {
-                  "title": "Gelişmiş Sürücü Dikkat Takip Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-surucu-dikkat-takip.jpg"
-                }
-              ],
-              "hideNotes": true
             }
           ]
         }
