@@ -967,7 +967,7 @@ button, a { font: inherit; }
 }
 
 .tech-wide-card img { width: 100%; height: 100%; object-fit: cover; }
-.tech-wide-card div { position: absolute; left: 44px; bottom: 36px; }
+.tech-wide-card div { position: absolute; left: 44px; top: 150px; }
 .tech-wide-card h3 {
 	margin: 0 0 8px;
 	color: var(--white);
