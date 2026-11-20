@@ -15,9 +15,12 @@ const { txt, attr, formatStartingPrice, indent } = require('./format');
 function familyPrice(items) {
 	const candidates = items.flatMap(({ page, versions }) => {
 		if (!versions.length) return [page.startingPrice];
-		return versions.map(v => (v.version.placeholder ? page.startingPrice : v.version.price));
+		// Devre dışı versiyonun fiyatı güncel olmayabilir; ilan edilmez.
+		return versions
+			.filter(v => !v.version.disabled)
+			.map(v => (v.version.placeholder ? page.startingPrice : v.version.price));
 	});
-	return Math.min(...candidates);
+	return candidates.length ? Math.min(...candidates) : Math.min(...items.map(i => i.page.startingPrice));
 }
 
 // Aynı base'i paylaşan donanımları ilk görünüş sırasıyla grupla.
@@ -33,7 +36,10 @@ function groupByFamily(listed) {
 
 function trimRow({ page, versions }, shared) {
 	const buttons = versions.length
-		? versions.map(v => `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(v.version.power)}</a>`)
+		? versions.map(v => (v.version.disabled
+			// Link değil: dokunulamaz, ekran okuyucuya da devre dışı olarak bildirilir.
+			? `<span class="vs-btn vs-btn--disabled" aria-disabled="true">${txt(v.version.power)}</span>`
+			: `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(v.version.power)}</a>`))
 		: [`<a class="vs-btn" href="vehicles/${attr(page.slug)}.html">${txt(shared.indexOpenLabel)}</a>`];
 
 	return `<li class="vs-trim">

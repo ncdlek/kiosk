@@ -10,7 +10,7 @@
 
   "//versions": "Her girdi ayrı sayfa: <slug>-<id>.html. Girdi donanımın üstüne merge kuralıyla biner (options, tabs, emission, specs, models versiyona göre ezilebilir). placeholder: true olan versiyonun fiyatı yer tutucu (ailenin startingPrice'ı) — build sonunda uyarı olarak listelenir; gerçek fiyat gelince price güncellenip placeholder satırı silinir.",
   "versions": [
-    { "id": "125kw", "power": "125KW", "price": 2322000, "campaign": "takas-4", "placeholder": true },
+    { "id": "125kw", "power": "125KW", "price": 2322000, "campaign": "takas-4", "placeholder": true, "disabled": true },
     {
       "id": "140kw", "power": "140KW", "price": 2391300, "campaign": "takas-4",
 

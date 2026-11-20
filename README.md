@@ -123,6 +123,7 @@ Her girdi ayrı bir sayfa olur: `<donanım slug>-<id>` → `dist/vehicles/explor
 | `price` | Hero'daki anahtar teslim fiyat, sayı olarak |
 | `campaign` | Kampanya sözlüğündeki anahtar (isteğe bağlı; yoksa hero'da kampanya bloğu çıkmaz) |
 | `placeholder` | `true` ise fiyat yer tutucudur; build sonunda uyarı olarak listelenir |
+| `disabled` | `true` ise versiyonun içeriği güncel değildir: index'te gri, dokunulamaz düğme olarak görünür, sayfası üretilmez. Veri silinmez ve doğrulanmaya devam eder; içerik güncellenince bu satırı silmek versiyonu geri getirir. Fiyatı ailenin "X TL'den başlayan" satırına ve yer tutucu uyarılarına girmez |
 
 Bu meta alanlar sayfa verisinde `version` nesnesi altında durur. Girdideki **diğer her alan** donanımın (tabanla birleşmiş hâlinin) üstüne aynı birleştirme kuralıyla biner. Versiyona göre farklılaşan içerik için özel kod gerekmez:
 

@@ -100,11 +100,15 @@ function loadVehicle(slug) {
 // biner. Versiyona göre değişecek her alan — options, tabs, emission, specs,
 // models — bu yüzden ayrı kod gerektirmez: girdiye yazılır, gerisi miras.
 //
-// Meta alanlar (id, power, price, campaign, placeholder) içerik değil sayfanın
+// Meta alanlar (id, power, price, campaign, placeholder, disabled) içerik değil sayfanın
 // kimliği; sayfa verisinde `version` altında durur ki bir gün aynı adlı bir
 // içerik alanıyla çakışmasın. `versions` dizisi hiçbir sayfa verisine sızmaz.
 
-const VERSION_META = ['id', 'power', 'price', 'campaign', 'placeholder'];
+//
+// `disabled: true`: versiyonun içeriği güncel değil. Index'te düğme görünür ama
+// dokunulamaz, sayfası üretilmez. Veri yerinde durur ve doğrulanmaya devam
+// eder; içerik güncellenince tek satır (disabled) silinir, geri gelir.
+const VERSION_META = ['id', 'power', 'price', 'campaign', 'placeholder', 'disabled'];
 
 // Versiyon girdisinin ezmemesi gereken alanlar: sayfanın kimliğini ve
 // birleştirme zincirini bozarlar.
@@ -413,6 +417,7 @@ function placeholderWarnings(pages, shared) {
 	const campaigns = new Set();
 	for (const v of pages) {
 		if (!v.version) continue;
+		if (v.version.disabled) continue; // yayında değil; yer tutucu uyarısı gürültü olur
 		if (v.version.placeholder) prices.push(`${v.slug}: fiyat yer tutucu (${v.version.price})`);
 		if (v.specs && v.specs.layout === 'stacked') {
 			const missing = v.specs.columns.filter((c, i) => !v.specs.values[i]);
@@ -497,7 +502,10 @@ function main() {
 	const listed = listedHw.map(hw => ({ page: withoutVersions(hw), versions: expandVersions(hw) }));
 	fs.writeFileSync(path.join(DIST, 'index.html'), indexPage(listed, shared));
 
-	for (const v of vehicles) {
+	// Devre dışı versiyonun sayfası yazılmaz: index'te dokunulamıyorsa doğrudan
+	// URL ile de açılmasın (içerik güncel değil).
+	const published = vehicles.filter(v => !(v.version && v.version.disabled));
+	for (const v of published) {
 		const html = vehiclePage(prefixAssets(v, '../'), shared);
 		fs.writeFileSync(path.join(DIST, 'vehicles', `${v.slug}.html`), html);
 	}
@@ -514,7 +522,9 @@ function main() {
 	// çıktığını anlar; Cloudflare'a API token'ı vermek gerekmez.
 	fs.writeFileSync(path.join(DIST, 'build.txt'), `${buildSha()}\n`);
 
-	console.log(`✓ dist/ üretildi — index.html + ${vehicles.length} araç sayfası (${versionPages.length} versiyon sayfası)`);
+	console.log(`✓ dist/ üretildi — index.html + ${published.length} araç sayfası (${versionPages.length - (vehicles.length - published.length)} versiyon sayfası)`);
+	const off = vehicles.filter(v => v.version && v.version.disabled).map(v => v.slug);
+	if (off.length) console.log(`  devre dışı (sayfa üretilmedi): ${off.join(', ')}`);
 	printWarnings();
 }
 

@@ -129,3 +129,14 @@
   outline: 3px solid var(--blue);
   outline-offset: 2px;
 }
+
+/* Devre dışı versiyon (data: "disabled": true): görünür ama dokunulamaz. */
+.vs-btn--disabled,
+.vs-btn--disabled:hover,
+.vs-btn--disabled:active {
+  background: transparent;
+  border-color: #c4c9d0;
+  color: #9aa1ab;
+  cursor: default;
+  pointer-events: none;
+}
