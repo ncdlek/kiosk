@@ -12,7 +12,7 @@ data/*.json  +  src/*.js  ──▶  build.js  ──▶  dist/
 
 ## Gereksinimler
 
-- Node.js 18+
+- Node.js 22 (`.node-version` ve GitHub Actions ile aynı)
 - Python 3 (yalnızca yerel önizleme için)
 
 ## Kullanım
@@ -20,6 +20,9 @@ data/*.json  +  src/*.js  ──▶  build.js  ──▶  dist/
 ```bash
 node build.js                                        # dist/ üret
 node build.js --check                                # yalnızca veriyi doğrula
+node tools/changed-pages.js                          # build + hangi sayfalar değişti
+node tools/format-data.js                            # data/*.json'u standart biçime getir
+node --test                                          # birim testleri + veri biçimi denetimi
 python3 -m http.server 8791 --directory dist         # http://localhost:8791
 ```
 
@@ -32,11 +35,12 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 | `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik. Kendisi sayfaya dönüşmez |
 | `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
 | `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
-| `src/vehicle-page.js` | Araç sayfası şablonu. Versiyon sayfasında hero fiyat + kampanya gösterir |
+| `src/vehicle-page.js` | Araç (versiyon) sayfası şablonu: hero'da fiyat + kampanya, dört sekme, popup'lar |
 | `src/index-page.js` | Araç seçim ekranı şablonu: aile kartı → donanım satırı → versiyon düğmesi |
 | `build.js` | Doğrulama ve üretim |
-| `tools/changed-pages.js` | Build eder ve değişen sayfaları listeler; kapsam kontrolü için |
-| `tools/compare.js` | İki HTML dosyasını normalize edip karşılaştırır |
+| `tools/changed-pages.js` | Build eder ve değişen sayfaları listeler (değişen görsel/CSS/JS'in etkilediği sayfalar dahil); kapsam kontrolü için |
+| `tools/format-data.js` | `data/*.json` biçimleyicisi; `--check` yalnızca denetler |
+| `test/` | `node --test` ile çalışan birim testleri (bağımlılık yok) |
 | `assets/` | CSS, JS, font, görseller — olduğu gibi kopyalanır |
 | `dist/` | Üretilen site. Sürüm kontrolünde değil, her build'de sıfırdan yazılır |
 | `wrangler.jsonc` | Cloudflare Worker yapılandırması: ad, servis edilen dizin |
@@ -54,13 +58,12 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 
 ```jsonc
 {
-  "startingPrice": 3211600,        // "3.211.600 TL'den başlayan fiyatlarla*"
+  "startingPrice": 3211600,        // index kartı: "3.211.600 TL'den başlayan fiyatlarla*" (yer tutucu fiyatların yedeği)
 
   "options": {
     "isi-pompasi": {
       "title": "Isı Pompası",
-      "price": 139600,             // "139.600 TL"
-      "packages": "Premium"
+      "price": 139600              // "139.600 TL"
     },
     "metalik-renk": {
       "price": [12700, 32400]      // "12.700 TL - 32.400 TL"
@@ -73,16 +76,16 @@ Opsiyonlar bir kez tanımlanır; sekmeler `id` ile referans verir. Bir fiyatın 
 
 ### Donanım sayfaları ve taban dosya
 
-Aynı aracın donanımları içeriğin yaklaşık %85'ini paylaşıyor. Ortak kısım `data/<aile>.base.json` içinde tek nüsha durur; her donanım dosyası `base` alanıyla ona bağlanır ve yalnızca farkını yazar.
+Aynı aracın donanımları içeriğin bir kısmını paylaşır. Ortak kısım `data/<aile>.base.json` içinde tek nüsha durur; her donanım dosyası `base` alanıyla ona bağlanır ve yalnızca farkını yazar.
 
 ```jsonc
-// data/puma.base.json — teknik veriler, standart kartlar, teknoloji sekmesi, opsiyon fiyatları
-// data/puma-st-line-x.json
+// data/explorer.base.json — teknik veriler, model kadrajı, teknoloji sekmesi, ortak opsiyonlar
+// data/explorer-select.json
 {
-  "base": "puma",
-  "slug": "puma-st-line-x",
-  "meta": "ST-Line X",
-  "options": { "stepne": { "packages": "ST-Line X" } }   // fiyat ve açıklama tabandan
+  "base": "explorer",
+  "slug": "explorer-select",
+  "trim": "Select",
+  "options": { "isi-pompasi": { "price": 139600 } }   // başlık, açıklama ve görseller tabandan
 }
 ```
 
@@ -90,7 +93,7 @@ Birleştirme kuralı iki maddelik:
 
 | | Davranış | Neden |
 |---|---|---|
-| Nesneler | Anahtar anahtar birleşir, varyant kazanır | `options` bir sözlük: fiyat tabanda, `packages` varyantta durabilir |
+| Nesneler | Anahtar anahtar birleşir, varyant kazanır | `options` bir sözlük: açıklama tabanda, fiyat donanımda durabilir |
 | Diziler | Tamamen değişir | Yarı birleşmiş bir liste — sırası kaymış, kartı tekrar etmiş — dosyaya bakıp öngörülemez |
 
 Yani bir varyant altı kartlık listeden birini çıkaracaksa kalan beşini baştan yazar. Uzun ama okuyan herkes ekranda ne göreceğini dosyadan görür.
@@ -114,12 +117,13 @@ Donanımın altında bir katman daha var: güç versiyonu. Versiyonlar ayrı dos
 }
 ```
 
-Her girdi ayrı bir sayfa olur: `<donanım slug>-<id>` → `dist/vehicles/explorer-premium-250kw.html`. Donanımın kendi sayfası (`explorer-premium.html`) da eski düzeniyle üretilmeye devam eder.
+Her girdi ayrı bir sayfa olur: `<donanım slug>-<id>` → `dist/vehicles/explorer-premium-250kw.html`. Sayfalar **yalnızca** versiyonlardan üretilir: her donanımın en az bir versiyonu olmak zorundadır, donanımın kendi sayfası yoktur. Tek güç seçeneği olan donanım tek versiyon yazar ve `hidePower` kullanır (aşağıda).
 
 | Alan | Anlamı |
 |---|---|
 | `id` | Dosya adının parçası; küçük harf, rakam, tire. Donanım içinde tekil |
 | `power` | Hero ve index düğmesinde görünen güç etiketi |
+| `hidePower` | `true` ise güç etiketi gösterilmez, sayfa adı donanımın slug'ı olur. Yalnızca tek versiyonlu donanımda |
 | `price` | Hero'daki anahtar teslim fiyat, sayı olarak |
 | `campaign` | Kampanya sözlüğündeki anahtar (isteğe bağlı; yoksa hero'da kampanya bloğu çıkmaz) |
 | `placeholder` | `true` ise fiyat yer tutucudur; build sonunda uyarı olarak listelenir |
@@ -130,7 +134,7 @@ Bu meta alanlar sayfa verisinde `version` nesnesi altında durur. Girdideki **di
 ```jsonc
 { "id": "250kw", "power": "250KW", "price": 4217200,
   "emission": [ { "package": "Premium 250KW", "image": "...", "value": "0 g/km" } ],  // dizi: tamamen değişir
-  "options": { "jant-21": { "packages": "Premium 250KW'de standart" } }            // nesne: anahtar anahtar
+  "options": { "jant-21": { "price": 0 } }                                       // nesne: anahtar anahtar
 }
 ```
 
@@ -144,7 +148,9 @@ Bu meta alanlar sayfa verisinde `version` nesnesi altında durur. Girdideki **di
 }
 ```
 
-`pageTitle`, `gtmModel` ve `heroAlt` versiyon sayfasında `name` + `trim` + `power`'dan türetilir ("Ford Explorer Premium 250KW"); girdi isterse ezer. `slug`, `base`, `trim` ve `versions` girdide tanımlanamaz.
+`pageTitle`, `gtmModel` ve `heroAlt` `name` + `trim` + `power`'dan türetilir ("Ford Explorer Premium 250KW"); donanım dosyasına yazılmaz, girdi isterse ezer. `slug`, `base`, `trim` ve `versions` girdide tanımlanamaz.
+
+**Hangi seviyeye yazılır:** bir değişiklik tek versiyona aitse versiyon girdisine, donanımın bütün versiyonlarına aitse donanım dosyasına, ailenin bütün donanımlarına aitse tabana. Build iki durumu uyarı olarak listeler: bütün versiyonlarda birebir aynı tekrarlanan alan (donanıma taşınabilir) ve bütün alt katmanların ezdiği için hiçbir sayfaya ulaşmayan alan (silinebilir). Bkz. [Doğrulama](#doğrulama).
 
 ### Kampanyalar
 
@@ -173,8 +179,8 @@ Bilgi ikonuna dokununca açılan popup, emisyon popup'ıyla aynı mekanizmayı k
 **Yeni donanım:**
 
 1. `data/<aile>-<donanım>.json` oluşturun, `base` ile ailenin tabanına bağlayın ve `trim` yazın
-2. Versiyonları varsa `versions` dizisini ekleyin; yoksa index satırında donanım sayfasına giden tek düğme çıkar
-3. Görselleri `assets/images/<araç>/` altına yerleştirin
+2. `versions` dizisini ekleyin (zorunlu); tek güç seçeneği varsa tek girdi + `"hidePower": true`
+3. Görselleri [görsel yolu standardına](#görsel-yolları) göre yerleştirin
 4. `data/shared.json` içindeki `vehicles` dizisine `<slug>` ekleyin
 
 **Yeni araç ailesi:** `data/<aile>.base.json` + en az bir donanım dosyası (mevcut bir aileyi kopyalayın), sonra yukarıdaki adımlar.
@@ -183,7 +189,7 @@ Araç seçim ekranı `vehicles` listesinden türetilir: aynı `base`'i paylaşan
 
 ### Güç etiketi gösterilmeyen versiyon (`hidePower`)
 
-Tek güç seçeneği olan donanımda (Puma Titanium, Puma ST-Line X) versiyona `"hidePower": true` yazılır. Etkisi: hero'da güç etiketi (KW) çıkmaz, index düğmesi güç yerine `indexOpenLabel` ("İNCELE") yazar, sayfa adresi `<donanım>.html` olur (`-125kw` eki yok), sayfa başlığı ve GTM model adı güçsüz yazılır.
+Tek güç seçeneği olan donanımda (Puma Titanium, Puma ST-Line X) tek versiyona `"hidePower": true` yazılır; donanımın birden fazla versiyonu varsa build hata verir (sayfa adları çakışırdı). İçerik (`featured`, `options`, `tabs`) versiyon girdisine değil donanım dosyasına yazılır. Etkisi: hero'da güç etiketi (KW) çıkmaz, index düğmesi güç yerine `indexOpenLabel` ("İNCELE") yazar, sayfa adresi `<donanım>.html` olur (`-125kw` eki yok), sayfa başlığı ve GTM model adı güçsüz yazılır.
 
 ### Index'te görünmeyen sayfa
 
@@ -191,17 +197,49 @@ Tek güç seçeneği olan donanımda (Puma Titanium, Puma ST-Line X) versiyona `
 
 | Slug nerede | `.html` üretilir | Index'te |
 |---|---|---|
-| `vehicles` | versiyonu varsa her versiyonun sayfası, yoksa donanım sayfası | ailesinin kartında bir satır |
-| `previewVehicles` | versiyonu varsa her versiyonun sayfası, yoksa donanım sayfası | yok |
+| `vehicles` | her versiyonun sayfası | ailesinin kartında bir satır |
+| `previewVehicles` | her versiyonun sayfası | yok |
 | hiçbiri | hayır | yok |
 
-`previewVehicles` şu an boştur. Aile sayfaları (`puma`, `explorer`, `capri`) ve versiyonu olan donanımın kendi sayfası artık üretilmez; index doğrudan versiyon sayfalarına gider. Onaya sunulacak yeni bir donanım önce buraya konur, onaylanınca `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
+`previewVehicles` şu an boştur. Index doğrudan versiyon sayfalarına gider; sayfalarda index'e dönüş düğmesi yoktur (bilinçli karar). Onaya sunulacak yeni bir donanım önce buraya konur, onaylanınca `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
 
 ### Ortak içerik ve etiketler
 
 Araçlar arası tekrar eden metinler `data/shared.json` içindedir. Bir aracın farklılaşması gerekirse kendi dosyasında aynı alanı tanımlayarak ortak değeri ezer.
 
 Donanım etiketleri varsayılan/istisna mantığıyla çalışır: kartların çoğu etiket alanı taşımaz ve aracın `defaultTag` değerini alır. Farklı olan kart `tag` (sözlük anahtarı) veya `note` (serbest metin) belirtir.
+
+### Görsel yolları
+
+Her görselin yeri, sayfada hangi bölümde kullanıldığından çıkar:
+
+```
+assets/images/<aile>/<sekme>/<bölüm>/[<varyant>/]<ad>.<uzantı>
+assets/images/<aile>/popup/<ad>.<uzantı>          emisyon görselleri, QR
+```
+
+| Bölüm dizini | Kullanıldığı yer |
+|---|---|
+| `hero` | `tabs.<sekme>.heroImage` |
+| `featured` | `featured[]` (anasayfa öne çıkanlar) |
+| `models`, `models/swatches` | `models` renk görselleri ve renk noktaları |
+| `options` | `options.<id>.images.<sekme>` — dosya adı opsiyonun id'si (`options/isi-pompasi.jpg`) |
+| `standard` | `standardCards` kartları |
+| `features` | `smallFeatures` kartları |
+| `connected` | `techWide` kartı |
+| `infotainment` | `mediaCards` kartları |
+
+`<varyant>` yalnızca görsel donanıma ya da versiyona özelse yazılır: `titanium`, `st-line-x`, `premium`, `select-140kw`. Ailenin bütün donanımlarında aynı olan görsel varyant dizini almaz. Adlar küçük harf, ASCII, kelimeler tire ile (`kapi-kolu-ambiyans-aydinlatma.jpg`); Türkçe karakter, boşluk ve büyük harf kullanılmaz.
+
+### Veri dosyalarının biçimi
+
+`data/*.json` tek bir biçimdedir: 100 karaktere sığan değer tek satırda, sığmayan açılır, girinti 2 boşluk, elle hizalama yok. Dosyayı düzenledikten sonra:
+
+```bash
+node tools/format-data.js
+```
+
+`node --test` biçimsiz dosyada başarısız olur. Böylece kim düzenlerse düzenlesin `git diff`'te yalnızca içerik değişikliği görünür. `"//alan"` anahtarları açıklamadır; build onları okumaz.
 
 ## Doğrulama
 
@@ -218,8 +256,9 @@ Donanım etiketleri varsayılan/istisna mantığıyla çalışır: kartların ç
 | `base` gösterdiği taban dosya var mı | Sessizce yarım kalan sayfa |
 | Taban dosyanın kendi `base`'i var mı | Alanın nereden geldiğini bulunamaz hâle getiren zincir |
 | Versiyon `price` sayı, `id`/`power` dolu, `id` donanım içinde tekil | Eksik hero, birbirinin üstüne yazılan versiyon sayfası |
+| Her donanımda en az bir versiyon var mı; `hidePower` tek versiyonda mı; sayfa adları tekil mi | Sayfası hiç üretilmeyen donanım, sessizce üzerine yazılan sayfa |
 | Versiyonun `campaign` anahtarı sözlükte var mı; `infoOn` ve `popup` geçerli mi | Boş kampanya satırı, dokununca açılmayan bilgi ikonu |
-| `versions` olan ya da index'te listelenen donanımda `trim` dolu mu | Etiketsiz index satırı, eksik versiyon başlığı |
+| Donanımda `trim` dolu mu | Etiketsiz index satırı, eksik versiyon başlığı |
 
 Doğrulama birleştirme **sonrası** veri üzerinde çalışır: tabandan gelen bir eksiklik de varyantın kendi hatası kadar görünür olur. Versiyon sayfaları da donanım + versiyon birleşmiş hâliyle denetlenir. `previewVehicles` sayfaları da aynı denetimden geçer — "nasıl olsa index'te yok" diye kaçamaz.
 
@@ -232,6 +271,21 @@ Yer tutucu içerik (`"placeholder": true` taşıyan versiyon ya da kampanya) bui
   ...
   campaigns.takas-4: içerik yer tutucu
 ```
+
+Katman uyarıları da build'i durdurmaz:
+
+```
+⚠ 2 katman uyarısı — veri tekrar ediyor ya da ölü:
+
+  data/explorer-premium.json: versions[].featured bütün versiyonlarda aynı — donanım seviyesine taşınabilir
+  data/puma.base.json: "tabs.anasayfa.sections" hiçbir sayfaya ulaşmıyor — bütün donanımlar eziyor
+```
+
+| Uyarı | Anlamı |
+|---|---|
+| bütün versiyonlarda aynı | Aynı değer her versiyona ayrı ayrı yazılmış; bir değişiklik her kopyaya tek tek uygulanmak zorunda. Bilerek bırakılabilir |
+| hiçbir sayfaya ulaşmıyor | Alanı bütün alt katmanlar eziyor; orayı düzenlemek hiçbir sayfayı değiştirmez. Silinmeli |
+| hiçbir sayfada kullanılmıyor | Opsiyon tanımlı ama hiçbir sekme ona referans vermiyor |
 
 Hata çıktısı dosya ve alan adı verir:
 
@@ -249,7 +303,7 @@ dist/ yazılmadı, deploy olmayacak.
 ./deploy.sh
 ```
 
-Veriyi doğrular, `main` dalına push eder ve push edilen commit **her iki yayında da** çıkana kadar bekler. Doğrulama başarısız olursa push yapılmadan durur; build başarısız olursa o yayın güncellenmez ve site son başarılı sürümde kalır.
+Testleri çalıştırır, veriyi doğrular, `main` dalına push eder ve push edilen commit **her iki yayında da** çıkana kadar bekler. Doğrulama başarısız olursa push yapılmadan durur; build başarısız olursa o yayın güncellenmez ve site son başarılı sürümde kalır.
 
 ### Geçiş dönemi: iki yayın birden
 

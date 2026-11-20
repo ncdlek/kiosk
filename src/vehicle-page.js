@@ -1,9 +1,9 @@
-// Araç sayfası şablonu: hero + 4 sekme + emisyon popup'ı (+ versiyon sayfasında kampanya popup'ı).
+// Araç (versiyon) sayfası şablonu: hero + 4 sekme + emisyon popup'ı (+ kampanya varsa kampanya popup'ı).
 //
 // Sekme içerikleri veriden sıralı bölüm listesi olarak gelir; bu fonksiyon
 // yalnızca hangi blok fonksiyonunun çağrılacağını seçer.
 
-const { txt, attr, formatPrice, formatStartingPrice, indent } = require('./format');
+const { txt, attr, formatPrice, indent } = require('./format');
 const B = require('./blocks');
 
 // Bölüm başlığı iki kaynaktan gelebilir:
@@ -22,7 +22,7 @@ function renderSection(raw, v, shared, tab) {
 		case 'models':        return B.models(v.models, v.modelFrame);
 		case 'specs':         return B.specs(v.specs);
 		case 'featureBanner': return B.featureBanner(v.featured);
-		case 'homeOptions':   return B.homeOptions(section, v.options, !v.version)  // versiyon sayfasında paket etiketi (Select/Premium) yok;
+		case 'homeOptions':   return B.homeOptions(section, v.options);
 		case 'standardCards': return B.standardCards(section);
 		case 'visualOptions': return B.visualOptions(section, v.options, tab);
 		case 'smallFeatures': return B.smallFeatures(section, shared, v.defaultTag);
@@ -115,12 +115,12 @@ function heroCampaign(c, shared) {
 </div>`;
 }
 
-// Versiyon sayfası hero metni. Donanım adı BÜYÜK harf: toUpperCase yerel
+// Hero metni. Donanım adı BÜYÜK harf: toUpperCase yerel
 // ayardan bağımsız ("Premium" → "PREMIUM"); tr-TR kuralıyla "PREMİUM" olurdu,
 // marka adında istenmeyen bu.
-function heroVersionCopy(v, shared) {
+function heroText(v, shared) {
 	const ver = v.version;
-	return `<div class="hero__copy hero__copy--version">
+	return `<div class="hero__text">
   <h1 class="hero__title">${txt(v.name)}</h1>
   <p class="hero__trim"><strong>${txt(String(v.trim).toUpperCase())}</strong>${ver.hidePower ? '' : ' ' + txt(ver.power)}</p>
   <p class="hero__label">${txt(shared.heroPriceLabel)}</p>
@@ -128,18 +128,7 @@ function heroVersionCopy(v, shared) {
 </div>`;
 }
 
-// Versiyonsuz sayfaların (aile, donanım) eski hero metni — çıktısı değişmesin.
-function heroCopy(v) {
-	return `<div class="hero__copy">
-  <h1 class="hero__title">${txt(v.name)}</h1>
-  <p class="hero__subtitle">${txt(formatStartingPrice(v.startingPrice))}</p>
-  <p class="hero__meta">${txt(v.meta)}</p>
-</div>`;
-}
-
 function hero(v, shared) {
-	const copy = v.version ? heroVersionCopy(v, shared) : heroCopy(v);
-	const contentCls = v.version ? 'hero__content hero__content--version' : 'hero__content';
 
 	const buttons = shared.tabs.map((t, i) =>
 		`<button class="tab${i === 0 ? ' active' : ''}" type="button" data-tab="${attr(t.id)}" data-hero-image="${attr(v.tabs[t.id].heroImage)}">
@@ -147,18 +136,13 @@ function hero(v, shared) {
 </button>`
 	).join('\n\n');
 
-	// Versiyon sayfalarında home butonu yok; versiyonsuz donanım sayfasında duruyor.
-	const home = v.version ? '' : `  <a class="hero__home" href="../index.html" aria-label="Araç seçim ekranına dön">
-    <img src="../assets/images/home-icon.png" alt="">
-  </a>
-
-`;
+	// Sayfalarda index'e dönüş düğmesi yok (bilinçli karar).
 
 	return `<section class="hero">
   <img class="hero__bg" src="${attr(v.tabs.anasayfa.heroImage)}" alt="${attr(v.heroAlt)}">
 
-${home}  <div class="${contentCls}">
-${indent(copy, 4)}
+  <div class="hero__content">
+${indent(heroText(v, shared), 4)}
   </div>
 
   <div class="tabs-wrap">
@@ -169,14 +153,11 @@ ${indent(buttons, 6)}
 </section>`;
 }
 
-// Emisyon dışındaki popup şablonları. Versiyonsuz sayfada boş string —
-// eski sayfaların çıktısı bir satır bile değişmesin.
-function plainShort(n) { return String(n).replace(/[®™]/g, '').replace(/^Ford\s+/, '').trim(); }
-
+// Emisyon dışındaki popup şablonları: kampanyası olmayan sayfada boş string.
 function popups(v, shared) {
 	const c = campaignOf(v, shared);
 	if (!c) return '';
-	return `\n\n${indent(B.campaignPopup(c, v.shortName || plainShort(v.name)), 2)}`;
+	return `\n\n${indent(B.campaignPopup(c, v.shortName), 2)}`;
 }
 
 function vehiclePage(v, shared) {

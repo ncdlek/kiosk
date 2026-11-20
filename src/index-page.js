@@ -14,7 +14,6 @@ const { txt, attr, formatStartingPrice, indent } = require('./format');
 // kendiliğinden gerçek en düşük versiyon fiyatını gösterir.
 function familyPrice(items) {
 	const candidates = items.flatMap(({ page, versions }) => {
-		if (!versions.length) return [page.startingPrice];
 		// Devre dışı versiyonun fiyatı güncel olmayabilir; ilan edilmez.
 		return versions
 			.filter(v => !v.version.disabled)
@@ -37,12 +36,10 @@ function groupByFamily(listed) {
 function trimRow({ page, versions }, shared) {
 	// hidePower: güç etiketi gösterilmeyen versiyonun düğmesi "indexOpenLabel" yazar (satır etiketi zaten donanımı söylüyor).
 	const label = v => (v.version.hidePower ? shared.indexOpenLabel : v.version.power);
-	const buttons = versions.length
-		? versions.map(v => (v.version.disabled
-			// Link değil: dokunulamaz, ekran okuyucuya da devre dışı olarak bildirilir.
-			? `<span class="vs-btn vs-btn--disabled" aria-disabled="true">${txt(label(v))}</span>`
-			: `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(label(v))}</a>`))
-		: [`<a class="vs-btn" href="vehicles/${attr(page.slug)}.html">${txt(shared.indexOpenLabel)}</a>`];
+	const buttons = versions.map(v => (v.version.disabled
+		// Link değil: dokunulamaz, ekran okuyucuya da devre dışı olarak bildirilir.
+		? `<span class="vs-btn vs-btn--disabled" aria-disabled="true">${txt(label(v))}</span>`
+		: `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(label(v))}</a>`));
 
 	return `<li class="vs-trim">
   <span class="vs-trim__label">${txt(page.trim)}</span>
@@ -97,8 +94,8 @@ ${indent(cards, 6)}
       <!--
         YENİ ARAÇ EKLEMEK İÇİN:
         Bu dosya ÜRETİLİR — elle düzenlemeyin (dist/ .gitignore'da).
-        data/ altına yeni bir donanım JSON'u ekleyip slug'ı shared.json
-        vehicles dizisine yazın, build.js gerisini yapar.
+        data/ altına yeni bir donanım JSON'u (en az bir versiyonla) ekleyip
+        slug'ı shared.json vehicles dizisine yazın, build.js gerisini yapar.
       -->
 
     </div>

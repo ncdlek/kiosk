@@ -100,10 +100,12 @@ function loadVehicle(slug) {
 // biner. Versiyona göre değişecek her alan — options, tabs, emission, specs,
 // models — bu yüzden ayrı kod gerektirmez: girdiye yazılır, gerisi miras.
 //
-// Meta alanlar (id, power, price, campaign, placeholder, disabled) içerik değil sayfanın
-// kimliği; sayfa verisinde `version` altında durur ki bir gün aynı adlı bir
-// içerik alanıyla çakışmasın. `versions` dizisi hiçbir sayfa verisine sızmaz.
-
+// Meta alanlar (VERSION_META) içerik değil sayfanın kimliği; sayfa verisinde
+// `version` altında durur ki bir gün aynı adlı bir içerik alanıyla çakışmasın.
+// `versions` dizisi hiçbir sayfa verisine sızmaz.
+//
+// `hidePower: true`: donanımın tek versiyonu var; güç etiketi hero'da ve
+// index düğmesinde gösterilmez, sayfa adı donanımın slug'ıdır.
 //
 // `disabled: true`: versiyonun içeriği güncel değil. Index'te düğme görünür ama
 // dokunulamaz, sayfası üretilmez. Veri yerinde durur ve doğrulanmaya devam
@@ -145,7 +147,8 @@ function expandVersions(hw) {
 			pageTitle: `${label} Tasarım`,
 			gtmModel: label,
 			heroAlt: label,
-			version: meta,
+			// hardware: hata mesajlarının kaynak dosyayı gösterebilmesi için.
+			version: Object.assign({ hardware: hw.slug }, meta),
 		};
 
 		const page = merge(merge(withoutVersions(hw), derived), over);
@@ -235,9 +238,7 @@ function checkTypography(data, file, fail) {
 // Hata satırının göstereceği dosya. Versiyon sayfasının kendi dosyası yok;
 // donanım dosyasını ve hangi sayfa olduğunu söyle.
 function sourceFile(v) {
-	if (!v.version) return `data/${v.slug}.json`;
-	const hwSlug = v.slug.slice(0, -(String(v.version.id).length + 1));
-	return `data/${hwSlug}.json → ${v.slug}`;
+	return `data/${v.version.hardware}.json → ${v.slug}`;
 }
 
 function validate(vehicles, shared) {
@@ -250,7 +251,7 @@ function validate(vehicles, shared) {
 		const file = sourceFile(v);
 
 		// 1) Zorunlu alanlar — eksikse yarım sayfa üretilir, kimse fark etmez.
-		for (const field of ['name', 'shortName', 'heroAlt', 'pageTitle', 'gtmModel', 'startingPrice', 'co2', 'meta']) {
+		for (const field of ['name', 'shortName', 'heroAlt', 'pageTitle', 'gtmModel', 'startingPrice', 'co2']) {
 			if (v[field] === undefined || v[field] === null || v[field] === '') {
 				fail(file, `zorunlu alan eksik: ${field}`);
 			}
@@ -328,7 +329,7 @@ function validate(vehicles, shared) {
 		checkTypography(v, file, fail);
 
 		// 7) Versiyon sayfası: hero'nun fiyat ve kampanya satırları buradan.
-		if (v.version) checkVersionPage(v, shared, file, fail);
+		checkVersionPage(v, shared, file, fail);
 	}
 
 	return errors;
@@ -378,19 +379,26 @@ function checkVersionPage(v, shared, file, fail) {
 }
 
 // Donanım düzeyi: tekillik ve trim, sayfa açılmadan önce bilinmesi gerekenler.
-function validateVersionDefs(hardware, listedSlugs, fail) {
+// Her donanımın en az bir versiyonu olur: sayfalar yalnızca versiyondan
+// üretilir. Tek versiyonlu donanım `hidePower: true` ile güç etiketini gizler.
+function validateVersionDefs(hardware, fail) {
 	for (const hw of hardware) {
 		const file = `data/${hw.slug}.json`;
 
 		// Index'teki satır etiketi ve versiyon sayfasının başlığı trim'den geliyor.
-		if (!hw.trim && (listedSlugs.has(hw.slug) || hw.versions !== undefined)) {
+		if (!hw.trim) {
 			fail(file, 'trim eksik — index satırının etiketi ve versiyon sayfası başlığı (trim + power) bu alandan geliyor');
 		}
 
-		if (hw.versions === undefined) continue;
 		if (!Array.isArray(hw.versions) || !hw.versions.length) {
-			fail(file, 'versions boş olmayan bir dizi olmalı');
+			fail(file, 'versions boş olmayan bir dizi olmalı (tek versiyon için hidePower: true)');
 			continue;
+		}
+
+		// hidePower'lı versiyonun sayfa adı donanımın slug'ı; ikinci bir
+		// versiyon aynı sayfaya yazılırdı.
+		if (hw.versions.length > 1 && hw.versions.some(v => v.hidePower)) {
+			fail(file, 'hidePower yalnızca tek versiyonlu donanımda kullanılabilir — sayfa adları çakışırdı');
 		}
 
 		const seen = new Set();
@@ -411,13 +419,118 @@ function validateVersionDefs(hardware, listedSlugs, fail) {
 	}
 }
 
+// Son güvence: hangi yoldan gelirse gelsin iki sayfa aynı dosyaya yazılmasın.
+function validateUniqueSlugs(pages, fail) {
+	const seen = new Map();
+	for (const p of pages) {
+		if (seen.has(p.slug)) fail(sourceFile(p), `sayfa adı "${p.slug}" ${sourceFile(seen.get(p.slug))} ile çakışıyor`);
+		else seen.set(p.slug, p);
+	}
+}
+
+// ------------------------------------------------------- katman uyarıları
+//
+// İki durum build'i durdurmaz ama listelenir:
+//
+//   ölü alan   donanım dosyasındaki bir alanı BÜTÜN versiyonlar eziyor.
+//              Orayı düzenleyen kişi hiçbir sayfada değişiklik görmez.
+//   tekrar     bir alan bütün versiyonlarda birebir aynı. Donanım seviyesine
+//              taşınabilir; yerinde kalırsa bir değişiklik her kopyaya ayrı
+//              ayrı yazılmak zorunda.
+
+const isComment = k => k.startsWith('//');
+
+function deadPaths(value, overs, trail) {
+	if (!overs.length || overs.some(o => o === undefined)) return [];
+	if (isPlainObject(value) && overs.every(isPlainObject)) {
+		return Object.keys(value).filter(k => !isComment(k))
+			.flatMap(k => deadPaths(value[k], overs.map(o => o[k]), trail.concat(k)));
+	}
+	return [trail.join('.')];
+}
+
+function repeatedPaths(overs, trail) {
+	if (overs.length < 2 || overs.some(o => o === undefined)) return [];
+	const first = JSON.stringify(overs[0]);
+	if (overs.every(o => JSON.stringify(o) === first)) return [trail.join('.')];
+	if (!overs.every(isPlainObject)) return [];
+	const keys = new Set(overs.flatMap(o => Object.keys(o).filter(k => !isComment(k))));
+	return Array.from(keys).flatMap(k => repeatedPaths(overs.map(o => o[k]), trail.concat(k)));
+}
+
+// Sayfanın sekmelerinde referans verilen opsiyon id'leri.
+function referencedOptions(page) {
+	const ids = new Set();
+	for (const tab of Object.values(page.tabs || {})) {
+		for (const s of tab.sections || []) {
+			for (const ref of s.options || []) ids.add(typeof ref === 'string' ? ref : ref.id);
+		}
+	}
+	return ids;
+}
+
+// Versiyon girdisinin içerik kısmı (kimlik alanları hariç).
+function versionContent(ver) {
+	return Object.fromEntries(Object.entries(ver).filter(([k]) => !VERSION_META.includes(k)));
+}
+
+function hardwareContent(raw) {
+	const body = Object.assign({}, raw);
+	for (const k of ['base', 'slug', 'trim', 'versions']) delete body[k];
+	return body;
+}
+
+function layerWarnings(slugs) {
+	const out = [];
+	const families = new Map();   // base adı → { pages: [...içerik], refs: Set }
+
+	for (const slug of slugs) {
+		const file = `data/${slug}.json`;
+		const raw = readJson(path.join(DATA, `${slug}.json`));
+		// Devre dışı versiyon da donanım verisini kullanır (sayfası yeniden
+		// açılınca); hesaba katılır.
+		const overs = (raw.versions || []).map(versionContent);
+		const body = hardwareContent(raw);
+
+		for (const p of deadPaths(body, overs, [])) {
+			out.push(`${file}: "${p}" hiçbir sayfaya ulaşmıyor — bütün versiyonlar eziyor`);
+		}
+		for (const p of repeatedPaths(overs, [])) {
+			out.push(`${file}: versions[].${p} bütün versiyonlarda aynı — donanım seviyesine taşınabilir`);
+		}
+
+		const refs = new Set();
+		for (const page of expandVersions(loadVehicle(slug))) referencedOptions(page).forEach(id => refs.add(id));
+		const unused = Object.keys(body.options || {}).filter(id => !isComment(id) && !refs.has(id));
+		for (const id of unused) out.push(`${file}: options.${id} hiçbir sayfada kullanılmıyor`);
+
+		if (raw.base) {
+			if (!families.has(raw.base)) families.set(raw.base, { pages: [], refs: new Set() });
+			const fam = families.get(raw.base);
+			overs.forEach(o => fam.pages.push(merge(body, o)));
+			refs.forEach(id => fam.refs.add(id));
+		}
+	}
+
+	// Taban: ailenin bütün sayfalarının ezdiği alan ya da kullanmadığı opsiyon.
+	for (const [name, fam] of families) {
+		const file = `data/${name}.base.json`;
+		const base = readJson(path.join(DATA, `${name}.base.json`));
+		for (const p of deadPaths(base, fam.pages, [])) {
+			out.push(`${file}: "${p}" hiçbir sayfaya ulaşmıyor — bütün donanımlar eziyor`);
+		}
+		const unused = Object.keys(base.options || {}).filter(id => !isComment(id) && !fam.refs.has(id));
+		for (const id of unused) out.push(`${file}: options.${id} hiçbir sayfada kullanılmıyor`);
+	}
+	return out;
+}
+
 // Yer tutucu içerik build'i durdurmaz — sayfalar önizlenebilsin — ama her
 // build'in sonunda listelenir ki "geçici" fiyat sessizce kalıcı olmasın.
 function placeholderWarnings(pages, shared) {
 	const prices = [];
 	const campaigns = new Set();
 	for (const v of pages) {
-		if (!v.version) continue;
 		if (v.version.disabled) continue; // yayında değil; yer tutucu uyarısı gürültü olur
 		if (v.version.placeholder) prices.push(`${v.slug}: fiyat yer tutucu (${v.version.price})`);
 		if (v.specs && v.specs.layout === 'stacked') {
@@ -465,12 +578,12 @@ function main() {
 	const hardware = listedHw.concat(previewHw);
 
 	const errors = [];
-	validateVersionDefs(hardware, new Set(shared.vehicles), (file, msg) => errors.push(`${file}: ${msg}`));
+	const fail = (file, msg) => errors.push(`${file}: ${msg}`);
+	validateVersionDefs(hardware, fail);
 
-	// Versiyonu olan donanımın kendi sayfası üretilmez: index doğrudan versiyon
-	// sayfalarına gider. Versiyonsuz donanımın sayfası tek sayfasıdır, üretilir.
-	const versionPages = hardware.flatMap(expandVersions);
-	const vehicles = hardware.filter(hw => !(hw.versions && hw.versions.length)).map(withoutVersions).concat(versionPages);
+	// Sayfalar yalnızca versiyonlardan üretilir; donanımın kendi sayfası yok.
+	const vehicles = errors.length ? [] : hardware.flatMap(expandVersions);
+	validateUniqueSlugs(vehicles, fail);
 
 	errors.push(...validate(vehicles, shared));
 	if (errors.length) {
@@ -481,11 +594,17 @@ function main() {
 	}
 
 	const warnings = placeholderWarnings(vehicles, shared);
+	const layers = layerWarnings(hardware.map(hw => hw.slug));
 	const printWarnings = () => {
-		if (!warnings.length) return;
-		console.warn(`\n⚠ ${warnings.length} yer tutucu — içerik gelince güncellenmeli:\n`);
-		for (const w of warnings) console.warn(`  ${w}`);
-		console.warn('');
+		if (warnings.length) {
+			console.warn(`\n⚠ ${warnings.length} yer tutucu — içerik gelince güncellenmeli:\n`);
+			for (const w of warnings) console.warn(`  ${w}`);
+		}
+		if (layers.length) {
+			console.warn(`\n⚠ ${layers.length} katman uyarısı — veri tekrar ediyor ya da ölü:\n`);
+			for (const w of layers) console.warn(`  ${w}`);
+		}
+		if (warnings.length || layers.length) console.warn('');
 	};
 
 	if (checkOnly) {
@@ -505,7 +624,7 @@ function main() {
 
 	// Devre dışı versiyonun sayfası yazılmaz: index'te dokunulamıyorsa doğrudan
 	// URL ile de açılmasın (içerik güncel değil).
-	const published = vehicles.filter(v => !(v.version && v.version.disabled));
+	const published = vehicles.filter(v => !v.version.disabled);
 	for (const v of published) {
 		const html = vehiclePage(prefixAssets(v, '../'), shared);
 		fs.writeFileSync(path.join(DIST, 'vehicles', `${v.slug}.html`), html);
@@ -523,15 +642,20 @@ function main() {
 	// çıktığını anlar; Cloudflare'a API token'ı vermek gerekmez.
 	fs.writeFileSync(path.join(DIST, 'build.txt'), `${buildSha()}\n`);
 
-	console.log(`✓ dist/ üretildi — index.html + ${published.length} araç sayfası (${versionPages.length - (vehicles.length - published.length)} versiyon sayfası)`);
-	const off = vehicles.filter(v => v.version && v.version.disabled).map(v => v.slug);
+	console.log(`✓ dist/ üretildi — index.html + ${published.length} araç sayfası`);
+	const off = vehicles.filter(v => v.version.disabled).map(v => v.slug);
 	if (off.length) console.log(`  devre dışı (sayfa üretilmedi): ${off.join(', ')}`);
 	printWarnings();
 }
 
-try {
-	main();
-} catch (e) {
-	console.error(`\n✗ ${e.message}\n`);
-	process.exit(1);
+// Testler fonksiyonları require eder; build yalnızca doğrudan çalıştırılınca.
+if (require.main === module) {
+	try {
+		main();
+	} catch (e) {
+		console.error(`\n✗ ${e.message}\n`);
+		process.exit(1);
+	}
 }
+
+module.exports = { merge, expandVersions, validateVersionDefs, validateUniqueSlugs, deadPaths, repeatedPaths, sourceFile };

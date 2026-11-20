@@ -3,18 +3,9 @@
   "//": "Donanım adıyla ayrı sayfa yolu — puma-titanium, explorer-premium ile aynı adlandırma. İçeriğin tamamı capri.base.json'dan gelir; ikinci donanım gelirse fark burada birikir.",
   "slug": "capri-premium",
   "trim": "Premium",
-  "heroAlt": "Ford Capri Premium",
-  "pageTitle": "Ford Capri Premium Tasarım",
-  "gtmModel": "Ford Capri Premium",
-  "meta": "Premium Elektrikli SUV",
   "//versions": "Capri'nin tek donanımı Premium; üç güç versiyonu. İçeriğin tamamı capri.base.json'dan gelir, burada yalnızca fiyat ve farklar var (teknik veri tabandaki versionSpecs'ten güce göre). Kampanya takas-4 Explorer ile aynı varsayıldı.",
   "versions": [
-    {
-      "id": "125kw",
-      "power": "125KW",
-      "price": 3211600,
-      "campaign": "takas-4"
-    },
+    { "id": "125kw", "power": "125KW", "price": 3211600, "campaign": "takas-4" },
     {
       "id": "140kw",
       "power": "140KW",
@@ -63,39 +54,39 @@
               "features": [
                 {
                   "title": "Dur & Kalk Özellikli Adaptif Hız Kontrolü",
-                  "image": "assets/images/capri/teknoloji/connectivity/adaptif-hiz-sabitleyici.jpg"
+                  "image": "assets/images/capri/teknoloji/features/adaptif-hiz-sabitleyici.jpg"
                 },
                 {
                   "title": "5\" Dijital Gösterge Paneli",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-goz-hizasi-gosterge-paneli.jpg"
+                  "image": "assets/images/capri/teknoloji/features/gelismis-goz-hizasi-gosterge-paneli.jpg"
                 },
                 {
                   "title": "Otomatik Frenli Çapraz Trafik Uyarı Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/otomatik-frenli-trafik-uyari-sistemi.jpg"
+                  "image": "assets/images/capri/teknoloji/features/otomatik-frenli-trafik-uyari-sistemi.jpg"
                 },
                 {
                   "title": "Kör Nokta Uyarı Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/kor-nokta-uyari-sistemi.jpg"
+                  "image": "assets/images/capri/teknoloji/features/kor-nokta-uyari-sistemi.jpg"
                 },
                 {
                   "title": "Geri Görüş Kamerası",
-                  "image": "assets/images/capri/teknoloji/connectivity/geri-gorus-kamera.jpg"
+                  "image": "assets/images/capri/teknoloji/features/geri-gorus-kamera.jpg"
                 },
                 {
                   "title": "Gelişmiş Fren Yardımcısı ve Acil Fren Desteği (EBA)",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-fren-yardimcisi.jpg"
+                  "image": "assets/images/capri/teknoloji/features/gelismis-fren-yardimcisi.jpg"
                 },
                 {
                   "title": "Şerit Takip Sistemi ve Şeritte Kalma Yardımcısı",
-                  "image": "assets/images/capri/teknoloji/connectivity/serit-takip-sistemi.jpg"
+                  "image": "assets/images/capri/teknoloji/features/serit-takip-sistemi.jpg"
                 },
                 {
                   "title": "Çarpışma Önleme Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/carpisma-onleme-sistemi.jpg"
+                  "image": "assets/images/capri/teknoloji/features/carpisma-onleme-sistemi.jpg"
                 },
                 {
                   "title": "Gelişmiş Sürücü Dikkat Takip Sistemi",
-                  "image": "assets/images/capri/teknoloji/connectivity/gelismis-surucu-dikkat-takip.jpg"
+                  "image": "assets/images/capri/teknoloji/features/gelismis-surucu-dikkat-takip.jpg"
                 }
               ],
               "hideNotes": true
@@ -130,53 +121,46 @@
                 }
               ]
             },
-            {
-              "type": "visualOptions",
-              "titleKey": "options",
-              "options": [
-                "bo-ses",
-                "isi-pompasi"
-              ]
-            },
+            { "type": "visualOptions", "titleKey": "options", "options": ["bo-ses", "isi-pompasi"] },
             {
               "type": "smallFeatures",
               "titleKey": "other",
               "features": [
                 {
                   "title": "Isıtmalı Sensico® Direksiyon",
-                  "image": "assets/images/capri/ic-tasarim/other/isitmali-sensico-direksiyon.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/isitmali-sensico-direksiyon.jpg"
                 },
                 {
                   "title": "Elektrikli Hafızalı, Bel Destekli Sürücü Koltuğu",
-                  "image": "assets/images/capri/ic-tasarim/other/agr-sertifikali-koltuk.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/agr-sertifikali-koltuk.jpg"
                 },
                 {
                   "title": "İki Bölgeli Otomatik Klima",
-                  "image": "assets/images/capri/ic-tasarim/other/iki-bolgeli-otomatik-klima.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/iki-bolgeli-otomatik-klima.jpg"
                 },
                 {
                   "title": "5\" Dijital Gösterge Paneli",
-                  "image": "assets/images/capri/ic-tasarim/other/dijital-gosterge-paneli.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/dijital-gosterge-paneli.jpg"
                 },
                 {
                   "title": "Seçilebilir Sürüş Modları",
-                  "image": "assets/images/capri/ic-tasarim/other/surus-modlari.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/surus-modlari.jpg"
                 },
                 {
                   "title": "60/40 Katlanabilir Arka Koltuklar",
-                  "image": "assets/images/capri/ic-tasarim/other/katlanabilir-arka-koltuklar.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/katlanabilir-arka-koltuklar.jpg"
                 },
                 {
                   "title": "Isıtmalı ve Masajlı Sensico® Sürücü Koltuk",
-                  "image": "assets/images/capri/ic-tasarim/other/isitmali-masaj-ozellikli-sensico-koltuklar.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/isitmali-masaj-ozellikli-sensico-koltuklar.jpg"
                 },
                 {
                   "title": "Araç Dışı Şarj Paylaşımı (V2L)",
-                  "image": "assets/images/capri/ic-tasarim/other/arac-disi-sarj-paylasim.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/arac-disi-sarj-paylasim.jpg"
                 },
                 {
                   "title": "Akıllı Bagaj Kapağı",
-                  "image": "assets/images/capri/ic-tasarim/other/akilli-bagaj-kapak.jpg"
+                  "image": "assets/images/capri/ic-tasarim/features/akilli-bagaj-kapak.jpg"
                 }
               ]
             }
@@ -185,11 +169,6 @@
       },
       "//tabs": "İç Tasarım bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 8. özellik (140KW'de Araç Dışı Şarj Paylaşımı, diğer versiyonlarda Kablosuz Şarj)."
     },
-    {
-      "id": "250kw",
-      "power": "250KW",
-      "price": 4330000,
-      "campaign": "takas-4"
-    }
+    { "id": "250kw", "power": "250KW", "price": 4330000, "campaign": "takas-4" }
   ]
 }

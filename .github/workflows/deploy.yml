@@ -44,6 +44,10 @@ jobs:
       # fiyat vb. bulunursa `node build.js` çıkış kodu 1 döner ve iş burada
       # kırmızıya döner. dist/ yazılmadığı için deploy adımlarına geçilmez;
       # site son sağlam sürümde kalır.
+      # Birim testleri ve veri biçimi denetimi (test/format.test.js).
+      - name: Test
+        run: node --test
+
       - name: Build
         run: node build.js
 

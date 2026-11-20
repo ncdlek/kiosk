@@ -203,21 +203,20 @@ ${indent(buttons, 6)}
 
 // --- Anasayfa: opsiyon kartları ---------------------------------------
 
-function homeOption(o, showPackages) {
+function homeOption(o) {
 	return `<article class="home-option">
   <img src="${attr(o.image)}" alt="${plain(o.title)}">
   <div>
     <h3>${text(o.title)}</h3>
     <strong>${txt(formatPrice(o.price))}</strong>
-${showPackages ? `\n    <p>${txt(o.packages)}</p>` : ''}
   </div>
 </article>`;
 }
 
 // layout "compact": altı opsiyonlu Explorer ızgarası (.home-options--compact)
-function homeOptions(section, options, showPackages = true) {
+function homeOptions(section, options) {
 	const cls = section.layout === 'compact' ? 'home-options home-options--compact' : 'home-options';
-	const cards = section.options.map(ref => homeOption(resolveOption(options, ref, 'anasayfa'), showPackages)).join('\n\n');
+	const cards = section.options.map(ref => homeOption(resolveOption(options, ref, 'anasayfa'))).join('\n\n');
 
 	return titled(section.title, `<div class="${cls}">
 ${indent(cards, 2)}

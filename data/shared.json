@@ -1,25 +1,24 @@
 {
   "gtmId": "GTM-NBTV9BQ",
-
   "//vehicles": "Index'te görünen donanımlar ve sıraları. Aynı base'i paylaşan donanımlar tek kartta toplanır; kart sırası ailenin bu listedeki ilk görünüşüdür, satır sırası buradaki sıradır. Donanımın versions'ı varsa satırda her versiyon için bir düğme çıkar, yoksa donanım sayfasına giden tek düğme. Yeni donanım: data/<slug>.json (trim alanıyla) + buraya bir satır.",
-  "vehicles": ["puma-titanium", "puma-st-line-x", "explorer-select", "explorer-premium", "capri-premium"],
-
+  "vehicles": [
+    "puma-titanium",
+    "puma-st-line-x",
+    "explorer-select",
+    "explorer-premium",
+    "capri-premium"
+  ],
   "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Şu an boş: aile sayfaları (puma, explorer, capri) artık üretilmiyor. Onaya sunulacak yeni bir donanım önce buraya konur.",
   "previewVehicles": [],
-
   "indexTitle": "Ford Araç Seçimi",
   "indexHeading": "Araç Seçin",
   "indexSubheading": "Tanıtımını görmek istediğiniz aracı seçin",
-
   "//indexOpenLabel": "Versiyonu olmayan donanımın (Puma, Capri) index satırındaki tek düğme.",
   "indexOpenLabel": "İNCELE",
-
   "disclaimer": "* Anahtar teslim fiyatıdır",
-
   "//heroPriceLabel": "Versiyon sayfası hero'sundaki etiketler. Versiyonsuz sayfaların hero'su bunları kullanmaz.",
   "heroPriceLabel": "*ANAHTAR TESLİM FİYAT",
   "heroCampaignLabel": "KREDİ KAMPANYASI",
-
   "//campaigns": "Versiyonların campaign alanı buradaki anahtara bakar. Araç verisi (base ya da donanım dosyası) aynı anahtarla bir campaigns girdisi tanımlarsa o kampanyanın tamamını değiştirir. infoOn: bilgi ikonunun hangi satırın sonunda duracağı (headline | note). placeholder: true olan kampanya build sonunda uyarı olarak listelenir.",
   "campaigns": {
     "takas-4": {
@@ -36,14 +35,12 @@
       }
     }
   },
-
   "tabs": [
-    { "id": "anasayfa",    "label": "GENEL BAKIŞ" },
-    { "id": "ic-tasarim",  "label": "İÇ TASARIM" },
+    { "id": "anasayfa", "label": "GENEL BAKIŞ" },
+    { "id": "ic-tasarim", "label": "İÇ TASARIM" },
     { "id": "dis-tasarim", "label": "DIŞ TASARIM" },
-    { "id": "teknoloji",   "label": "TEKNOLOJİ" }
+    { "id": "teknoloji", "label": "TEKNOLOJİ" }
   ],
-
   "sectionTitles": {
     "standard": "STANDART ÖZELLİKLER",
     "options": "OPSİYONLAR",
@@ -51,7 +48,6 @@
     "connected": "BAĞLANTILI TEKNOLOJİLER",
     "next-gen": "YENİ NESİL BAĞLANMA SEÇENEKLERİ"
   },
-
   "tags": {
     "standart": "Standart donanım",
     "tum-donanim": "Tüm donanımlarda standart",
@@ -60,11 +56,8 @@
     "premium-standart": "Premium'da standart",
     "stlinex-standart": "ST-Line X'te standart"
   },
-
   "emissionHeading": "Çevresel Bilgi",
-
   "emissionText": "Bir otomobilin yakıt tüketimi ve CO₂ emisyonunun belirlenmesinde, otomobilin yakıt verimliliğinin yanı sıra araç sürme alışkanlığı gibi diğer teknik olmayan faktörler de önemli rol oynar. CO₂, küresel ısınmaya neden olan en önemli sera gazıdır.",
-
   "emissionLegal": [
     "Tüm yakıt ekonomisi, elektrik tüketimi, elektrikli mesafe ve emisyon değerleri WLTP laboratuvarından ve bu araca özgüdür. Bu değerler, ideal şartlarda ulaşılabilecek değerler için gerçekçi ve güvenilir bir bulgu sunmaktadır. Fakat hiçbir test, gerçek dünya sürüş şartlarını ve davranışlarını tamamı ile yansıtamayacağından, her zaman farklılıklar olacaktır.",
     "Yeni binek otomobil modelleri için yakıt ekonomisi ve CO₂ emisyonu ile ilgili verileri içeren kılavuzlar, satış noktalarında ücretsiz olarak bulundurulur.",

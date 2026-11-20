@@ -79,71 +79,24 @@ button, a { font: inherit; }
 	transition: opacity 0.2s ease;
 }
 
-/* Sol üstteki home tuşu; metin bloğu onun altında kalsın diye hero__content üstten açılır */
-.hero__home {
-	position: absolute;
-	top: 44px;
-	left: 64px;
-	z-index: 3;
-	width: 56px;
-	height: 56px;
-}
-
-.hero__home img {
-	display: block;
-	width: 100%;
-	height: 100%;
-}
-
-
+/* Hero metni: başlık + trim | fiyat | kampanya. Yedi satır; sekmelerin
+   üstünde (473 - 78 = 395px) bitmesi için üst boşluk dar, satırlar sıkı. */
 .hero__content {
 	position: relative;
 	z-index: 2;
 	height: 100%;
-	padding: 140px 64px 0;
+	padding: 68px 64px 0;
 }
 
-.hero__copy { color: #fff; width: 655px; }
+.hero__text { color: #fff; width: 655px; }
 
 .hero__title {
-	margin: 0 0 12px;
-	color: #FFF;
-	font-family: "FordF1";
-	font-size: 43px;
-	font-style: normal;
-	font-weight: 700;
-	line-height: 51.89px;
-}
-
-.hero__subtitle {
-	margin: 0 0 12px;
-	color: #FFF;
-	font-family: "FordF1";
-	font-size: 24px;
-	font-style: normal;
-	font-weight: 600;
-	line-height: 35px;
-}
-
-.hero__meta {
-	margin: 0;
-	color: #FFF;
-	font-family: "FordF1";
-	font-size: 17px;
-	font-style: normal;
-	font-weight: 700;
-	line-height: 26.078px;
-}
-
-/* === HERO: versiyon sayfası (fiyat + kampanya) ===
-   Yedi satır, eski üç satırlık bloktan uzun. Home tuşunun altından (100px)
-   başlayıp sekmelerin üstünde (473 - 78 = 395px) bitmesi için üst boşluk
-   biraz daha dar ve satır yükseklikleri sıkı. */
-.hero__content--version { padding-top: 68px; }
-
-.hero__copy--version .hero__title {
 	margin: 0 0 4px;
+	color: #FFF;
+	font-family: "FordF1";
 	font-size: 40px;
+	font-style: normal;
+	font-weight: 700;
 	line-height: 48px;
 }
 

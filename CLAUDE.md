@@ -14,15 +14,20 @@ Kullanıcı bir model, donanım veya versiyon adı verdiyse (ör. "Capri Premium
 
 ## Doğrulama
 
-Değişiklikten sonra `node build.js` yerine şunu çalıştır:
+Değişiklikten sonra önce veri dosyalarını biçimle, sonra `node build.js` yerine `changed-pages.js` çalıştır:
 
 ```bash
+node tools/format-data.js
 node tools/changed-pages.js
 ```
 
 Build'i yapar ve içeriği değişen sayfaları listeler. Liste, kullanıcının istediği sayfalarla birebir örtüşmeli. Fazladan sayfa varsa kapsamı aştın: değişikliği geri alıp override'a taşı.
 
 `dist/` üretilir ve commit'lenmez. Elle düzenleme.
+
+Build'in "katman uyarısı" listesine yeni bir satır eklendiyse (ölü alan, kullanılmayan opsiyon) sebebi senin değişikliğinse düzelt. "Bütün versiyonlarda aynı" uyarısı kullanıcı bütün versiyonları istemediyse normaldir; kendi başına donanım seviyesine taşıma.
+
+Yeni görsel eklerken README'deki "Görsel yolları" standardına uy.
 
 ## Kullanıcıya bildirme
 

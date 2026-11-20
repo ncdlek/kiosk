@@ -40,6 +40,9 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   exit 1
 fi
 
+echo "▸ Test ediliyor"
+node --test
+
 echo "▸ Doğrulanıyor"
 node build.js --check
 
