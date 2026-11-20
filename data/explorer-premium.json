@@ -13,7 +13,6 @@
     {
       "id": "125kw",
       "power": "125KW",
-      "disabled": true,
       "price": 2457300,
       "campaign": "takas-4",
       "specs": {
