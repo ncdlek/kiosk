@@ -35,11 +35,13 @@ function groupByFamily(listed) {
 }
 
 function trimRow({ page, versions }, shared) {
+	// hidePower: güç etiketi gösterilmeyen versiyonun düğmesi "indexOpenLabel" yazar (satır etiketi zaten donanımı söylüyor).
+	const label = v => (v.version.hidePower ? shared.indexOpenLabel : v.version.power);
 	const buttons = versions.length
 		? versions.map(v => (v.version.disabled
 			// Link değil: dokunulamaz, ekran okuyucuya da devre dışı olarak bildirilir.
-			? `<span class="vs-btn vs-btn--disabled" aria-disabled="true">${txt(v.version.power)}</span>`
-			: `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(v.version.power)}</a>`))
+			? `<span class="vs-btn vs-btn--disabled" aria-disabled="true">${txt(label(v))}</span>`
+			: `<a class="vs-btn" href="vehicles/${attr(v.slug)}.html">${txt(label(v))}</a>`))
 		: [`<a class="vs-btn" href="vehicles/${attr(page.slug)}.html">${txt(shared.indexOpenLabel)}</a>`];
 
 	return `<li class="vs-trim">

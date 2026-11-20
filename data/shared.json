@@ -4,8 +4,8 @@
   "//vehicles": "Index'te görünen donanımlar ve sıraları. Aynı base'i paylaşan donanımlar tek kartta toplanır; kart sırası ailenin bu listedeki ilk görünüşüdür, satır sırası buradaki sıradır. Donanımın versions'ı varsa satırda her versiyon için bir düğme çıkar, yoksa donanım sayfasına giden tek düğme. Yeni donanım: data/<slug>.json (trim alanıyla) + buraya bir satır.",
   "vehicles": ["puma-titanium", "puma-st-line-x", "explorer-select", "explorer-premium", "capri-premium"],
 
-  "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Aile sayfaları (puma, explorer, capri) versiyon modeline geçişte buraya taşındı; eski bağlantılar kırılmasın diye üretilmeye devam ediyorlar.",
-  "previewVehicles": ["puma", "explorer", "capri"],
+  "//previewVehicles": "Sayfası üretilir ama index'te listelenmez — doğrudan URL ile açılır. Şu an boş: aile sayfaları (puma, explorer, capri) artık üretilmiyor. Onaya sunulacak yeni bir donanım önce buraya konur.",
+  "previewVehicles": [],
 
   "indexTitle": "Ford Araç Seçimi",
   "indexHeading": "Araç Seçin",

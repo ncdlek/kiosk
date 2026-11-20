@@ -28,14 +28,14 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 | Yol | Açıklama |
 |---|---|
 | `data/shared.json` | Araçlar arası ortak içerik: index'teki donanım sırası, sekme etiketleri, bölüm başlıkları, donanım etiketleri, hero etiketleri, kampanyalar, emisyon yasal metni |
-| `data/<aile>-<donanım>.json` | Bir donanımın içeriği (fiyatlar, opsiyonlar, renkler) ve `versions` dizisiyle kW versiyonları |
-| `data/<aile>.json` | Aile sayfası (iki paket yan yana). Yedek olarak üretilir, index'te görünmez |
+| `data/<aile>-<donanım>.json` | Bir donanımın içeriği (fiyatlar, opsiyonlar, renkler) ve `versions` dizisiyle versiyonları |
 | `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik. Kendisi sayfaya dönüşmez |
 | `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
 | `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
 | `src/vehicle-page.js` | Araç sayfası şablonu. Versiyon sayfasında hero fiyat + kampanya gösterir |
 | `src/index-page.js` | Araç seçim ekranı şablonu: aile kartı → donanım satırı → versiyon düğmesi |
 | `build.js` | Doğrulama ve üretim |
+| `tools/changed-pages.js` | Build eder ve değişen sayfaları listeler; kapsam kontrolü için |
 | `tools/compare.js` | İki HTML dosyasını normalize edip karşılaştırır |
 | `assets/` | CSS, JS, font, görseller — olduğu gibi kopyalanır |
 | `dist/` | Üretilen site. Sürüm kontrolünde değil, her build'de sıfırdan yazılır |
@@ -181,17 +181,21 @@ Bilgi ikonuna dokununca açılan popup, emisyon popup'ıyla aynı mekanizmayı k
 
 Araç seçim ekranı `vehicles` listesinden türetilir: aynı `base`'i paylaşan donanımlar tek kartta toplanır. Kart sırası ailenin listede ilk görünüşü, kart içindeki satır sırası listedeki sıradır. Kartın "X TL'den başlayan" satırı ailedeki en düşük versiyon fiyatıdır; yer tutucu fiyatlı versiyon yerine donanımın `startingPrice`'ı sayılır.
 
+### Güç etiketi gösterilmeyen versiyon (`hidePower`)
+
+Tek güç seçeneği olan donanımda (Puma Titanium, Puma ST-Line X) versiyona `"hidePower": true` yazılır. Etkisi: hero'da güç etiketi (KW) çıkmaz, index düğmesi güç yerine `indexOpenLabel` ("İNCELE") yazar, sayfa adresi `<donanım>.html` olur (`-125kw` eki yok), sayfa başlığı ve GTM model adı güçsüz yazılır.
+
 ### Index'te görünmeyen sayfa
 
-`shared.json` iki liste tutar. Hangi `.html` dosyalarının üretileceğine **ikisinin toplamı** karar verir; aralarındaki tek fark araç seçim ekranında görünüp görünmemesidir. Listede donanım (ya da aile sayfası) slug'ı durur; versiyon sayfaları donanımla birlikte gelir.
+`shared.json` iki liste tutar. Hangi `.html` dosyalarının üretileceğine **ikisinin toplamı** karar verir; aralarındaki tek fark araç seçim ekranında görünüp görünmemesidir. Listede donanım slug'ı durur; versiyon sayfaları donanımla birlikte gelir.
 
 | Slug nerede | `.html` üretilir | Index'te |
 |---|---|---|
-| `vehicles` | donanım sayfası + her versiyonun sayfası | ailesinin kartında bir satır |
-| `previewVehicles` | donanım sayfası + her versiyonun sayfası | yok |
+| `vehicles` | versiyonu varsa her versiyonun sayfası, yoksa donanım sayfası | ailesinin kartında bir satır |
+| `previewVehicles` | versiyonu varsa her versiyonun sayfası, yoksa donanım sayfası | yok |
 | hiçbiri | hayır | yok |
 
-Aile sayfaları (`puma`, `explorer`, `capri`) `previewVehicles`'tadır: index artık doğrudan versiyon sayfalarına gittiği için kart olarak görünmezler, ama eski bağlantılar kırılmasın diye eski hero düzeniyle üretilmeye devam ederler. Onaya sunulacak yeni bir donanım da önce buraya konur, onaylanınca `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
+`previewVehicles` şu an boştur. Aile sayfaları (`puma`, `explorer`, `capri`) ve versiyonu olan donanımın kendi sayfası artık üretilmez; index doğrudan versiyon sayfalarına gider. Onaya sunulacak yeni bir donanım önce buraya konur, onaylanınca `vehicles`'a taşınır. Taban dosyalar hiçbir listede yer almadığı için sayfaya dönüşmez.
 
 ### Ortak içerik ve etiketler
 
@@ -234,7 +238,7 @@ Hata çıktısı dosya ve alan adı verir:
 ```
 ✗ Doğrulama başarısız — 1 hata:
 
-  data/capri.json: options.isi-pompasi.price sayı ya da [sayı, sayı] olmalı, "139.600 TL" verilmiş
+  data/capri-premium.json: options.isi-pompasi.price sayı ya da [sayı, sayı] olmalı, "139.600 TL" verilmiş
 
 dist/ yazılmadı, deploy olmayacak.
 ```

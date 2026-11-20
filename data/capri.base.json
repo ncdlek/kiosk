@@ -139,7 +139,7 @@
   "//versionSpecs": "Versiyon sayfalarının teknik veri tablosu, güç etiketine (versions[].power) göre. Değerler: menzil (km), şarj (dk), güç (PS), 0-100 (sn).",
   "versionSpecs": {
     "columns": [
-      "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+      "BİRLEŞİK / ŞEHİR İÇİ MENZİL",
       "DC (%10-80) HIZLI ŞARJ",
       "MAXİMUM GÜÇ",
       "0–100 km/sa"
@@ -147,7 +147,7 @@
     "values": {
       "125KW": [
         {
-          "n": "373",
+          "n": "373 - 471",
           "u": "KM"
         },
         {
@@ -165,7 +165,7 @@
       ],
       "140KW": [
         {
-          "n": "437",
+          "n": "437 - 586",
           "u": "KM"
         },
         {
@@ -183,7 +183,7 @@
       ],
       "250KW": [
         {
-          "n": "557",
+          "n": "557 - 683",
           "u": "KM"
         },
         {

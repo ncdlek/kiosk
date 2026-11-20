@@ -1,6 +1,6 @@
 {
   "base": "capri",
-  "//": "Donanım adıyla ayrı sayfa yolu — puma-titanium, explorer-premium ile aynı adlandırma. Capri'nin tek donanımı olduğu için içerik capri.json ile birebir aynı; ikinci donanım gelirse fark burada birikir.",
+  "//": "Donanım adıyla ayrı sayfa yolu — puma-titanium, explorer-premium ile aynı adlandırma. İçeriğin tamamı capri.base.json'dan gelir; ikinci donanım gelirse fark burada birikir.",
   "slug": "capri-premium",
   "trim": "Premium",
   "heroAlt": "Ford Capri Premium",
@@ -101,16 +101,7 @@
               "hideNotes": true
             }
           ]
-        }
-      }
-    },
-    {
-      "id": "250kw",
-      "power": "250KW",
-      "price": 4330000,
-      "campaign": "takas-4",
-      "//tabs": "İç Tasarım bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 8. özellik (Araç Dışı Şarj Paylaşımı).",
-      "tabs": {
+        },
         "ic-tasarim": {
           "sections": [
             {
@@ -191,7 +182,14 @@
             }
           ]
         }
-      }
+      },
+      "//tabs": "İç Tasarım bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 8. özellik (140KW'de Araç Dışı Şarj Paylaşımı, diğer versiyonlarda Kablosuz Şarj)."
+    },
+    {
+      "id": "250kw",
+      "power": "250KW",
+      "price": 4330000,
+      "campaign": "takas-4"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "//": "Explorer ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Varyantlar: explorer.json (iki paket), explorer-select.json, explorer-premium.json.",
+  "//": "Explorer ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Varyantlar: explorer-select.json, explorer-premium.json.",
 
   "name": "Ford Explorer®",
   "shortName": "Explorer",
@@ -12,14 +12,14 @@
   "emissionImage": "assets/images/explorer/popup/emisyon.jpg",
   "qrImage": "assets/images/explorer/popup/qr.png",
 
-  "//defaultTag": "Tek donanımlı sayfaların varsayılanı. explorer.json iki paket gösterdiği için bunu tum-donanim ile ezer.",
+  "//defaultTag": "Tek donanımlı sayfaların varsayılanı.",
   "defaultTag": "standart",
 
   "//specs": "İki menzil satırlı düzen (.specs--dual). Donanım değil batarya seçeneği olduğu için üç sayfada da aynı.",
   "specs": {
     "layout": "dual",
     "columns": [
-      "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+      "BİRLEŞİK / ŞEHİR İÇİ MENZİL",
       "DC (%10-80) HIZLI ŞARJ SÜRESİ",
       "GÜÇ (PS)",
       "TORK"
@@ -48,11 +48,11 @@
 
   "//versionSpecs": "Versiyon sayfalarının teknik veri tablosu, güç etiketine (versions[].power) göre. null olan değer sayfada '—' görünür ve build uyarı verir. 250KW değerleri yukarıdaki specs tablosundan (Uzun Menzil satırı) alındı; 0-100 ve 125KW değerleri henüz gelmedi.",
   "versionSpecs": {
-    "columns": ["ŞEHİR İÇİ MENZİL (BİRLEŞİK)", "DC (%10-80) HIZLI ŞARJ", "MAXİMUM GÜÇ", "0–100 km/sa"],
+    "columns": ["BİRLEŞİK / ŞEHİR İÇİ MENZİL", "DC (%10-80) HIZLI ŞARJ", "MAXİMUM GÜÇ", "0–100 km/sa"],
     "values": {
       "125KW": [null, null, null, null],
-      "140KW": [{ "n": "619", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "190", "u": "PS" }, { "n": "8", "u": "SN" }],
-      "250KW": [{ "n": "670", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "340", "u": "PS" }, null]
+      "140KW": [{ "n": "440 - 619", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "190", "u": "PS" }, { "n": "8", "u": "SN" }],
+      "250KW": [{ "n": "529 - 670", "u": "KM" }, { "n": "26", "u": "DK" }, { "n": "340", "u": "PS" }, null]
     }
   },
 

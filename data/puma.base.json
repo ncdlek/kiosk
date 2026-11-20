@@ -1,5 +1,5 @@
 {
-  "//": "Puma ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Varyantlar: puma.json (iki paket), puma-titanium.json, puma-st-line-x.json.",
+  "//": "Puma ailesinin ortak içeriği. Tek başına sayfaya dönüşmez — shared.json'daki listelerde adı geçmez. Varyantlar: puma-titanium.json, puma-st-line-x.json.",
 
   "name": "Ford Puma®",
   "shortName": "Puma",
@@ -8,7 +8,7 @@
   "emissionImage": "assets/images/puma/popup/emisyon.jpg",
   "qrImage": "assets/images/puma/popup/qr.png",
 
-  "//defaultTag": "Tek donanımlı sayfaların varsayılanı. puma.json iki paket gösterdiği için bunu tum-donanim ile ezer.",
+  "//defaultTag": "Tek donanımlı sayfaların varsayılanı.",
   "defaultTag": "standart",
 
   "specs": {
@@ -23,10 +23,10 @@
 
   "//versionSpecs": "Versiyon sayfalarının teknik veri tablosu, güç etiketine (versions[].power) göre.",
   "versionSpecs": {
-    "columns": ["GÜÇ (PS)", "YAKIT TÜKETİMİ", "CO₂ SALINIMI", "BAGAJ HACMİ"],
+    "columns": ["GÜÇ", "YAKIT TÜKETİMİ", "CO₂ SALINIMI", "BAGAJ HACMİ"],
     "values": {
-      "125KW": [{ "n": "125", "u": "kW" }, { "n": "4,8 - 6,9", "u": "L/100 KM" }, { "n": "109 - 157", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }],
-      "155KW": [{ "n": "155", "u": "kW" }, { "n": "5,0 - 6,9", "u": "L/100 KM" }, { "n": "112 - 155", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }]
+      "125KW": [{ "n": "125", "u": "PS" }, { "n": "4,8 - 6,9", "u": "L/100 KM" }, { "n": "109 - 157", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }],
+      "155KW": [{ "n": "155", "u": "PS" }, { "n": "5,0 - 6,9", "u": "L/100 KM" }, { "n": "112 - 155", "u": "G/KM" }, { "n": "410 - 456", "u": "L" }]
     }
   },
 

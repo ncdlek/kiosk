@@ -122,7 +122,7 @@ function heroVersionCopy(v, shared) {
 	const ver = v.version;
 	return `<div class="hero__copy hero__copy--version">
   <h1 class="hero__title">${txt(v.name)}</h1>
-  <p class="hero__trim"><strong>${txt(String(v.trim).toUpperCase())}</strong> ${txt(ver.power)}</p>
+  <p class="hero__trim"><strong>${txt(String(v.trim).toUpperCase())}</strong>${ver.hidePower ? '' : ' ' + txt(ver.power)}</p>
   <p class="hero__label">${txt(shared.heroPriceLabel)}</p>
   <p class="hero__price">${txt(formatPrice(ver.price))}</p>${indent(heroCampaign(campaignOf(v, shared), shared), 2)}
 </div>`;
@@ -147,7 +147,7 @@ function hero(v, shared) {
 </button>`
 	).join('\n\n');
 
-	// Versiyon sayfalarında home butonu yok; fallback sayfalarında duruyor.
+	// Versiyon sayfalarında home butonu yok; versiyonsuz donanım sayfasında duruyor.
 	const home = v.version ? '' : `  <a class="hero__home" href="../index.html" aria-label="Araç seçim ekranına dön">
     <img src="../assets/images/home-icon.png" alt="">
   </a>

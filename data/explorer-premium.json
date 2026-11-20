@@ -18,14 +18,14 @@
       "specs": {
         "layout": "stacked",
         "columns": [
-          "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+          "BİRLEŞİK / ŞEHİR İÇİ MENZİL",
           "DC (%10-80) HIZLI ŞARJ",
           "MAXİMUM GÜÇ",
           "0–100 km/sa"
         ],
         "values": [
           {
-            "n": "466",
+            "n": "356 - 466",
             "u": "KM"
           },
           {
@@ -386,14 +386,14 @@
       "specs": {
         "layout": "stacked",
         "columns": [
-          "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+          "BİRLEŞİK / ŞEHİR İÇİ MENZİL",
           "DC (%10-80) HIZLI ŞARJ",
           "MAXİMUM GÜÇ",
           "0–100 km/sa"
         ],
         "values": [
           {
-            "n": "576",
+            "n": "415 - 576",
             "u": "KM"
           },
           {
@@ -754,14 +754,14 @@
       "specs": {
         "layout": "stacked",
         "columns": [
-          "ŞEHİR İÇİ MENZİL (BİRLEŞİK)",
+          "BİRLEŞİK / ŞEHİR İÇİ MENZİL",
           "DC (%10-80) HIZLI ŞARJ",
           "MAXİMUM GÜÇ",
           "0–100 km/sa"
         ],
         "values": [
           {
-            "n": "670",
+            "n": "529 - 670",
             "u": "KM"
           },
           {

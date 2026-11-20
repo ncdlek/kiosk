@@ -108,7 +108,7 @@ function loadVehicle(slug) {
 // `disabled: true`: versiyonun içeriği güncel değil. Index'te düğme görünür ama
 // dokunulamaz, sayfası üretilmez. Veri yerinde durur ve doğrulanmaya devam
 // eder; içerik güncellenince tek satır (disabled) silinir, geri gelir.
-const VERSION_META = ['id', 'power', 'price', 'campaign', 'placeholder', 'disabled'];
+const VERSION_META = ['id', 'power', 'price', 'campaign', 'placeholder', 'disabled', 'hidePower'];
 
 // Versiyon girdisinin ezmemesi gereken alanlar: sayfanın kimliğini ve
 // birleştirme zincirini bozarlar.
@@ -138,9 +138,10 @@ function expandVersions(hw) {
 		}
 
 		// Türetilen kimlik alanları donanımınkini ezer; girdi isterse onu da ezer.
-		const label = `${plainName(hw.name)} ${hw.trim} ${meta.power}`;
+		const label = `${plainName(hw.name)} ${hw.trim}${meta.hidePower ? '' : ' ' + meta.power}`;
 		const derived = {
-			slug: `${hw.slug}-${meta.id}`,
+			// hidePower: güç etiketi gösterilmeyen (tek versiyonlu) donanımın URL'sinde de yok.
+			slug: meta.hidePower ? hw.slug : `${hw.slug}-${meta.id}`,
 			pageTitle: `${label} Tasarım`,
 			gtmModel: label,
 			heroAlt: label,
@@ -466,10 +467,10 @@ function main() {
 	const errors = [];
 	validateVersionDefs(hardware, new Set(shared.vehicles), (file, msg) => errors.push(`${file}: ${msg}`));
 
-	// Donanım (ve aile) sayfası her zaman üretilir; versiyonu varsa yanına
-	// versiyon sayfaları eklenir.
+	// Versiyonu olan donanımın kendi sayfası üretilmez: index doğrudan versiyon
+	// sayfalarına gider. Versiyonsuz donanımın sayfası tek sayfasıdır, üretilir.
 	const versionPages = hardware.flatMap(expandVersions);
-	const vehicles = hardware.map(withoutVersions).concat(versionPages);
+	const vehicles = hardware.filter(hw => !(hw.versions && hw.versions.length)).map(withoutVersions).concat(versionPages);
 
 	errors.push(...validate(vehicles, shared));
 	if (errors.length) {
