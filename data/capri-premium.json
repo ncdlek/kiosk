@@ -92,82 +92,9 @@
               "hideNotes": true
             }
           ]
-        },
-        "ic-tasarim": {
-          "sections": [
-            {
-              "type": "standardCards",
-              "title": "TÜM CAPRI'LERDE STANDART",
-              "cards": [
-                {
-                  "title": "14.6\" SYNC® Move Ekran",
-                  "image": "assets/images/capri/ic-tasarim/standard/move-ekran.jpg",
-                  "desc": "Gelişmiş bağlantı teknolojileriyle sürüş deneyimini zenginleştirir."
-                },
-                {
-                  "title": "Mega Orta Konsol",
-                  "image": "assets/images/capri/ic-tasarim/standard/mega-orta-konsol.jpg",
-                  "desc": "Geniş ve fonksiyonel tasarımıyla ekstra kullanım alanı sunar."
-                },
-                {
-                  "title": "Kablosuz Apple CarPlay & Android Auto",
-                  "image": "assets/images/capri/ic-tasarim/standard/kablosuz-apple-carplay-android-auto.jpg",
-                  "desc": "Favori uygulamalarınıza kolay ve hızlı erişim sağlar."
-                },
-                {
-                  "title": "Ambiyans Aydınlatma",
-                  "image": "assets/images/capri/ic-tasarim/standard/ambiyans-aydinlatma.jpg",
-                  "desc": "İç mekâna şık ve kişiselleştirilebilir bir karakter kazandırır."
-                }
-              ]
-            },
-            { "type": "visualOptions", "titleKey": "options", "options": ["bo-ses", "isi-pompasi"] },
-            {
-              "type": "smallFeatures",
-              "titleKey": "other",
-              "features": [
-                {
-                  "title": "Isıtmalı Sensico® Direksiyon",
-                  "image": "assets/images/capri/ic-tasarim/features/isitmali-sensico-direksiyon.jpg"
-                },
-                {
-                  "title": "Elektrikli Hafızalı, Bel Destekli Sürücü Koltuğu",
-                  "image": "assets/images/capri/ic-tasarim/features/agr-sertifikali-koltuk.jpg"
-                },
-                {
-                  "title": "İki Bölgeli Otomatik Klima",
-                  "image": "assets/images/capri/ic-tasarim/features/iki-bolgeli-otomatik-klima.jpg"
-                },
-                {
-                  "title": "5\" Dijital Gösterge Paneli",
-                  "image": "assets/images/capri/ic-tasarim/features/dijital-gosterge-paneli.jpg"
-                },
-                {
-                  "title": "Seçilebilir Sürüş Modları",
-                  "image": "assets/images/capri/ic-tasarim/features/surus-modlari.jpg"
-                },
-                {
-                  "title": "60/40 Katlanabilir Arka Koltuklar",
-                  "image": "assets/images/capri/ic-tasarim/features/katlanabilir-arka-koltuklar.jpg"
-                },
-                {
-                  "title": "Isıtmalı ve Masajlı Sensico® Sürücü Koltuk",
-                  "image": "assets/images/capri/ic-tasarim/features/isitmali-masaj-ozellikli-sensico-koltuklar.jpg"
-                },
-                {
-                  "title": "Araç Dışı Şarj Paylaşımı (V2L)",
-                  "image": "assets/images/capri/ic-tasarim/features/arac-disi-sarj-paylasim.jpg"
-                },
-                {
-                  "title": "Akıllı Bagaj Kapağı",
-                  "image": "assets/images/capri/ic-tasarim/features/akilli-bagaj-kapak.jpg"
-                }
-              ]
-            }
-          ]
         }
       },
-      "//tabs": "İç Tasarım bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 8. özellik (140KW'de Araç Dışı Şarj Paylaşımı, diğer versiyonlarda Kablosuz Şarj)."
+      "//tabs": "Teknoloji bölüm listesi dizi olduğu için tamamı yazılıyor; fark yalnızca 'Diğer' listesindeki 9. özellik (140KW'de Gelişmiş Sürücü Dikkat Takip Sistemi). İç Tasarım'daki fark (Araç Dışı Şarj Paylaşımı yerine Kablosuz Şarj) kaldırıldı — opsiyonlar 125KW ile aynı."
     },
     { "id": "250kw", "power": "250KW", "price": 4330000, "campaign": "takas-4" }
   ]
