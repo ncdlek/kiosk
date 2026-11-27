@@ -342,6 +342,8 @@ function panelFooter(v, shared) {
     </div>
   </div>
 
+  <p class="production-place">${txt(shared.productionPlaceLabel)} ${txt(v.productionPlace)}</p>
+
   <button type="button" class="brochure-btn" data-qr="${attr(v.qrImage)}">Teknik Broşür</button>
 </footer>
 <div class="disclaimer-text">${txt(shared.disclaimer)}</div>`;
