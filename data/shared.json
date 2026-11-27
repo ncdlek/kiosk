@@ -16,6 +16,8 @@
   "//indexOpenLabel": "Versiyonu olmayan donanımın (Puma, Capri) index satırındaki tek düğme.",
   "indexOpenLabel": "İNCELE",
   "disclaimer": "* Anahtar teslim fiyatıdır",
+  "//productionPlaceLabel": "Her sekmenin altındaki CO₂ bloğunun yanında. Değer aile tabanındaki productionPlace alanından.",
+  "productionPlaceLabel": "Üretim Yeri:",
   "//heroPriceLabel": "Versiyon sayfası hero'sundaki etiketler. Versiyonsuz sayfaların hero'su bunları kullanmaz.",
   "heroPriceLabel": "*ANAHTAR TESLİM FİYAT",
   "heroCampaignLabel": "KREDİ KAMPANYASI",

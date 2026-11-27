@@ -1009,6 +1009,16 @@ button, a { font: inherit; }
 .co2-value .seg-a { color: #BDB700; }
 .co2-value .seg-b { color: #D99400; }
 
+.production-place {
+	margin: 0;
+	color: var(--black);
+	font-family: "FordF1";
+	font-size: 16px;
+	font-weight: 400;
+	line-height: normal;
+	white-space: nowrap;
+}
+
 .brochure-btn {
 	-webkit-appearance: none;
 	appearance: none;

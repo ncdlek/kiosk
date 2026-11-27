@@ -251,7 +251,7 @@ function validate(vehicles, shared) {
 		const file = sourceFile(v);
 
 		// 1) Zorunlu alanlar — eksikse yarım sayfa üretilir, kimse fark etmez.
-		for (const field of ['name', 'shortName', 'heroAlt', 'pageTitle', 'gtmModel', 'startingPrice', 'co2']) {
+		for (const field of ['name', 'shortName', 'heroAlt', 'pageTitle', 'gtmModel', 'startingPrice', 'co2', 'productionPlace']) {
 			if (v[field] === undefined || v[field] === null || v[field] === '') {
 				fail(file, `zorunlu alan eksik: ${field}`);
 			}

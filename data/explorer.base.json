@@ -6,6 +6,7 @@
   "//modelFrame": "Explorer model görselleri aynı kadrajda (araç etrafında beyaz boşluk); carousel sayfalarında .models--tight stili uygulanır. Boyut ve kırpma değerleri style.css'te tek yerde.",
   "modelFrame": "tight",
   "co2": "(A) 0 g/km",
+  "productionPlace": "Almanya",
   "emissionImage": "assets/images/explorer/popup/emisyon.jpg",
   "qrImage": "assets/images/explorer/popup/qr.png",
   "//defaultTag": "Tek donanımlı sayfaların varsayılanı.",

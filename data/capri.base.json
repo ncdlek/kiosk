@@ -4,6 +4,7 @@
   "shortName": "Capri",
   "startingPrice": 3211600,
   "co2": "(A) 0 g/km",
+  "productionPlace": "Almanya",
   "emissionImage": "assets/images/capri/popup/emisyon.jpg",
   "qrImage": "assets/images/capri/popup/qr.png",
   "emission": [

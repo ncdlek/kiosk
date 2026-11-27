@@ -30,9 +30,9 @@ python3 -m http.server 8791 --directory dist         # http://localhost:8791
 
 | Yol | Açıklama |
 |---|---|
-| `data/shared.json` | Araçlar arası ortak içerik: index'teki donanım sırası, sekme etiketleri, bölüm başlıkları, donanım etiketleri, hero etiketleri, kampanyalar, emisyon yasal metni |
+| `data/shared.json` | Araçlar arası ortak içerik: index'teki donanım sırası, sekme etiketleri, bölüm başlıkları, donanım etiketleri, hero etiketleri, kampanyalar, emisyon yasal metni, "Üretim Yeri:" etiketi |
 | `data/<aile>-<donanım>.json` | Bir donanımın içeriği (fiyatlar, opsiyonlar, renkler) ve `versions` dizisiyle versiyonları |
-| `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik. Kendisi sayfaya dönüşmez |
+| `data/<aile>.base.json` | Aynı aracın donanımları arasındaki ortak içerik (ör. footer'daki `productionPlace` üretim yeri). Kendisi sayfaya dönüşmez |
 | `src/format.js` | Fiyat ve metin biçimlendirme, HTML kaçış |
 | `src/blocks.js` | Her HTML bloğu için saf fonksiyon |
 | `src/vehicle-page.js` | Araç (versiyon) sayfası şablonu: hero'da fiyat + kampanya, dört sekme, popup'lar |
